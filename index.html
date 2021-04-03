@@ -1,132 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EPUB.js Input Example</title>
+    <title>Login page</title>
+    <style type="text/css">
+        body {
+          background: #282923;
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          color: #f8f8f2;
+        }
 
-  <script src="jszip.min.js"></script>
-  <script src="epub.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="examples.css">
-
+        .center {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+    </style>
 </head>
 <body>
-  <div id="title"><input type="file" id="input"></div>
-  <select id="toc"></select>
-  <div id="viewer" class="scrolled"></div>
-  <div id="prev" class="arrow">‹</div>
-  <div id="next" class="arrow">›</div>
-
-  <script>
-  var book = ePub();
-  var rendition;
-
-  var inputElement = document.getElementById("input");
-
-  inputElement.addEventListener('change', function (e) {
-    var file = e.target.files[0];
-    if (window.FileReader) {
-        var reader = new FileReader();
-        reader.onload = openBook;
-        reader.readAsArrayBuffer(file);
-    }
-  });
-
-  function openBook(e){
-    var bookData = e.target.result;
-    var title = document.getElementById("title");
-    var next = document.getElementById("next");
-    var prev = document.getElementById("prev");
-
-    book.open(bookData, "binary");
-    book.loaded.navigation.then(function(toc){
-
-      var $select = document.getElementById("toc"),
-          docfrag = document.createDocumentFragment();
-      
-      toc.forEach(function(chapter) {
-        var option = document.createElement("option");
-        option.textContent = chapter.label;
-        option.ref = chapter.href;
-        docfrag.appendChild(option);
-
-        chapter.subitems.forEach(function(chp) {
-          let option = document.createElement("option");
-          option.textContent = "　" + chp.label;
-          option.ref = chp.href;
-          docfrag.appendChild(option);
-        })
-      });
-
-      $select.appendChild(docfrag);
-
-      $select.onchange = function(){
-        var index = $select.selectedIndex,
-            url = $select.options[index].ref;
-        // currentSectionIndex = index;
-        
-        rendition.display(url)
-        return false;
-      };
-    });
-
-    rendition = book.renderTo("viewer", {
-      flow: "scrolled-doc",
-      width: "100%",
-      height: "100%",
-      fullsize: true,
-    });
-
-    rendition.display();
-
-    $select = document.getElementById("toc");
-
-    var keyListener = function(e){
-      if ((e.keyCode || e.which) == 37) {
-        rendition.prev();
+<form class="center">
+  <label for="pdws">PW: </label><br>
+  <input type="password" id="pswd"><br>
+  <input type="button" value="Submit" onclick="checkPswd();" />
+</form>
+<script type="text/javascript">
+    String.prototype.hashCode = function() {
+      var hash = 0, i, chr;
+      if (this.length === 0) return hash;
+      for (i = 0; i < this.length; i++) {
+        chr   = this.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr;
+        hash |= 0;
       }
-      if ((e.keyCode || e.which) == 39) {
-        rendition.next();
-      }
-      if ((e.keyCode || e.which) == 84) {
-        var event = new MouseEvent('mousedown');
-        $select.dispatchEvent(event);
-      }
+      return hash;
     };
 
-    rendition.on("keyup", keyListener);
-    // rendition.on("relocated", function(location){
-    //   console.log(location);
-    // });
-
-    next.addEventListener("click", function(e){
-        rendition.next();
-    }, false);
-
-    prev.addEventListener("click", function(e){
-        rendition.prev();
-    }, false);
-    
-    rendition.themes.default({
-      '*': {
-        // 'background': 'rgb(32, 32, 32) !important', 
-        'background': '#282923 !important', 
-        'font-family': 'PingFangHK-Thin, sans-serif !important',
-        //'text-align': 'justify !important',
-        'line-height': '1.8em !important',
-        // 'color': 'rgb(222, 222, 222) !important',
-        'color': '#f8f8f2 !important',
-        'font-size': '28px !important',
-      }
-    });
-
-    document.addEventListener("keyup", keyListener, false);
-  }
-
-
-
-  </script>
-
+    function checkPswd() {
+        var confirmPassword = "-1952777920";
+        var password = document.getElementById("pswd").value;
+        if (password.hashCode() == confirmPassword) {
+             window.location.href = "input.html";
+        }
+    }
+</script>
 </body>
 </html>
