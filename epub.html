@@ -81,11 +81,13 @@
     });
 
     var loc = localStorage.getItem(filename);
-    if (loc !== undefined) {
-      rendition.display(loc);
-    } else {
-      rendition.display();      
-    }
+    console.log(loc)
+    // if (loc !== undefined) {
+    //   rendition.display(loc);
+    // } else {
+    //   rendition.display();      
+    // }
+    rendition.display();
 
     $select = document.getElementById("toc");
 
@@ -114,7 +116,13 @@
     prev.addEventListener("click", function(e){
         rendition.prev();
     }, false);
-    
+
+    window.addEventListener('beforeunload', function (e) {
+      localStorage.setItem(filename, rendition.location.start.cfi);
+      // e.preventDefault();
+      e.returnValue = '';
+    });
+
     rendition.themes.default({
       '*': {
         // 'background': 'rgb(32, 32, 32) !important', 
@@ -134,12 +142,6 @@
     } else {
       rendition.themes.fontSize("28px");
     }
-
-    window.addEventListener('beforeunload', function (e) {
-      localStorage.setItem(filename, rendition.location.start.cfi);
-      e.preventDefault();
-      e.returnValue = '';
-    });
 
     document.addEventListener("keyup", keyListener, false);
   }
