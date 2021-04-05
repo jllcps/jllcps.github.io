@@ -146,8 +146,10 @@
     window.addEventListener('beforeunload', function (e) {
       // loadFile("assets/epub.json")
       // console.log(loadFile("assets/epub.json"))
+      console.log(jsonfile)
       console.log(filename)
       console.log(rendition.location.start.cfi)
+      console.log(jsonfile[filename])
       e.preventDefault();
       e.returnValue = '';
     });
