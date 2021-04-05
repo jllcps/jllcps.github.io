@@ -1,5 +1,5 @@
 html, body {
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 
 body {
@@ -37,7 +37,7 @@ body {
   margin: 10px auto;
 }
 
-@media (min-width: 1000px) {
+/*@media (min-width: 1000px) {
   #viewer.spreads:after {
     position: absolute;
     width: 1px;
@@ -63,7 +63,7 @@ body {
   #next {
     right: 40px;
   }
-}
+}*/
 
 
 .navlink {
