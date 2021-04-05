@@ -41,7 +41,7 @@
     xmlhttp.open("GET", filePath, false);
     xmlhttp.send();
     if (xmlhttp.status==200) {
-      result = xmlhttp.responseJSON;
+      result = xmlhttp.responseText;
     }
     return result;
   }
@@ -149,7 +149,7 @@
       console.log(jsonfile)
       console.log(filename)
       console.log(rendition.location.start.cfi)
-      console.log(jsonfile[filename])
+      // console.log(jsonfile[filename])
       e.preventDefault();
       e.returnValue = '';
     });
