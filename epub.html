@@ -141,7 +141,15 @@
       rendition.themes.fontSize("28px");
     }
 
-    let jsonfile = loadFile("assets/epub.json")
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(jsonResponse) {
+        console.log(jsonResponse)
+      });
+
+    let jsonfile = JSON.parse(loadFile("assets/epub.json"))
 
     window.addEventListener('beforeunload', function (e) {
       // loadFile("assets/epub.json")
@@ -149,7 +157,7 @@
       console.log(jsonfile)
       console.log(filename)
       console.log(rendition.location.start.cfi)
-      // console.log(jsonfile[filename])
+      console.log(jsonfile[filename])
       e.preventDefault();
       e.returnValue = '';
     });
