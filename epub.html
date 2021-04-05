@@ -123,7 +123,9 @@
 
     let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
     if (isMobile) {
-      rendition.themes.fontSize("20px");
+      rendition.themes.fontSize("25px");
+      let viewer = document.getElementById("viewer");
+      viewer.style.width = "100%"
     } else {
       rendition.themes.fontSize("28px");
     }
