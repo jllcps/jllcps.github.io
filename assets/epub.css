@@ -21,7 +21,6 @@ body {
   width: 90%;
   margin: 0 auto;
   position: relative;
-  padding: 20px;
   background: #282923;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -74,4 +73,13 @@ body {
   text-align: center;
   text-decoration: none;
   color: #ccc;
+}
+
+@media only screen and (max-width: 760px){
+  #viewer.scrolled {
+    overflow: hidden;
+    position: relative;
+    background: #282923;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
 }
