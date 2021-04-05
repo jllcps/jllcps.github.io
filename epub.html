@@ -82,23 +82,23 @@
 
     $select = document.getElementById("toc");
 
-    // var keyListener = function(e){
-    //   if ((e.keyCode || e.which) == 37) {
-    //     rendition.prev();
-    //   }
-    //   if ((e.keyCode || e.which) == 39) {
-    //     rendition.next();
-    //   }
-    //   if ((e.keyCode || e.which) == 84) {
-    //     var event = new MouseEvent('mousedown');
-    //     $select.dispatchEvent(event);
-    //   }
-    // };
+    var keyListener = function(e){
+      if ((e.keyCode || e.which) == 37) {
+        rendition.prev();
+      }
+      if ((e.keyCode || e.which) == 39) {
+        rendition.next();
+      }
+      if ((e.keyCode || e.which) == 84) {
+        var event = new MouseEvent('mousedown');
+        $select.dispatchEvent(event);
+      }
+    };
 
-    // rendition.on("keyup", keyListener);
-    // rendition.on("relocated", function(location){
-    //   console.log(location);
-    // });
+    rendition.on("keyup", keyListener);
+    rendition.on("relocated", function(location){
+      console.log(location);
+    });
 
     next.addEventListener("click", function(e){
         rendition.next();
@@ -121,7 +121,7 @@
       }
     });
 
-    // document.addEventListener("keyup", keyListener, false);
+    document.addEventListener("keyup", keyListener, false);
   }
 
 

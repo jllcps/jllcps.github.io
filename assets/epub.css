@@ -8,8 +8,6 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #f8f8f2;
   position: absolute;
-  height: 100%;
-  width: 100%;
 }
 
 #title {
@@ -17,7 +15,7 @@ body {
 }
 
 #viewer.scrolled {
-  /*overflow: hidden;*/
+  overflow: hidden;
   width: 90%;
   margin: 0 auto;
   position: relative;
