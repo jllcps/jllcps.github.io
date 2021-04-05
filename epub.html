@@ -21,12 +21,12 @@
 
   <script>
   var book = ePub();
-  var rendition;
-
+  var rendition, filename;
   var inputElement = document.getElementById("input");
 
   inputElement.addEventListener('change', function (e) {
     var file = e.target.files[0];
+    filename = file.name;
     if (window.FileReader) {
         var reader = new FileReader();
         reader.onload = openBook;
@@ -98,9 +98,9 @@
     };
 
     rendition.on("keyup", keyListener);
-    rendition.on("relocated", function(location){
-      console.log(location);
-    });
+    // rendition.on("relocated", function(location){
+    //   console.log(location);
+    // });
 
     next.addEventListener("click", function(e){
         rendition.next();
@@ -129,6 +129,13 @@
     } else {
       rendition.themes.fontSize("28px");
     }
+
+    window.addEventListener('beforeunload', function (e) {
+      console.log(filename)
+      console.log(rendition.location.start.cfi)
+      e.preventDefault();
+      e.returnValue = '';
+    });
 
     document.addEventListener("keyup", keyListener, false);
   }
