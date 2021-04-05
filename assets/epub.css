@@ -75,3 +75,7 @@ body {
   text-decoration: none;
   color: #ccc;
 }
+
+@media only screen and (max-width: 760px) {
+  #device_test { display: none; }
+}

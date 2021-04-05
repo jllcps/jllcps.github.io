@@ -9,9 +9,9 @@
   <script src="libs/epub.js"></script>
 
   <link rel="stylesheet" type="text/css" href="assets/epub.css">
-
 </head>
 <body>
+  <span id="device_test"></span>
   <div id="title"><input type="file" id="input"></div>
   <select id="toc"></select>
   <a id="prev" href="#prev" class="navlink">...</a>
@@ -23,13 +23,14 @@
   var rendition;
 
   var inputElement = document.getElementById("input");
-
+  
   inputElement.addEventListener('change', function (e) {
     var file = e.target.files[0];
     if (window.FileReader) {
         var reader = new FileReader();
         reader.onload = openBook;
         reader.readAsArrayBuffer(file);
+        inputElement.remove()
     }
   });
 
@@ -120,6 +121,10 @@
         'font-size': '28px !important',
       }
     });
+
+    if (document.getElementById("device_test").style.display === "none") {
+      rendition.themes.fontSize("40%");
+    }
 
     document.addEventListener("keyup", keyListener, false);
   }
