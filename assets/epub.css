@@ -78,6 +78,7 @@ body {
 @media only screen and (max-width: 760px){
   #viewer.scrolled {
     overflow: hidden;
+    width: 100%;
     position: relative;
     background: #282923;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
