@@ -82,12 +82,12 @@
 
     var loc = localStorage.getItem(filename);
     console.log(loc)
-    // if (loc !== undefined) {
-    //   rendition.display(loc);
-    // } else {
-    //   rendition.display();      
-    // }
-    rendition.display();
+    if (loc !== null) {
+      rendition.display(loc);
+    } else {
+      rendition.display();      
+    }
+    // rendition.display();
 
     $select = document.getElementById("toc");
 
@@ -118,6 +118,9 @@
     }, false);
 
     window.addEventListener('beforeunload', function (e) {
+      if (loc !== null) {
+        localStorage.removeItem(filename)
+      }
       localStorage.setItem(filename, rendition.location.start.cfi);
       // e.preventDefault();
       e.returnValue = '';
