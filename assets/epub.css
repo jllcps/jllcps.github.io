@@ -1,5 +1,5 @@
 html, body {
-  /*overflow-x: hidden;*/
+  overflow-x: hidden;
 }
 
 body {
@@ -7,7 +7,9 @@ body {
   background: #282923;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #f8f8f2;
-  position: relative
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 #title {
