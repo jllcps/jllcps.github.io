@@ -35,17 +35,6 @@
     }
   });
 
-  function loadFile(filePath) {
-    var result = null;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", filePath, false);
-    xmlhttp.send();
-    if (xmlhttp.status==200) {
-      result = xmlhttp.responseText;
-    }
-    return result;
-  }
-
   function openBook(e){
     var bookData = e.target.result;
     var title = document.getElementById("title");
@@ -91,7 +80,12 @@
       fullsize: true,
     });
 
-    rendition.display();
+    var loc = localStorage.getItem(filename);
+    if (loc !== undefined) {
+      rendition.display(loc);
+    } else {
+      rendition.display();      
+    }
 
     $select = document.getElementById("toc");
 
@@ -140,24 +134,9 @@
     } else {
       rendition.themes.fontSize("28px");
     }
-    var url = "assets/epub.json";
-    fetch(url)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(jsonResponse) {
-        console.log(jsonResponse)
-      });
-
-    let jsonfile = JSON.parse(loadFile(url))
 
     window.addEventListener('beforeunload', function (e) {
-      // loadFile("assets/epub.json")
-      // console.log(loadFile("assets/epub.json"))
-      console.log(jsonfile)
-      console.log(filename)
-      console.log(rendition.location.start.cfi)
-      console.log(jsonfile[filename])
+      localStorage.setItem(filename, rendition.location.start.cfi);
       e.preventDefault();
       e.returnValue = '';
     });
