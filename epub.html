@@ -140,7 +140,7 @@
     } else {
       rendition.themes.fontSize("28px");
     }
-
+    var url = "assets/epub.json";
     fetch(url)
       .then(function(response) {
         return response.json();
@@ -149,7 +149,7 @@
         console.log(jsonResponse)
       });
 
-    let jsonfile = JSON.parse(loadFile("assets/epub.json"))
+    let jsonfile = JSON.parse(loadFile(url))
 
     window.addEventListener('beforeunload', function (e) {
       // loadFile("assets/epub.json")
