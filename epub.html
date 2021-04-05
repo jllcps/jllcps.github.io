@@ -11,7 +11,6 @@
   <link rel="stylesheet" type="text/css" href="assets/epub.css">
 </head>
 <body>
-  <span id="device_test"></span>
   <div id="title"><input type="file" id="input"></div>
   <select id="toc"></select>
   <a id="prev" href="#prev" class="navlink">...</a>
@@ -23,7 +22,7 @@
   var rendition;
 
   var inputElement = document.getElementById("input");
-  
+
   inputElement.addEventListener('change', function (e) {
     var file = e.target.files[0];
     if (window.FileReader) {
@@ -118,12 +117,15 @@
         'line-height': '1.8em !important',
         // 'color': 'rgb(222, 222, 222) !important',
         'color': '#f8f8f2 !important',
-        'font-size': '28px !important',
+        // 'font-size': '28px',
       }
     });
 
-    if (document.getElementById("device_test").style.display === "none") {
-      rendition.themes.fontSize("40%");
+    let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+    if (isMobile) {
+      rendition.themes.fontSize("20px");
+    } else {
+      rendition.themes.fontSize("28px");
     }
 
     document.addEventListener("keyup", keyListener, false);
