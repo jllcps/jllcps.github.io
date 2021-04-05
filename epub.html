@@ -81,7 +81,6 @@
     });
 
     var loc = localStorage.getItem(filename);
-    console.log(loc)
     if (loc !== null) {
       rendition.display(loc);
     } else {
@@ -105,9 +104,9 @@
     };
 
     rendition.on("keyup", keyListener);
-    // rendition.on("relocated", function(location){
-    //   console.log(location);
-    // });
+    rendition.on("relocated", function(location){
+      console.log(location);
+    });
 
     next.addEventListener("click", function(e){
         rendition.next();
