@@ -131,8 +131,11 @@
     }
 
     window.addEventListener('beforeunload', function (e) {
+      let jsonfile = loadFile("assets/epub.json");
+      console.log(jsonfile)
       console.log(filename)
       console.log(rendition.location.start.cfi)
+      console.log(jsonfile[filename])
       e.preventDefault();
       e.returnValue = '';
     });
@@ -140,7 +143,16 @@
     document.addEventListener("keyup", keyListener, false);
   }
 
-
+  function loadFile(filePath) {
+    var result = null;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", filePath, false);
+    xmlhttp.send();
+    if (xmlhttp.status==200) {
+      result = xmlhttp.responseJSON;
+    }
+    return result;
+  }
 
   </script>
 
