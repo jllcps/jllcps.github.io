@@ -12,7 +12,7 @@ body {
   height: 100%;
 }
 
-#title {
+#epub_input {
   text-align: center;
 }
 
@@ -90,6 +90,7 @@ body {
   text-align: center;
   text-decoration: none;
   color: #ccc;
+  display: none;
 }
 
 .arrow:hover, .navlink:hover {
@@ -111,5 +112,9 @@ body {
 
   .arrow {
     display: none;
+  }
+
+  .navlink {
+    display: block;
   }
 }

@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="assets/epub.css">
 </head>
 <body>
-  <div id="title"><input type="file" id="input"></div>
+  <div id="epub_input"><input type="file" id="input" accept=".epub"></div>
   <select id="toc"></select>
   <a id="prev" href="#prev" class="navlink">...</a>
   <div id="viewer" class="scrolled"></div>
@@ -37,7 +37,7 @@
 
   function openBook(e){
     var bookData = e.target.result;
-    var title = document.getElementById("title");
+    // var title = document.getElementById("title");
     var next = document.getElementById("next");
     var prev = document.getElementById("prev");
 
@@ -85,7 +85,7 @@
       rendition.display(loc);
       localStorage.removeItem(filename)
     } else {
-      rendition.display();      
+      rendition.display();
     }
     // rendition.display();
 

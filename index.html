@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login page</title>
+    <title>jllcps</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
         body {
@@ -9,35 +9,8 @@
           font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
           color: #f8f8f2;
         }
-
-        .center {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
     </style>
 </head>
 <body>
-<!-- <form class="center">
-  <label for="pdws">PW: </label><br>
-  <input type="password" id="pswd"><br>
-  <input type="button" value="Submit" onclick="checkPswd();" />
-</form> -->
-<script type="text/javascript">
-    String.prototype.hashCode = function() {
-      var hash = 0, i, chr;
-      if (this.length === 0) return hash;
-      for (i = 0; i < this.length; i++) {
-        chr   = this.charCodeAt(i);
-        hash  = ((hash << 5) - hash) + chr;
-        hash |= 0;
-      }
-      return hash;
-    };
-
-    function checkPswd() {
-        document.getElementById("pswd").value = "";
-    }
-</script>
 </body>
 </html>
