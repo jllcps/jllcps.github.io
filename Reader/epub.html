@@ -3,16 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EPUB.js</title>
+  <title>EPUB Reader</title>
 
-  <script src="libs/jszip.min.js"></script>
-  <script src="libs/epub.js"></script>
+  <script src="public/javascripts/jszip.min.js"></script>
+  <script src="public/javascripts/epub.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="assets/epub.css">
+  <link rel="stylesheet" type="text/css" href="public/stylesheets/epub.css">
 </head>
 <body>
-  <div id="epub_input"><input type="file" id="input" accept=".epub"></div>
-  <select id="toc"></select>
+  <div id="epub_input">
+    <input type="file" id="input" accept=".epub" hidden/>
+    <label for="input">Choose EPUB</label>
+  </div>
+  <select id="toc" style="display:none"></select>
   <a href="#prev" class="navlink">...</a>
   <div id="viewer" class="scrolled"></div>
   <div id="prev" class="arrow">‹</div>
@@ -31,7 +34,7 @@
         var reader = new FileReader();
         reader.onload = openBook;
         reader.readAsArrayBuffer(file);
-        inputElement.remove()
+        document.getElementById("epub_input").remove()
     }
   });
 
@@ -62,6 +65,8 @@
       });
 
       $select.appendChild(docfrag);
+
+      $select.style.display = "block";
 
       $select.onchange = function(){
         var index = $select.selectedIndex,

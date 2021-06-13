@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-  /*margin: 0;*/
+  margin: 0;
   background: #282923;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #f8f8f2;
@@ -99,6 +99,14 @@ body {
 
 .arrow:active, .navlink:hover {
   color: #000;
+}
+
+label {
+  background-color: DimGray;
+  color: LightGray;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 760px){
