@@ -200,8 +200,17 @@ function highlight(book, rendition) {
           link_sub.className = "collapsible";
           link_sub.textContent = text;
           link_sub.onclick = function(){
-            $(".active").click();
-            $(".active").removeClass("active");
+            $(".active").each(function(){
+              $this = $(this)[0];
+              $this.classList.toggle("active");
+              $this.lastChild.style.maxHeight = null;
+            })
+            if ($('#mySidenav').css("display") != "none") {
+              $('#mySidenav').toggle()
+            }
+            if ($('#extras').css("display") != "none") {
+              $('#mySidenav').toggle()
+            }
             var confirmation = confirm(`Delete ${text}?`)
             if (confirmation == true)
               this.parentElement.remove();
