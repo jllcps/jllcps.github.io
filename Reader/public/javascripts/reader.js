@@ -14,10 +14,19 @@ function toc(book){
       link.href = chapter.href;
       link.onclick = function(e){
         if (e.detail === 1) {
-          $(".active").dblclick();
+          $(".active").each(function(){
+            $this = $(this)[0];
+            $this.classList.toggle("active");
+            $this.lastChild.style.maxHeight = null;
+          })
+          if ($('#mySidenav').css("display") != "none") {
+            $('#mySidenav').toggle()
+          }
+          if ($('#extras').css("display") != "none") {
+            $('#mySidenav').toggle()
+          }
           var url = link.getAttribute("href");
           rendition.display(url);
-          $(".active").removeClass("active");
           return false;
         }
       };
