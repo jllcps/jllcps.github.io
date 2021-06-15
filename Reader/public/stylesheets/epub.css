@@ -131,7 +131,7 @@ label {
   color: LightGray;
 }
 
-.content a {
+a {
   display: inline-block;
 }
 

@@ -8,7 +8,20 @@ function toc(book){
 
     toc.forEach(function(chapter) {
       var item = document.createElement("li");
-      item.addEventListener("click", function() {
+      var link = document.createElement("a");
+      link.className = "collapsible";
+      link.textContent = chapter.label;
+      link.href = chapter.href;
+      link.onclick = function(e){
+        if (e.detail === 1) {
+          $(".active").dblclick();
+          var url = link.getAttribute("href");
+          rendition.display(url);
+          $(".active").removeClass("active");
+          return false;
+        }
+      };
+      item.ondblclick = function() {
         this.classList.toggle("active");
         var content = this.lastChild;
         if (content.style.maxHeight){
@@ -16,17 +29,6 @@ function toc(book){
         } else {
           content.style.maxHeight = content.scrollHeight + "px";
         } 
-      });
-      var link = document.createElement("a");
-      link.className = "collapsible";
-      link.textContent = chapter.label;
-      link.href = chapter.href;
-      link.onclick = function(){
-        $(".active").click();
-        var url = link.getAttribute("href");
-        rendition.display(url);
-        $(".active").removeClass("active");
-        return false;
       };
       item.appendChild(link);
 
@@ -40,10 +42,21 @@ function toc(book){
         link_sub.textContent = chp.label;
         link_sub.href = chp.href;
         link_sub.onclick = function(){
-          $(".active").click();
+          $(".active").each(function(){
+            $this = $(this)[0];
+            $this.classList.toggle("active");
+            $this.lastChild.style.maxHeight = null;
+          })
+          if ($('#mySidenav').css("display") != "none") {
+            $('#mySidenav').toggle()
+          }
+          if ($('#extras').css("display") != "none") {
+            $('#mySidenav').toggle()
+          }
+          // $(".active").dblclick();
           var url_sub = link_sub.getAttribute("href");
           rendition.display(url_sub);
-          $(".active").removeClass("active");
+          // $(".active").removeClass("active");
           return false;
         };
         item_sub.appendChild(link_sub);
@@ -140,11 +153,22 @@ function highlight(book, rendition) {
           link.className = "collapsible";
           link.textContent = chp_title;
           link.onclick = function(){
-            $(".active").click();
+            $(".active").each(function(){
+              $this = $(this)[0];
+              $this.classList.toggle("active");
+              $this.lastChild.style.maxHeight = null;
+            })
+            if ($('#mySidenav').css("display") != "none") {
+              $('#mySidenav').toggle()
+            }
+            if ($('#extras').css("display") != "none") {
+              $('#mySidenav').toggle()
+            }
+            // $(".active").click();
             var confirmation = confirm(`Delete ${chp_title}?`)
             if (confirmation == true)
               this.parentElement.remove();
-            $(".active").removeClass("active");
+            // $(".active").removeClass("active");
             return false;
           };
           var $div = document.createElement("div");
