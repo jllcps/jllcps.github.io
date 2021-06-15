@@ -13,6 +13,7 @@ function toc(book){
       link.textContent = chapter.label;
       link.href = chapter.href;
       link.onclick = function(e){
+        e.preventDefault();
         if (e.detail === 1) {
           $(".active").each(function(){
             $this = $(this)[0];
@@ -30,7 +31,8 @@ function toc(book){
           return false;
         }
       };
-      item.ondblclick = function() {
+      item.ondblclick = function(e) {
+        e.preventDefault();
         this.classList.toggle("active");
         var content = this.lastChild;
         if (content.style.maxHeight){
@@ -50,7 +52,8 @@ function toc(book){
         link_sub.className = "collapsible";
         link_sub.textContent = chp.label;
         link_sub.href = chp.href;
-        link_sub.onclick = function(){
+        link_sub.onclick = function(e){
+          e.preventDefault();
           $(".active").each(function(){
             $this = $(this)[0];
             $this.classList.toggle("active");
@@ -149,7 +152,8 @@ function highlight(book, rendition) {
         })
         if (!exist) {
           var item = document.createElement("li");
-          item.addEventListener("click", function() {
+          item.addEventListener("click", function(e) {
+            e.preventDefault();
             this.classList.toggle("active");
             var content = this.lastChild;
             if (content.style.maxHeight){
@@ -161,7 +165,8 @@ function highlight(book, rendition) {
           var link = document.createElement("a");
           link.className = "collapsible";
           link.textContent = chp_title;
-          link.onclick = function(){
+          link.onclick = function(e){
+            e.preventDefault();
             $(".active").each(function(){
               $this = $(this)[0];
               $this.classList.toggle("active");
@@ -199,7 +204,8 @@ function highlight(book, rendition) {
           var link_sub = document.createElement("a");
           link_sub.className = "collapsible";
           link_sub.textContent = text;
-          link_sub.onclick = function(){
+          link_sub.onclick = function(e){
+            e.preventDefault();
             $(".active").each(function(){
               $this = $(this)[0];
               $this.classList.toggle("active");
