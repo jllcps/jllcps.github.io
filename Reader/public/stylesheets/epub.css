@@ -125,7 +125,7 @@ label {
 
 .content {
   max-height: 0;
-  overflow: hidden;
+  overflow-x: hidden;
   color: white;
   background-color: #404040;
   color: LightGray;
@@ -137,7 +137,8 @@ label {
 
 li {
   padding: 3px 3px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   cursor:  pointer;
   text-align: left;
   margin-left: 20px;
@@ -156,11 +157,13 @@ li {
   z-index: 1;
   background-color: #404040;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
-#mySidenav > ul, #extras > ul {
+.sidenav > ul {
   margin: 0;
   padding: 30px 0 15px 0;
+  overflow-y: scroll;
 }
 
 .modal-content {

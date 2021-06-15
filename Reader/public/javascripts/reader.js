@@ -223,15 +223,15 @@ function openBook(e){
     }
   });
 
-  rendition.themes.fontSize(`${font_size}px`);
-
   addons(rendition);
   
   let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
   if (!isMobile) {
     highlight(book, rendition);
+  } else {
+    font_size = 24
   }
-      // rendition.themes.fontSize("25px");
+  rendition.themes.fontSize(`${font_size}px`);
 
 }
 
