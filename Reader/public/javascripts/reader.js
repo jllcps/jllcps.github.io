@@ -1,11 +1,7 @@
 function toc(book){
   book.loaded.navigation.then(function(toc){
-    var $nav = document.getElementById("mySidenav");
-        // docfrag = document.createDocumentFragment();
 
-    // var $ul = document.createElement("ul");
     var $ul = document.getElementById("tocs");
-
     toc.forEach(function(chapter) {
       var item = document.createElement("li");
       var link = document.createElement("a");
@@ -79,9 +75,6 @@ function toc(book){
 
       $ul.appendChild(item);
     });
-    
-    // docfrag.appendChild($ul);
-    // $nav.appendChild(docfrag);
 
   });
 
@@ -109,20 +102,24 @@ function addons(rendition){
   //   console.log(location);
   // });
 
-  next.addEventListener("click", function(e){
-      rendition.next();
-      e.preventDefault();
-  }, false);
+  var prev_page = function(e){
+    rendition.prev();
+    e.preventDefault();
+  }
 
-  prev.addEventListener("click", function(e){
-      rendition.prev();
-      e.preventDefault();
-  }, false);
+  var next_page = function(e){
+    rendition.next();
+    e.preventDefault();
+  }
+  var next = document.getElementById("next");
+  var prev = document.getElementById("prev");
+  var next_nav = document.getElementById("next_nav");
+  var prev_nav = document.getElementById("prev_nav");
 
-  // window.addEventListener('beforeunload', function (e) {
-  //   localStorage.setItem(filename, rendition.location.start.cfi);
-  //   e.returnValue = '';
-  // });
+  prev.onclick = (e) => prev_page(e);
+  next.onclick = (e) => next_page(e);
+  prev_nav.onclick = (e) => prev_page(e);
+  next_nav.onclick = (e) => next_page(e);
 
   document.addEventListener("keyup", keyListener, false);
 
@@ -236,8 +233,6 @@ function highlight(book, rendition) {
 
 function openBook(e){
   var bookData = e.target.result;
-  var next = document.getElementById("next");
-  var prev = document.getElementById("prev");
 
   book.open(bookData, "binary");
   toc(book);
@@ -277,7 +272,7 @@ function openBook(e){
   if (!isMobile) {
     highlight(book, rendition);
   } else {
-    font_size = 24
+    font_size = 23
   }
   rendition.themes.fontSize(`${font_size}px`);
 
