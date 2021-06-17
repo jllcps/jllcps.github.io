@@ -156,7 +156,8 @@ li {
   z-index: 1;
   background-color: #404040;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
+  max-height: 100%;
 }
 
 .sidenav > ul {
