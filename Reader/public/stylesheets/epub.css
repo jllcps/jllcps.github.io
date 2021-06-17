@@ -78,11 +78,11 @@ label {
   z-index: 2;
   width: 100%;
   height: 30px;
-  user-select: none; /* supported by Chrome and Opera */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 #toolbar {
@@ -133,21 +133,20 @@ label {
 
 a {
   display: inline-block;
+  padding: 3px 3px;
 }
 
 li {
-  padding: 3px 3px;
   overflow-x: hidden;
-  overflow-y: scroll;
   cursor:  pointer;
   text-align: left;
   margin-left: 20px;
   margin-right: 20px;
-  user-select: none; /* supported by Chrome and Opera */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .sidenav {
@@ -157,7 +156,7 @@ li {
   z-index: 1;
   background-color: #404040;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .sidenav > ul {
@@ -181,34 +180,6 @@ li {
   cursor: pointer;
 }
 
-/*::selection {
-  background: yellow;
-}
-
-#highlights {
-  list-style: none;
-  margin-left: 0;
-  padding: 0;
-}
-
-#highlights li {
-  list-style: none;
-  margin-bottom: 20px;
-  border-top: 1px solid #E2E2E2;
-  padding: 10px;
-}
-
-#highlights a {
-  display: block;
-}
-
-[ref="epubjs-mk"] {
-  background: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPScxLjEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNzUgNzUnPjxnIGZpbGw9JyNCREJEQkQnIGlkPSdidWJibGUnPjxwYXRoIGNsYXNzPSdzdDAnIGQ9J00zNy41LDkuNEMxOS42LDkuNCw1LDIwLjUsNSwzNC4zYzAsNS45LDIuNywxMS4zLDcuMSwxNS42TDkuNiw2NS42bDE5LTcuM2MyLjgsMC42LDUuOCwwLjksOC45LDAuOSBDNTUuNSw1OS4yLDcwLDQ4LjEsNzAsMzQuM0M3MCwyMC41LDU1LjQsOS40LDM3LjUsOS40eicvPjwvZz48L3N2Zz4=") no-repeat;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  margin-left: 0;
-}*/
 
 @media only screen and (max-width: 760px){
   #viewer.scrolled {

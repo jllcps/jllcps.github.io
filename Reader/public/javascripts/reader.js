@@ -1,3 +1,17 @@
+function fold_all() {
+  $(".active").each(function(){
+    $this = $(this)[0];
+    $this.classList.toggle("active");
+    if ($this.id == "toolbar") {
+      $('#mySidenav').toggle()
+    } else if ($this.id == "annotbar") {
+      $('#extras').toggle()
+    } else {
+      $this.nextElementSibling.style.maxHeight = null;
+    }
+  })
+}
+
 function toc(book){
   book.loaded.navigation.then(function(toc){
 
@@ -8,35 +22,38 @@ function toc(book){
       link.className = "collapsible";
       link.textContent = chapter.label;
       link.href = chapter.href;
-      link.onclick = function(e){
+      let watchDouble = 0;
+      link.onclick = function(e) {
         e.preventDefault();
-        if (e.detail === 1) {
-          $(".active").each(function(){
-            $this = $(this)[0];
-            $this.classList.toggle("active");
-            $this.lastChild.style.maxHeight = null;
-          })
-          if ($('#mySidenav').css("display") != "none") {
-            $('#mySidenav').toggle()
+        watchDouble += 1;
+        setTimeout(() => {
+          if (watchDouble === 2) {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+            } 
+          } else if (watchDouble === 1) {
+            fold_all();
+            var url = link.getAttribute("href");
+            rendition.display(url);
+            return false;
           }
-          if ($('#extras').css("display") != "none") {
-            $('#mySidenav').toggle()
-          }
-          var url = link.getAttribute("href");
-          rendition.display(url);
-          return false;
-        }
+          watchDouble = 0
+        }, 200);
       };
-      item.ondblclick = function(e) {
-        e.preventDefault();
-        this.classList.toggle("active");
-        var content = this.lastChild;
-        if (content.style.maxHeight){
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + "px";
-        } 
-      };
+      // link.ondblclick = function(e) {
+      //   e.preventDefault();
+      //   this.classList.toggle("active");
+      //   var content = this.lastChild;
+      //   if (content.style.maxHeight){
+      //     content.style.maxHeight = null;
+      //   } else {
+      //     content.style.maxHeight = content.scrollHeight + "px";
+      //   } 
+      // };
       item.appendChild(link);
 
       var $div = document.createElement("div");
@@ -50,21 +67,9 @@ function toc(book){
         link_sub.href = chp.href;
         link_sub.onclick = function(e){
           e.preventDefault();
-          $(".active").each(function(){
-            $this = $(this)[0];
-            $this.classList.toggle("active");
-            $this.lastChild.style.maxHeight = null;
-          })
-          if ($('#mySidenav').css("display") != "none") {
-            $('#mySidenav').toggle()
-          }
-          if ($('#extras').css("display") != "none") {
-            $('#mySidenav').toggle()
-          }
-          // $(".active").dblclick();
+          fold_all();
           var url_sub = link_sub.getAttribute("href");
           rendition.display(url_sub);
-          // $(".active").removeClass("active");
           return false;
         };
         item_sub.appendChild(link_sub);
@@ -149,38 +154,31 @@ function highlight(book, rendition) {
         })
         if (!exist) {
           var item = document.createElement("li");
-          item.addEventListener("click", function(e) {
-            e.preventDefault();
-            this.classList.toggle("active");
-            var content = this.lastChild;
-            if (content.style.maxHeight){
-              content.style.maxHeight = null;
-            } else {
-              content.style.maxHeight = content.scrollHeight + "px";
-            } 
-          });
           var link = document.createElement("a");
           link.className = "collapsible";
           link.textContent = chp_title;
+          let watchDouble = 0;
           link.onclick = function(e){
             e.preventDefault();
-            $(".active").each(function(){
-              $this = $(this)[0];
-              $this.classList.toggle("active");
-              $this.lastChild.style.maxHeight = null;
-            })
-            if ($('#mySidenav').css("display") != "none") {
-              $('#mySidenav').toggle()
-            }
-            if ($('#extras').css("display") != "none") {
-              $('#mySidenav').toggle()
-            }
-            // $(".active").click();
-            var confirmation = confirm(`Delete ${chp_title}?`)
-            if (confirmation == true)
-              this.parentElement.remove();
-            // $(".active").removeClass("active");
-            return false;
+            watchDouble += 1;
+            setTimeout(() => {
+              if (watchDouble === 2) {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                  content.style.maxHeight = null;
+                } else {
+                  content.style.maxHeight = content.scrollHeight + "px";
+                } 
+              } else if (watchDouble === 1) {
+                fold_all();
+                var confirmation = confirm(`Delete ${chp_title}?`)
+                if (confirmation == true)
+                  this.parentElement.remove();
+                return false;
+              }
+              watchDouble = 0
+            }, 200);
           };
           var $div = document.createElement("div");
           $div.className = "content";
@@ -203,17 +201,7 @@ function highlight(book, rendition) {
           link_sub.textContent = text;
           link_sub.onclick = function(e){
             e.preventDefault();
-            $(".active").each(function(){
-              $this = $(this)[0];
-              $this.classList.toggle("active");
-              $this.lastChild.style.maxHeight = null;
-            })
-            if ($('#mySidenav').css("display") != "none") {
-              $('#mySidenav').toggle()
-            }
-            if ($('#extras').css("display") != "none") {
-              $('#mySidenav').toggle()
-            }
+            fold_all();
             var confirmation = confirm(`Delete ${text}?`)
             if (confirmation == true)
               this.parentElement.remove();
