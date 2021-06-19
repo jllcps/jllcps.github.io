@@ -27,7 +27,7 @@ function toc(book){
         e.preventDefault();
         watchDouble += 1;
         setTimeout(() => {
-          if (watchDouble === 2) {
+          if (watchDouble === 2 && this.classList.contains("expandable")) {
             this.classList.toggle("active");
             var content = this.nextElementSibling;
             if (content.style.maxHeight){
@@ -59,6 +59,9 @@ function toc(book){
       var $div = document.createElement("div");
       $div.className = "content";
       var ul_sub = document.createElement("ul");
+      if (chapter.subitems.length !== 0) {
+        link.classList.toggle("expandable");
+      }
       chapter.subitems.forEach(function(chp) {
         var item_sub = document.createElement("li");
         var link_sub = document.createElement("a");
@@ -243,27 +246,24 @@ function openBook(e){
 
   rendition.display();
 
+  let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+  font_size = isMobile? 21 : 28;
+  rendition.themes.fontSize(`${font_size}px`);
   rendition.themes.default({
     '*': {
       'background': '#282923 !important', 
-      'font-family': 'PingFangHK-Thin, sans-serif !important',
-      'line-height': '1.8em !important',
+      'line-height': '1.65em !important',
       'color': '#f8f8f2 !important',
-      //'text-align': 'justify !important',
-      // 'font-size': '28px',
+      'text-align': 'justify !important',
     }
   });
-
+  rendition.themes.font("PingFangHK-Thin");
   addons(rendition);
   
-  let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
   if (!isMobile) {
     highlight(book, rendition);
-  } else {
-    font_size = 23
   }
-  rendition.themes.fontSize(`${font_size}px`);
-
 }
 
 function buildAnnotation(){

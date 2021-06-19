@@ -20,8 +20,9 @@
     <div id="mySidenav" class="sidenav" style="display:none">
       <ul id="tocs">
         <li class="grid-container">
-          <div id="plus_btn" class="grid-item">&plus;</div>
-          <div id="minus_btn" class="grid-item">&minus;</div>
+          <div id="plus_btn" class="grid-item" style="font-size: 30px">&plus;</div>
+          <div id="minus_btn" class="grid-item" style="font-size: 30px">&minus;</div>
+          <div id="lang_btn" class="grid-item">ZH/EN</div>
         </li>
       </ul>
     </div>
@@ -44,6 +45,7 @@
   var book = ePub();
   var rendition, filename;
   var font_size = 28;
+  var lang_choice = 1;
   var inputElement = document.getElementById("input");
 
   inputElement.addEventListener('change', function (e) {
@@ -69,6 +71,7 @@
     this.classList.toggle("active");
   });
 
+  let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
   $(".grid-item").click(function(){
     switch($(this).attr("id")) {
       case "plus_btn":
@@ -77,7 +80,17 @@
       case "minus_btn":
         font_size -= 1;
         break;
-    }
+      case "lang_btn":
+        lang_choice *= -1;
+        if (lang_choice == -1) {
+          rendition.themes.font("Verdana");
+          font_size = isMobile? 18 : 25;
+        } else {
+          rendition.themes.font("PingFangHK-Thin");
+          font_size = isMobile? 21 : 28;
+        }
+        break;
+      }
     rendition.themes.fontSize(`${font_size}px`);
   })
 </script>
