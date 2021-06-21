@@ -138,8 +138,23 @@ function highlight(book, rendition) {
   var highlights = document.getElementById('highlights');
 
   rendition.on("selected", function(cfiRange, contents) {
-    $("#annotbar").one("contextmenu", function(e){
+    var iframe = document.querySelectorAll('[id^="epubjs-view"]')[0];
+    var idoc = iframe.contentDocument;
+    $(idoc.body).one("contextmenu", function(e){
       e.preventDefault();
+      var pos = $(this).parent().offset();
+      // var width = $("#patient"+$(this).closest("tr").attr("id")).outerWidth();
+      $("#hl").css({
+        top: (e.pageY - pos.top + 50) + "px",
+        left: (e.pageX - pos.left + 60) + "px"
+      });
+      $("#hl").toggle()
+    }).one("click",function(){
+      if ($("#hl").css("display") == "block") {
+        $("#hl").toggle()
+      }
+    })
+    $("#hl").one("click", function(){
       rendition.annotations.highlight(cfiRange);
 
       book.getRange(cfiRange).then(function (range) {
@@ -160,6 +175,7 @@ function highlight(book, rendition) {
           var link = document.createElement("a");
           link.className = "collapsible";
           link.textContent = chp_title;
+          link.classList.toggle("expandable");
           let watchDouble = 0;
           link.onclick = function(e){
             e.preventDefault();
@@ -217,8 +233,111 @@ function highlight(book, rendition) {
           contents.window.getSelection().removeAllRanges();
         }
       });
-    });
+      $(this).toggle()
+    })
+
   });
+
+  // rendition.on("selected", function(cfiRange, contents) {
+  //   $("#annotbar").one("contextmenu", function(e){
+  //     e.preventDefault();
+  //     rendition.annotations.highlight(cfiRange);
+
+  //     book.getRange(cfiRange).then(function (range) {
+  //       let locationCfi = rendition.currentLocation().start.cfi;
+  //       let spineItem = book.spine.get(locationCfi);
+  //       let navItem = book.navigation.get(spineItem.href);
+  //       let chp_title = navItem.label.trim();
+
+  //       let $target;
+  //       let exist = false
+  //       $("#highlights > li > a").each(function(e){
+  //         if ($(this).text() == chp_title)
+  //           exist = true;
+  //           $target = $(this)[0];
+  //       })
+  //       if (!exist) {
+  //         var item = document.createElement("li");
+  //         var link = document.createElement("a");
+  //         link.className = "collapsible";
+  //         link.textContent = chp_title;
+  //         let watchDouble = 0;
+  //         link.onclick = function(e){
+  //           e.preventDefault();
+  //           watchDouble += 1;
+  //           setTimeout(() => {
+  //             if (watchDouble === 2) {
+  //               this.classList.toggle("active");
+  //               var content = this.nextElementSibling;
+  //               if (content.style.maxHeight){
+  //                 content.style.maxHeight = null;
+  //               } else {
+  //                 content.style.maxHeight = content.scrollHeight + "px";
+  //               } 
+  //             } else if (watchDouble === 1) {
+  //               fold_all();
+  //               var confirmation = confirm(`Delete ${chp_title}?`)
+  //               if (confirmation == true)
+  //                 this.parentElement.remove();
+  //               return false;
+  //             }
+  //             watchDouble = 0
+  //           }, 200);
+  //         };
+  //         var $div = document.createElement("div");
+  //         $div.className = "content";
+  //         var ul_sub = document.createElement("ul");
+  //         item.appendChild(link);
+  //         $div.appendChild(ul_sub);
+  //         item.appendChild($div);
+  //         highlights.appendChild(item);
+  //         $target = link
+  //       }
+
+  //       var iframe = document.querySelectorAll('[id^="epubjs-view"]')[0];
+  //       var idoc = iframe.contentDocument;
+  //       var text = idoc.getSelection().toString();
+  //       $(idoc.body).contextmenu(function(e){
+
+  //         e.preventDefault();
+  //         var pos = $(this).parent().offset();
+  //         console.log($(this).parent())
+  //         // var width = $("#patient"+$(this).closest("tr").attr("id")).outerWidth();
+  //         $("#hl").css({
+  //           top: (e.pageY - pos.top) + "px",
+  //           left: (e.pageX - pos.left) + "px"
+  //         });
+  //         $("#hl").toggle()
+  //       }).click(function(){
+  //         if ($("#hl").css("display") == "block") {
+  //           $("#hl").toggle()
+  //         }
+  //       })
+  //       $("#hl").click(function(){
+  //         $(this).toggle()
+  //       })
+  //       if (text.length > 0) {
+  //         var item_sub = document.createElement("li");
+  //         var link_sub = document.createElement("a");
+  //         link_sub.className = "collapsible";
+  //         link_sub.textContent = text;
+  //         link_sub.onclick = function(e){
+  //           e.preventDefault();
+  //           fold_all();
+  //           var confirmation = confirm(`Delete ${text}?`)
+  //           if (confirmation == true)
+  //             this.parentElement.remove();
+  //           return false;
+  //         };
+  //         item_sub.appendChild(link_sub);
+  //         var content = $target.nextElementSibling.lastChild;
+  //         content.appendChild(item_sub);
+          
+  //         contents.window.getSelection().removeAllRanges();
+  //       }
+  //     });
+  //   });
+  // });
 
 }
 
@@ -256,7 +375,11 @@ function openBook(e){
       'line-height': '1.65em !important',
       'color': '#f8f8f2 !important',
       'text-align': 'justify !important',
-    }
+    },
+    "h1, h2, h3, h4, h5, h6": {
+      "text-align": "center !important",
+      "font-size": "larger !important",
+    },
   });
   rendition.themes.font("PingFangHK-Thin");
   addons(rendition);

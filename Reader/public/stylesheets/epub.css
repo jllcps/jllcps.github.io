@@ -40,8 +40,8 @@ body {
   position: fixed;
   top: 50%;
   margin-top: -32px;
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 40px;
+  margin-left: 40px;
   font-size: 64px;
   color: #E2E2E2;
   font-family: arial, sans-serif;
@@ -135,7 +135,7 @@ label {
 }
 
 .active.expandable:after {
-  content: "\2212"; /* Unicode character for "minus" sign (-) */
+  content: "\2212";
 }
 
 .content {
@@ -186,11 +186,12 @@ li {
   margin:0 auto;
   z-index:10;
   display:none;
-  font-size: larger;
-  border:5px solid #cccccc;
-  border-radius:10px;
-  padding: 7px;
+  font-size: smaller;
+  border: 5px solid #cccccc;
+  border-radius: 10px;
+  padding: 3px;
   background-color: #fefefe;
+  color: black;
   position: absolute; 
   cursor: pointer;
 }
@@ -221,6 +222,5 @@ li {
     display: none;
   }
 
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+/*  .sidenav a {font-size: 18px;}*/
 }
