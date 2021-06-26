@@ -14,7 +14,9 @@ function init() {
   const icons = document.querySelectorAll('.icon-grid-item');
   icons.forEach(elem => elem.addEventListener('click', ev => {
     modeInput.value = ev.target.getAttribute("data-val");
-    change(null);
+    if (modeInput.value == ev.target.getAttribute("data-val")) {
+      change(null);
+    }
   }));
 }
 
