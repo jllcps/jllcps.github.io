@@ -10,7 +10,7 @@ label {
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 50%));;
+  grid-template-columns: auto auto;
 }
 
 .grid-item {
@@ -47,7 +47,7 @@ label {
   bottom: 0;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 50%));;
+  grid-template-columns: auto auto;
 }
 
 .icon-grid-item {
@@ -82,6 +82,15 @@ button {
 }
 
 @media only screen and (max-width: 760px){
+  .grid-container {
+    grid-template-columns: auto;
+  }
+
+  .icon-grid-container {
+    grid-auto-flow: row dense;
+    grid-template-columns: auto;
+  }
+
   .icon-grid-item {
     padding: 10px;
     font-size: 20px;
