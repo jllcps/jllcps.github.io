@@ -10,8 +10,7 @@
   <script src="keymap/sublime.js"></script>
   <script src="addon/comment/comment.js"></script>
   <script src="addon/edit/matchbrackets.js"></script>
-  
-<!--   <script src="addon/edit/closebrackets.js"></script> -->
+  <!-- <script src="addon/edit/matchbrackets.js"></script> -->
   <script src="addon/fold/foldcode.js"></script>
   <script src="addon/fold/foldgutter.js"></script>
   <script src="addon/fold/indent-fold.js"></script>
@@ -22,7 +21,7 @@
   <script src="mode/meta.js"></script>
   <link rel="stylesheet" href="lib/codemirror.css">
   <link rel="stylesheet" href="lib/text_editor.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.12.0/devicon.min.css">
+  <link rel="stylesheet" href="lib/devicon.min.css">
   <link rel="stylesheet" href="theme/monokai.css">
   <link rel="stylesheet" href="addon/fold/foldgutter.css">
 </head>
@@ -59,7 +58,8 @@
       indentUnit: 4,
       lineNumbers: true,
       lineWrapping: true,
-      // matchBrackets: true
+      matchBrackets: true,
+      // highlightNonMatching: false,
       // spellcheck: false,
       foldGutter: true,
       gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
