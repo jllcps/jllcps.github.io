@@ -4,13 +4,14 @@ body {
   background-color: #272822;
 }
 
-label {
-  cursor: pointer;
-}
-
 .grid-container {
   display: grid;
   grid-template-columns: auto auto;
+}
+
+.fn-grid-container {
+  display: grid;
+  grid-template-columns: 15% 15% 35% 35%;
 }
 
 .grid-item {
@@ -18,9 +19,11 @@ label {
   text-align: center;
   display: flex;
   align-items: center;
+  font-size: 19px;
   justify-content: center;
   background-color: #404040;
   color: LightGray;
+  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -32,14 +35,9 @@ label {
   padding: 5px;
 }
 
-.grid-item:hover {
+.grid-item:hover, button {
   background-color: #353535;
   color: #777;
-}
-
-.fn-grid-container {
-  display: grid;
-  grid-template-columns: 15% 15% 35% 35%;
 }
 
 .icon-grid-container {
@@ -67,16 +65,17 @@ input, button {
   /*margin: 0;*/
   border: 0;
   background-color: #404040;
+  font-size: 19px;
   color: LightGray;
 }
 
 input {
-  width: 70%;
+  width: 60%;
   text-align: center;
 }
 
 button {
-  width: 30%;
+  width: 40%;
   margin-right: 0px;
   cursor: pointer;
 }
@@ -84,6 +83,10 @@ button {
 @media only screen and (max-width: 760px){
   .grid-container {
     grid-template-columns: auto;
+  }
+
+  .grid-item {
+    font-size: 14px;
   }
 
   .icon-grid-container {
@@ -94,5 +97,9 @@ button {
   .icon-grid-item {
     padding: 10px;
     font-size: 20px;
+  }
+
+  input, button {
+    font-size: 14px;
   }
 }
