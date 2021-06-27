@@ -52,6 +52,11 @@ function change(e) {
     document.getElementsByClassName('CodeMirror')[0].style.removeProperty('display');
     if (e) {
       editor.setValue(e.target.result);
+    } else {
+      // document.body.onclick = e => {
+      window.onclick = e => {
+        document.getElementsByTagName('textarea')[0].focus();
+      };
     }
     filename = modeInput.value;
     document.title = filename;
