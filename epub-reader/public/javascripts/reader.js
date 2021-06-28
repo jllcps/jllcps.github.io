@@ -367,7 +367,7 @@ function openBook(e){
 
   let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 
-  font_size = isMobile? 21 : 28;
+  font_size = isMobile? 21 : 27;
   rendition.themes.fontSize(`${font_size}px`);
   rendition.themes.default({
     '*': {

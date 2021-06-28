@@ -61,6 +61,7 @@ function change(e) {
     document.title = filename;
     editor.setOption("mode", spec);
     CodeMirror.autoLoadMode(editor, mode);
+    window.onbeforeunload = e => false;
   } else {
     alert("Could not find a mode corresponding to " + val);
   }
