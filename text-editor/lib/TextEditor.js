@@ -66,21 +66,21 @@ function change(e) {
   }
 }
 
+function saveFile() {
+  if (confirm(`Save as "${filename}"?`)) {
+    var blob = new Blob([editor.getValue()],
+        { type: "text/plain;charset=utf-8" });
+    saveAs(blob, filename);    
+  }
+}
+
 function rmSpaceLine() {
-  if (confirm("Remove spaces on empty lines?")) {
+  if (confirm("Remove lines with only spaces?")) {
     var ar = editor.getValue().split(/\r\n|\r|\n/);
     for (i in ar) {
       if (/^\s*$/.test(ar[i]) == true)
         ar[i] = "";
     }
     editor.setValue(ar.join("\n"))    
-  }
-}
-
-function saveFile() {
-  if (confirm(`Save as "${filename}"?`)) {
-    var blob = new Blob([editor.getValue()],
-        { type: "text/plain;charset=utf-8" });
-    saveAs(blob, filename);    
   }
 }

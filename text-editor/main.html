@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="lib/codemirror.min.js"></script>
   <script src="lib/FileSaver.min.js"></script>
-  <script src="lib/text_editor.js"></script>
+  <script src="lib/TextEditor.js"></script>
   <!-- <script src="lib/jquery.min.js"></script> -->
   <script src="keymap/sublime.js"></script>
   <script src="addon/comment/comment.js"></script>
@@ -20,7 +20,7 @@
   <script src="addon/mode/loadmode.js"></script>
   <script src="mode/meta.js"></script>
   <link rel="stylesheet" href="lib/codemirror.css">
-  <link rel="stylesheet" href="lib/text_editor.css">
+  <link rel="stylesheet" href="lib/TextEditor.css">
   <link rel="stylesheet" href="lib/devicon.min.css">
   <link rel="stylesheet" href="theme/monokai.css">
   <link rel="stylesheet" href="addon/fold/foldgutter.css">
@@ -38,7 +38,7 @@
   <div id="config" style="display: none;" class="fn-grid-container">
     <div id="plus_btn" class="grid-item" style="font-size: 25px">&plus;</div>
     <div id="minus_btn" class="grid-item" style="font-size: 25px">&minus;</div>
-    <div class="grid-item" onclick="rmSpaceLine()">Purge Spaces</div>
+    <div class="grid-item" onclick="rmSpaceLine()">Clean Lines</div>
     <div class="grid-item" onclick="saveFile()">Download</div>
   </div>
   <footer id="quick_start" class="icon-grid-container">
