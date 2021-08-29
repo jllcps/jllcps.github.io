@@ -7250,15 +7250,15 @@ class Contents {
 
   css(property, value, priority) {
     var content = this.content || this.document.body;
-    let css_match = ["font-size", "font-family"]
+    // let css_match = ["font-size", "font-family"]
     if (value) {
-      if (content == this.document.body && css_match.indexOf(property) != -1) {
-        this.document.querySelector("*").style.setProperty(property, value, "important");
-        this.document.querySelector("body").style.setProperty(property, value, "important");
-        this.document.querySelector("div").style.setProperty(property, value, "important");
-      } else {
-        content.style.setProperty(property, value, priority ? "important" : "");
-      }
+      // if (content == this.document.body && css_match.indexOf(property) != -1) {
+      //   this.document.querySelector("*").style.setProperty(property, value, "important");
+      //   this.document.querySelector("body").style.setProperty(property, value, "important");
+      //   this.document.querySelector("div").style.setProperty(property, value, "important");
+      // } else {
+      content.style.setProperty(property, value, priority ? "important" : "");
+      // }
     } else {
       content.style.removeProperty(property);
     }

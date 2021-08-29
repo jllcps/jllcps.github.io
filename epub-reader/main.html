@@ -14,6 +14,8 @@
 <body>
   <div id="epub_input">
     <label id="input_label">Choose EPUB<input id="input" type="file" accept=".epub" hidden/></label>
+    <label id="zh_btn" class="lang_label">ZH</label>
+    <label id="en_btn" class="lang_label">EN</label>
     <label id="toolbar" style="display:none">&#9776;  TOC</label>
     <label id="annotbar" style="display:none">&#9734;  Highlights</label>
     <div id="mySidenav" class="sidenav" style="display:none">
@@ -21,7 +23,6 @@
         <li class="grid-container">
           <div id="plus_btn" class="grid-item" style="font-size: 30px">&plus;</div>
           <div id="minus_btn" class="grid-item" style="font-size: 30px">&minus;</div>
-          <div id="lang_btn" class="grid-item">ZH/EN</div>
         </li>
       </ul>
     </div>
@@ -44,7 +45,11 @@
   var book = ePub();
   var rendition, filename;
   var font_size = 28;
-  var lang_choice = 1;
+  var lang_choice = "zh_btn";
+  var zh_btn = document.getElementById("zh_btn");
+  var en_btn = document.getElementById("en_btn");
+  zh_btn.classList.toggle("chosen");
+  zh_btn.style.cursor = "not-allowed";
   var inputElement = document.getElementById("input");
 
   inputElement.addEventListener('change', function (e) {
@@ -56,6 +61,8 @@
         reader.readAsArrayBuffer(file);
         document.title = filename;
         document.getElementById("input_label").remove()
+        zh_btn.remove()
+        en_btn.remove()
     }
   });
 
@@ -71,6 +78,28 @@
     this.classList.toggle("active");
   });
 
+  $(".lang_label").click(function(){
+    switch($(this).attr("id")) {
+      case "zh_btn":
+        if (!zh_btn.classList.contains("chosen")) {
+          zh_btn.classList.toggle("chosen");
+          en_btn.classList.toggle("chosen");
+          zh_btn.style.cursor = "not-allowed";
+          en_btn.style.cursor = "pointer";
+        }
+        break;
+      case "en_btn":
+        if (!en_btn.classList.contains("chosen")) {
+          zh_btn.classList.toggle("chosen");
+          en_btn.classList.toggle("chosen");
+          en_btn.style.cursor = "not-allowed";
+          zh_btn.style.cursor = "pointer";
+        }
+        break;
+    }
+    lang_choice = $(this).attr("id")
+  })
+
   let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
   $(".grid-item").click(function(){
     switch($(this).attr("id")) {
@@ -79,16 +108,6 @@
         break;
       case "minus_btn":
         font_size -= 1;
-        break;
-      case "lang_btn":
-        lang_choice *= -1;
-        if (lang_choice == -1) {
-          rendition.themes.font("Verdana");
-          font_size = isMobile? 18 : 25;
-        } else {
-          rendition.themes.font("PingFangHK-Thin");
-          font_size = isMobile? 21 : 28;
-        }
         break;
       }
     rendition.themes.fontSize(`${font_size}px`);

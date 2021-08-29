@@ -84,6 +84,28 @@ label {
   -ms-user-select: none;
 }
 
+#input_label {
+  width: 70%;
+}
+
+#zh_btn {
+  width: 15%;
+  right: 15%;
+}
+
+.lang_label.chosen:after {
+  content: '\2713';
+  color: LightGray;
+  font-weight: bold;
+  float: right;
+  margin-right: 30%;
+}
+
+#en_btn {
+  width: 15%;
+  right: 0px;
+}
+
 #toolbar {
   width: 50%;
 }
@@ -95,7 +117,7 @@ label {
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
 }
 
 .grid-item {

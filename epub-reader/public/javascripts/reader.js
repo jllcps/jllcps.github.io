@@ -367,7 +367,14 @@ function openBook(e){
 
   let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 
-  font_size = isMobile? 21 : 27;
+  if (lang_choice === "zh_btn") {
+      font_family = "PingFangHK-Thin";
+      font_size = isMobile? 21 : 27;
+  } else {
+      font_family = "Verdana";
+      font_size = isMobile? 18 : 24;
+  }
+
   rendition.themes.fontSize(`${font_size}px`);
   rendition.themes.default({
     '*': {
@@ -375,13 +382,14 @@ function openBook(e){
       'line-height': '1.65em !important',
       'color': '#f8f8f2 !important',
       'text-align': 'justify !important',
+      "font-family": `${font_family} !important`
     },
     "h1, h2, h3, h4, h5, h6": {
       "text-align": "center !important",
       "font-size": "larger !important",
     },
   });
-  rendition.themes.font("PingFangHK-Thin");
+  // rendition.themes.font("PingFangHK-Thin");
   addons(rendition);
   
   if (!isMobile) {
