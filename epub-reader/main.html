@@ -16,19 +16,13 @@
     <label id="input_label">Choose EPUB<input id="input" type="file" accept=".epub" hidden/></label>
     <label id="zh_btn" class="lang_label">ZH</label>
     <label id="en_btn" class="lang_label">EN</label>
-    <label id="toolbar" style="display:none">&#9776;  TOC</label>
-    <label id="annotbar" style="display:none">&#9734;  Highlights</label>
+    <label id="toolbar" style="display:none">TOC</label>
     <div id="mySidenav" class="sidenav" style="display:none">
       <ul id="tocs">
         <li class="grid-container">
           <div id="plus_btn" class="grid-item" style="font-size: 30px">&plus;</div>
           <div id="minus_btn" class="grid-item" style="font-size: 30px">&minus;</div>
         </li>
-      </ul>
-    </div>
-    <div id="extras" class="sidenav" style="display:none">
-      <ul id="highlights">
-        <li style="text-align: right; padding: 3px 3px;" onclick="saveAnnotation();">Download Annotation</li>
       </ul>
     </div>
   </div>
@@ -69,12 +63,6 @@
   var toolbarElement = document.getElementById("toolbar");
   toolbarElement.addEventListener("click", function() {
     $('#mySidenav').toggle()
-    this.classList.toggle("active");
-  });
-
-  var annotbarElement = document.getElementById("annotbar");
-  annotbarElement.addEventListener("click", function() {
-    $('#extras').toggle()
     this.classList.toggle("active");
   });
 

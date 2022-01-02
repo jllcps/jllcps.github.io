@@ -107,12 +107,7 @@ label {
 }
 
 #toolbar {
-  width: 50%;
-}
-
-#annotbar {
-  width: 50%;
-  right: 0px;
+  width: 100%;
 }
 
 .grid-container {
