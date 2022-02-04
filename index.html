@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>jllcps</title>
   <script src="assets/bootstrap.min.js"></script>
+  <script src="assets/jquery.min.js"></script>
   <link href="assets/bootstrap.min.css" rel="stylesheet">
   <link href="assets/index.css" rel="stylesheet">
 </head>
@@ -13,30 +14,49 @@
 <body class="d-flex h-100">
     
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
     <header class="mb-auto text-center">
-      <div>
-        <h3 class="float-md-start mb-0">Home Page</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
+        <nav class="nav nav-masthead justify-content-center float-md-start">
           <a class="nav-link" href="text-editor/main.html">Text Editor</a>
           <a class="nav-link" href="epub-reader/main.html">EPUB Reader</a>
         </nav>
-      </div>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_body">Contact Me</a>
+        </nav>
     </header>
 
-    <div class="accordion" id="accordionFlushExample">
+    <div class="modal fade" id="modal_body" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <form id="message_form">
+          <div class="modal-body">
+            <input type="text" class="form-control mb-1" id="contact_info" placeholder="Enter your contact details" required>
+            <input type="text" class="form-control mb-1" id="message_subject" placeholder="Enter the subject" required>
+            <textarea class="form-control" id="message_message" rows="5" placeholder="Enter the message" required></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal" id="close_btn">Close</button>
+            <button type="submit" class="btn btn-dark">Send</button>
+          </div>
+          <form>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="accordion_items">
       <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingZero">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseZero" aria-expanded="false" aria-controls="flush-collapseZero">
+        <h2 class="accordion-header" id="head_zero">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_zero" aria-expanded="false" aria-controls="body_zero">
             System Development
           </button>
         </h2>
-        <div id="flush-collapseZero" class="accordion-collapse collapse" aria-labelledby="flush-headingZero" data-bs-parent="#accordionFlushExample">
+        <div id="body_zero" class="accordion-collapse collapse" aria-labelledby="head_zero" data-bs-parent="#accordion_items">
           <div class="accordion-body"><ul>
             <li>Backend: Django, Node.js</li>
             <li>Frontend: basic HTML, CSS, React, AngularJS</li>
             <li>Others: RESTful API, standard (JSON, XML), security (TLS, basic cryptography)</li>
             <li>Teamwork/VCS: Agile (Scrum on Jira), Git</li>
-            <li><a href="https://gitfront.io/r/jllcps/7c9506994e450be64ca86b381a2a042e453196ce/HotZone/">Github</a> - <a href="https://jllcps-hotzone.herokuapp.com/">HotZone</a></li>
+            <li><a href="https://jllcps-hotzone.herokuapp.com/">HotZone</a> (<a href="https://gitfront.io/r/jllcps/7c9506994e450be64ca86b381a2a042e453196ce/HotZone/">Github</a>)</li>
             <ul>
             <li>Role in team: backend (CRUD, clustering), data model, UI adjustment</li>
             </ul>
@@ -44,12 +64,12 @@
         </div>
       </div>
       <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        <h2 class="accordion-header" id="head_one">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_one" aria-expanded="false" aria-controls="body_one">
             Machine Learning
           </button>
         </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div id="body_one" class="accordion-collapse collapse" aria-labelledby="head_one" data-bs-parent="#accordion_items">
           <div class="accordion-body"><ul>
             <li>Library/Framework: NumPy, Pandas, Scikit-learn, Matplotlib, PyTorch</li>
             <li><a href="https://gitfront.io/r/jllcps/3ef59ba95eadc6c32bc86ce9823cc7673f94b3c2/Machine-Learning/">Github</a></li>
@@ -63,12 +83,12 @@
         </div>
       </div>
       <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingTwo">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        <h2 class="accordion-header" id="head_two">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_two" aria-expanded="false" aria-controls="body_two">
             Blockchain
           </button>
         </h2>
-        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+        <div id="body_two" class="accordion-collapse collapse" aria-labelledby="head_two" data-bs-parent="#accordion_items">
           <div class="accordion-body"><ul>
             <li><a href="https://gitfront.io/r/jllcps/ebd095c6b165b8015083bc649797172344107e1c/Blockchain/">Github</a></li>
             <ul>
@@ -80,27 +100,27 @@
         </div>
       </div>
       <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        <h2 class="accordion-header" id="head_three">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_three" aria-expanded="false" aria-controls="body_three">
             Databases
           </button>
         </h2>
-        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+        <div id="body_three" class="accordion-collapse collapse" aria-labelledby="head_three" data-bs-parent="#accordion_items">
           <div class="accordion-body"><ul>
             <li>Conceptual Design (& schema): ERD, UML</li>
             <li>RDBMS Normalization, Command Optimization</li>
             <li>System: MySQL, PostgreSQL, MongoDB</li>
-            <li><a href="https://gitfront.io/r/jllcps/20425ca61f4309ed2c443b05a8ef0d7e274b49bf/Miscellaneous/tree/Library%20Management%20System%20%28DB%20design%29/">Github</a> - Library Management System</li>
+            <li>Library Management System (<a href="https://gitfront.io/r/jllcps/20425ca61f4309ed2c443b05a8ef0d7e274b49bf/Miscellaneous/tree/Library%20Management%20System%20%28DB%20design%29/">Github</a>)</li>
           </ul></div>
         </div>
       </div>
       <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingFour">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+        <h2 class="accordion-header" id="head_four">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_four" aria-expanded="false" aria-controls="body_four">
             Others
           </button>
         </h2>
-        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+        <div id="body_four" class="accordion-collapse collapse" aria-labelledby="head_four" data-bs-parent="#accordion_items">
           <div class="accordion-body"><ul>
             <li>Mini-JavaScript Interpreter in Haskell (<a href="https://gitfront.io/r/jllcps/f563715f9a011965aa948dac62d55d2d431f20b5/Mini-JavaScript/">Github</a>)</li>
             <li>Commodity Inventory System in C++ (<a href="https://gitfront.io/r/jllcps/87994d14e37418dbc41bceafd5e5745c74c284ba/Commodity-Inventory-System/">Github</a>)</li>
@@ -110,10 +130,41 @@
       </div>
     </div>
 
-    <main class="px-3 mt-auto text-center">
+    <footer class="mt-auto text-center">
       <p class="lead">An Undergraduate at HKU CS</p>
-    </main>
+    </footer>
 
   </div>
+
+<script>
+
+  var message_webhook = "https://w3watcher.herokuapp.com/users/1/web_requests/145/contact";
+  
+  $('#modal_body').on('hidden.bs.modal', function () {
+      $(this).find('form').trigger('reset');
+  });
+
+  $("#message_form").on("submit", function(ev){
+    ev.preventDefault();
+    $.ajax({
+      type : "POST",
+      url: message_webhook,
+      data: {
+        from: $("#contact_info").val(),
+        to: "jllcps-github-io",
+        subject: $("#message_subject").val(),
+        body: $("#message_message").val()
+      },
+      success: function(data, textStatus) {
+        alert("The message is sent successfully.");
+        $("#close_btn").click();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert("Failed to send the message.")
+      }
+    });
+  })
+
+</script>
 </body>
 </html>
