@@ -45,12 +45,12 @@
         <div class="modal-content">
           <form id="message_form">
           <div class="modal-body">
-            <div id="recaptcha"></div>
             <input type="text" class="form-control mb-1" id="contact_info" placeholder="Enter your contact details" required>
             <input type="text" class="form-control mb-1" id="message_subject" placeholder="Enter the subject" required>
             <textarea class="form-control" id="message_message" rows="5" placeholder="Enter the message" required></textarea>
           </div>
           <div class="modal-footer">
+            <div id="recaptcha"></div>
             <button type="button" class="btn btn-dark" data-bs-dismiss="modal" id="close_btn">Close</button>
             <button type="submit" class="btn btn-dark">Send</button>
           </div>
@@ -162,6 +162,10 @@
 
   $("#message_form").on("submit", function(ev){
     ev.preventDefault();
+    if(grecaptcha.getResponse() === "") {
+        alert('Error: \n please validate the Captcha test');
+        return false;
+     }
     $.ajax({
       type : "POST",
       url: message_webhook,
