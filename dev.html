@@ -26,7 +26,7 @@
       <div class="modal fade" id="modal_body" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <form action="javascript:0">
+            <form id="email_form">
             <div class="modal-body">
               <input type="email" class="form-control mb-1" id="sender_email" placeholder="Enter your email" required>
               <input type="text" class="form-control mb-1" id="email_subject" placeholder="Enter the subject" required>
@@ -34,7 +34,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-dark" data-bs-dismiss="modal" id="close_btn">Close</button>
-              <button type="submit" class="btn btn-dark" id="send_btn">Send</button>
+              <button type="button" class="btn btn-dark" id="send_btn" onclick="send_email(event);">Send</button>
             </div>
             <form>
           </div>
@@ -137,25 +137,73 @@
   </div>
 
 <script>
+
   var email_webhook = "https://w3watcher.herokuapp.com/users/1/web_requests/145/jllcps-email";
   
   $('#modal_body').on('hidden.bs.modal', function () {
       $(this).find('form').trigger('reset');
   });
 
-  $("#send_btn").click(function(ev){
-    var $$ = $(this);
-    var form_data = {
-      from: $("#sender_email").val(),
-      subject: $("#email_subject").val(),
-      message: $("#email_message").val()
-    };
-    $.post(email_webhook, form_data, function(data, status) {
-        console.log(status);
-        alert("Email sent successfully!");
-        $("#close_btn").click();
-    });
-  })
+  function send_email (ev){
+    ev.preventDefault();
+    let form_elem = $("#email_form");
+    if (!form_elem[0].checkValidity()) {
+      form_elem[0].reportValidity();
+    } else {
+      $.ajax({
+        type : "POST",
+        url: email_webhook,
+        contentType: "application/json",
+        data: {
+          from: $("#sender_email").val(),
+          subject: $("#email_subject").val(),
+          message: $("#email_message").val()
+        },
+        crossDomain: true
+      }).done(function() {
+          // console.log(response);
+          // alert(response);
+        alert("hi")
+          // if (response["msg"] == "Error")
+          //   alert("Error! No such location");
+          // else {
+          //   $('#location_name').val('');     
+          //   formset(response);
+      }).fail(function(data, textStatus, errorThrown)  {
+        alert(JSON.stringify(data));
+        console.log(textStatus);
+        console.log(errorThrown);
+      });
+      return false;
+    }
+  }
+
+
+  // $("#send_btn").click(function(ev){
+  //   var $$ = $(this);
+  //   var form_data = {
+  //     from: $("#sender_email").val(),
+  //     subject: $("#email_subject").val(),
+  //     message: $("#email_message").val()
+  //   };
+  //   alert(form_data)
+  //   $.ajax({
+  //     type: "POST",
+  //     url: email_webhook,
+  //     data: form_data,
+  //     success: function(data) {
+  //       alert('call back');
+  //     },
+  //     error: function(jqXHR, textStatus, errorThrown) {
+  //           alert("Error, status = " + textStatus + ", " + "error thrown: " + errorThrown);
+  //     }
+  //   });
+  //   // $.post(email_webhook, form_data, function(data, status) {
+  //   //     console.log(status);
+  //   //     alert("Email sent successfully!");
+  //   //     $("#close_btn").click();
+  //   // });
+  // })
 </script>
 </body>
 </html>
