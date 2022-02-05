@@ -50,9 +50,9 @@
             <textarea class="form-control" id="message_message" rows="5" placeholder="Enter the message" required></textarea>
           </div>
           <div class="modal-footer">
-            <div id="recaptcha"></div>
+            <div id="recaptcha" class="w-100 float-right"></div>
             <button type="button" class="btn btn-dark" data-bs-dismiss="modal" id="close_btn">Close</button>
-            <button type="submit" class="btn btn-dark">Send</button>
+            <button type="submit" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal_recaptcha">Send</button>
           </div>
           <form>
         </div>
@@ -154,7 +154,7 @@
 
 <script>
 
-  var message_webhook = "https://w3watcher.herokuapp.com/users/1/web_requests/145/contact";
+  var message_webhook = "https://w3watcher.herokuapp.com/users/1/web_requests/145/message";
   
   $('#modal_body').on('hidden.bs.modal', function () {
       $(this).find('form').trigger('reset');
