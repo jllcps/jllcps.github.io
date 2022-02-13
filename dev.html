@@ -5,21 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>jllcps</title>
-<!-- <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" -->
-    <!-- async defer> -->
-<!-- </script> -->
-<script type="text/javascript">
-  var recaptchaCallback = function () {
-    console.log('recaptcha is ready'); // not showing
-    grecaptcha.render("recaptcha", {
-        sitekey: '6Ld0DVoeAAAAAJglvvZgCqMEwZpp1rhTBLxvwHJE',
-        callback: function () {
-            console.log('recaptcha callback');
-        }
-    });
-  }
-</script>
-<script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit" async defer></script>
+
+  <script type="text/javascript">
+    var recaptchaCallback = function () {
+      grecaptcha.render("recaptcha", {
+          sitekey: '6Ld0DVoeAAAAAJglvvZgCqMEwZpp1rhTBLxvwHJE'
+      });
+    }
+  </script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit" async defer></script>
   <script src="assets/jquery.min.js"></script>
   <script src="assets/bootstrap.min.js"></script>
   <link href="assets/bootstrap.min.css" rel="stylesheet">
@@ -50,9 +44,11 @@
             <textarea class="form-control" id="message_message" rows="5" placeholder="Enter the message" required></textarea>
           </div>
           <div class="modal-footer">
-            <div id="recaptcha" class="w-100 float-right"></div>
+            <div class="w-100">
+              <div id="recaptcha" class="float-md-end"></div>
+            </div>
             <button type="button" class="btn btn-dark" data-bs-dismiss="modal" id="close_btn">Close</button>
-            <button type="submit" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal_recaptcha">Send</button>
+            <button type="submit" class="btn btn-dark">Send</button>
           </div>
           <form>
         </div>
