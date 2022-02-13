@@ -9,7 +9,8 @@
   <script type="text/javascript">
     var recaptchaCallback = function () {
       grecaptcha.render("recaptcha", {
-          sitekey: '6Ld0DVoeAAAAAJglvvZgCqMEwZpp1rhTBLxvwHJE'
+          sitekey: '6Ld0DVoeAAAAAJglvvZgCqMEwZpp1rhTBLxvwHJE',
+          theme: 'dark'
       });
     }
   </script>
@@ -159,7 +160,7 @@
   $("#message_form").on("submit", function(ev){
     ev.preventDefault();
     if(grecaptcha.getResponse() === "") {
-        alert('Error: \n please validate the Captcha test');
+        alert('Error: please complete the reCAPTCHA first');
         return false;
      }
     $.ajax({
@@ -174,6 +175,7 @@
       success: function(data, textStatus) {
         alert("The message is sent successfully.");
         $("#close_btn").click();
+        grecaptcha.reset();
       },
       error: function(jqXHR, textStatus, errorThrown) {
         alert("Failed to send the message.");
