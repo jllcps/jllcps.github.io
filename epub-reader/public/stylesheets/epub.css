@@ -125,7 +125,7 @@ label {
 
 .grid-item:hover {
   background-color: #353535;
-  color: #777;
+  color: #aaa;
 }
 
 .collapsible {
@@ -140,7 +140,7 @@ label {
 
 .active, .collapsible:hover, li:hover:not(.grid-container), label:hover {
   background-color: #353535;
-  color: #777;
+  color: #aaa;
 }
 
 .collapsible.expandable:after {

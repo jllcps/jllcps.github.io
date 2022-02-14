@@ -22,10 +22,11 @@ function toc(book){
       link.href = chapter.href;
       let watchDouble = 0;
       link.onclick = function(e) {
-        e.preventDefault();
-        watchDouble += 1;
-        setTimeout(() => {
-          if (watchDouble === 2 && this.classList.contains("expandable")) {
+        // e.preventDefault();
+        // watchDouble += 1;
+        // setTimeout(() => {
+          // if (watchDouble === 2 && this.classList.contains("expandable")) {
+          if (this.classList.contains("expandable")) {
             this.classList.toggle("active");
             var content = this.nextElementSibling;
             if (content.style.maxHeight){
@@ -33,14 +34,15 @@ function toc(book){
             } else {
               content.style.maxHeight = content.scrollHeight + "px";
             } 
-          } else if (watchDouble === 1) {
+          // } else if (watchDouble === 1) {
+          } else {
             fold_all();
             var url = link.getAttribute("href");
             rendition.display(url);
             return false;
           }
-          watchDouble = 0
-        }, 200);
+          // watchDouble = 0
+        // }, 200);
       };
       // link.ondblclick = function(e) {
       //   e.preventDefault();
@@ -89,12 +91,34 @@ function toc(book){
 function addons(rendition){
   document.getElementById("toolbar").style.removeProperty('display');
 
+  var prev_page = function(e){
+    // window.scrollTo(0, 0);
+    rendition.prev();
+    e.preventDefault();
+  }
+
+  var next_page = function(e){
+    // window.scrollTo(0, 0);
+    rendition.next();
+    e.preventDefault();
+  }
+  
+  var next = document.getElementById("next");
+  var prev = document.getElementById("prev");
+  var next_nav = document.getElementById("next_nav");
+  var prev_nav = document.getElementById("prev_nav");
+
+  prev.onclick = (e) => prev_page(e);
+  next.onclick = (e) => next_page(e);
+  prev_nav.onclick = (e) => prev_page(e);
+  next_nav.onclick = (e) => next_page(e);
+
   var keyListener = function(e){
     if ((e.keyCode || e.which) == 37) {
-      rendition.prev();
+      prev_page(e);
     }
     if ((e.keyCode || e.which) == 39) {
-      rendition.next();
+      next_page(e);
     }
     if ((e.keyCode || e.which) == 84) {
       var event = new MouseEvent('mousedown');
@@ -106,25 +130,6 @@ function addons(rendition){
   // rendition.on("relocated", function(location){
   //   console.log(location);
   // });
-
-  var prev_page = function(e){
-    rendition.prev();
-    e.preventDefault();
-  }
-
-  var next_page = function(e){
-    rendition.next();
-    e.preventDefault();
-  }
-  var next = document.getElementById("next");
-  var prev = document.getElementById("prev");
-  var next_nav = document.getElementById("next_nav");
-  var prev_nav = document.getElementById("prev_nav");
-
-  prev.onclick = (e) => prev_page(e);
-  next.onclick = (e) => next_page(e);
-  prev_nav.onclick = (e) => prev_page(e);
-  next_nav.onclick = (e) => next_page(e);
 
   document.addEventListener("keyup", keyListener, false);
 
