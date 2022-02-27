@@ -4,7 +4,7 @@
 }
 
 html, body {
-  color: #f8f8f2;
+  color: #f8f8f8;
   background-color: #272822;
   font: 12px sans-serif;
 }
@@ -17,10 +17,9 @@ body {
 }
 
 html, body, table, tbody, tr, td {
-  height: 100%
-  color: #f8f8f2;
+  color: #f8f8f8;
   background-color: #272822;
-
+  max-height: 90%;
 }
 
 table {
@@ -81,7 +80,7 @@ ins {
   border-radius: 4px;
   -webkit-user-modify: read-write-plaintext-only;
   outline: none;
-  color: #f8f8f2;
+  color: #f8f8f8;
   background-color: #272822;
 }
 
@@ -89,7 +88,7 @@ ins {
   /*background: #FFF;*/
   border-color: #6699cc;
   box-shadow: 0 0 4px #2175c9;
-  color: #f8f8f2;
+  color: #f8f8f8;
   background-color: #272822;
 }
 

@@ -10,7 +10,7 @@
 
 .cm-s-dracula.CodeMirror, .cm-s-dracula .CodeMirror-gutters {
   background-color: #282a36 !important;
-  color: #f8f8f2 !important;
+  color: #f8f8f8 !important;
   border: none;
 }
 .cm-s-dracula .CodeMirror-gutters { color: #282a36; }
@@ -28,7 +28,7 @@
 .cm-s-dracula span.cm-operator { color: #ff79c6; }
 .cm-s-dracula span.cm-keyword { color: #ff79c6; }
 .cm-s-dracula span.cm-atom { color: #bd93f9; }
-.cm-s-dracula span.cm-meta { color: #f8f8f2; }
+.cm-s-dracula span.cm-meta { color: #f8f8f8; }
 .cm-s-dracula span.cm-tag { color: #ff79c6; }
 .cm-s-dracula span.cm-attribute { color: #50fa7b; }
 .cm-s-dracula span.cm-qualifier { color: #50fa7b; }

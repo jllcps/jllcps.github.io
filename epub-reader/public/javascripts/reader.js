@@ -162,29 +162,22 @@ function openBook(e){
 
   let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 
-  if (lang_choice === "zh_btn") {
-      font_family = "PingFangHK-Thin";
-      font_size = isMobile? 21 : 27;
-  } else {
-      font_family = "Verdana";
-      font_size = isMobile? 18 : 24;
-  }
-
+  font_size = isMobile? 20 : 25;
   rendition.themes.fontSize(`${font_size}px`);
   rendition.themes.default({
     '*': {
       'background-color': '#282923 !important', 
-      'line-height': '1.65em !important',
-      'color': '#f8f8f2 !important',
+      'line-height': '1.5em !important',
+      'color': '#f8f8f8 !important',
       'text-align': 'justify !important',
-      "font-family": `${font_family} !important`
+      "font-family": `Helvetica-Light !important`
     },
     "h1, h2, h3, h4, h5, h6": {
       "text-align": "center !important",
       "font-size": "larger !important",
     },
   });
-  // rendition.themes.font("PingFangHK-Thin");
+
   addons(rendition);
   
 }
