@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jllcps</title>
+
+  <script type="text/javascript">
+    var recaptchaCallback = function () {
+      grecaptcha.render("recaptcha", {
+          sitekey: '6Ld0DVoeAAAAAJglvvZgCqMEwZpp1rhTBLxvwHJE'
+      });
+    }
+  </script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit" async defer></script>
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
+  <link href="assets/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/index.css" rel="stylesheet">
+</head>
+  
+<body class="d-flex h-100">
+    
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+    <header class="mb-auto text-center">
+        <nav class="nav nav-masthead justify-content-center float-md-start">
+          <a class="nav-link" href="text-editor/main.html">Text Editor</a>
+          <a class="nav-link" href="epub-reader/main.html">EPUB Reader</a>
+        </nav>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_body">Contact Me</a>
+        </nav>
+    </header>
+
+    <div class="modal fade" id="modal_body" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <form id="message_form">
+          <div class="modal-body">
+            <input type="text" class="form-control mb-1" id="contact_info" placeholder="Enter your contact details" required>
+            <input type="text" class="form-control mb-1" id="message_subject" placeholder="Enter the subject" required>
+            <textarea class="form-control" id="message_message" rows="5" placeholder="Enter the message" required></textarea>
+          </div>
+          <div class="modal-footer">
+            <div class="w-100">
+              <div id="recaptcha" class="float-md-end"></div>
+            </div>
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal" id="close_btn">Close</button>
+            <button type="submit" class="btn btn-dark">Send</button>
+          </div>
+          <form>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" id="accordion_items">
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="head_zero">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_zero" aria-expanded="false" aria-controls="body_zero">
+            Skills
+          </button>
+        </h2>
+        <div id="body_zero" class="accordion-collapse collapse" aria-labelledby="head_zero" data-bs-parent="#accordion_items">
+          <div class="accordion-body">
+            <ul>
+            <li>Programming Language</li>
+              <ul>
+              <li>Most used: Python, JavaScript, C/C++, Java</li>
+              <li>Less used: Haskell, Go, ShellScript, Lua</li>
+              </ul>
+            <li>Machine Learning</li>
+              <ul>
+              <li>Framework: PyTorch, TensorFlow</li>
+              <li>Library: NumPy, Pandas, Scikit-learn, Matplotlib</li>
+              </ul>
+            <li>Web Development</li>
+              <ul>
+              <li>Backend: Django, Node.js</li>
+              <li>Frontend: HTML, CSS (+ Bootstrap); Basic React, AngularJS</li>
+              <li>Others: hosting (Heroku or common VPS), server (Apache)</li>
+              </ul>
+            <li>Others</li>
+              <ul>
+              <li>Database: MySQL, PostgreSQL, MongoDB</li>
+              <li>Blockchain: Ethereum (Solidity), Hyperledger Fabric</li>
+              <li>Collaborate: Agile (Scrum on Jira), Git</li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="head_one">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_one" aria-expanded="false" aria-controls="body_one">
+            Projects
+          </button>
+        </h2>
+        <div id="body_one" class="accordion-collapse collapse" aria-labelledby="head_one" data-bs-parent="#accordion_items">
+          <div class="accordion-body"><ul>
+            <li>Machine Learning (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Machine%20Learning/">link</a>)</li>
+            <ul>
+              <li>Image Super Resolution: SRCNN extension (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Machine%20Learning/Image%20Super%20Resolution/">link</a>)</li>
+              <li>Language Model: methods include N-gram, LSTM, Transformer (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Machine%20Learning/Language%20Model/">link</a>)</li>
+              <li>Sentiment Analysis with Grammar: methods include LSTM, RvNN (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Machine%20Learning/Sentiment%20Analysis%20with%20Grammar/">link</a>)</li>
+              <li>Traditional Model: self-built Logistic Regression, Random Forest (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Machine%20Learning/Traditional%20Algorithm/">link</a>)</li>
+            </ul>
+            <li>Application (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Application/">link</a>)</li>
+              <ul>
+              <li>Commodity Inventory System: local app, written in C++ (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Application/Commodity%20Inventory%20System/">link</a>)</li>
+              <li>HotZone: pandemic tracking/logging system built with Django (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Application/HotZone/">link</a>)</li>
+              <li>Mini-JavaScript: interpreter for a JavaScript-like language, written in Haskell (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Application/Mini-JavaScript/">link</a>)</li>
+              </ul>
+            <li>Databases</li>
+              <ul>
+              <li>Library Management System: DBMS design scheme & report (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Others/Library%20Management%20System/">link</a>)</li>
+              <li>Spatial Index: boost KNN query for spatial object, written in C++ (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Others/Spatial%20Index/">link</a>)</li>
+              </ul>
+            <li>Others</li>
+              <ul>
+              <li>Blockchain: CRUD app in both Ethereum & Hyperledger Fabric (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Others/Blockchain/">link</a>)</li>
+              <li>Java Mini Game: local/network games, written in Java (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Others/Java%20Mini%20Game/">link</a>)</li>
+              <li>Utility: multi-processing & multi-threading, written in C (<a href="https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Others/Utility/">link</a>)</li>
+              </ul>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="head_two">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_two" aria-expanded="false" aria-controls="body_two">
+            Experience
+          </button>
+        </h2>
+        <div id="body_two" class="accordion-collapse collapse" aria-labelledby="head_two" data-bs-parent="#accordion_items">
+          <div class="accordion-body"><ul>
+            <li>DeepTranslate internship (6/2021 - 8-2021)</li>
+            <ul>
+              <li>Work: improve PDF text extraction for preparing parallel corpus</li>
+              <li>Evaluate: extracted ~30% more text for HK annual reports (63% → 91%)</li>
+              <li>Others: data crawling, cleaning, analysis</li>              
+            </ul>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="head_three">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_three" aria-expanded="false" aria-controls="body_three">
+            Others
+          </button>
+        </h2>
+        <div id="body_three" class="accordion-collapse collapse" aria-labelledby="head_three" data-bs-parent="#accordion_items">
+          <div class="accordion-body"><ul>
+            <li>Static Web Apps</li>
+            <ul>
+              <li>Text Editor (<a href="https://jllcps.link.io/text-editor/main.html">link</a>): uses CodeMirror</li>
+              <li>EPUB Reader (<a href="https://jllcps.link.io/epub-reader/main.html">link</a>): uses Epub.js</li>
+            </ul>
+
+          </ul></div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="mt-auto text-center">
+      <p class="lead">An Undergraduate at HKU CS</p>
+    </footer>
+
+  </div>
+
+<script>
+
+  var message_webhook = "https://work-automator.herokuapp.com/webhook/message";
+  
+  $('#modal_body').on('hidden.bs.modal', function () {
+      $(this).find('form').trigger('reset');
+  });
+
+  $("#message_form").on("submit", function(ev){
+    ev.preventDefault();
+    if(grecaptcha.getResponse() === "") {
+        alert('Error: please complete the reCAPTCHA first');
+        return false;
+     }
+    $.ajax({
+      type : "POST",
+      url: message_webhook,
+      data: {
+        from: $("#contact_info").val(),
+        to: "jllcps-link-io",
+        subject: $("#message_subject").val(),
+        body: $("#message_message").val()
+      },
+      success: function(data, textStatus) {
+        alert("The message is sent successfully.");
+        $("#close_btn").click();
+        grecaptcha.reset();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert("Failed to send the message.");
+        console.log(JSON.stringify(jqXHR));
+        console.log(textStatus);
+        console.log(errorThrown);
+      }
+    });
+  })
+
+</script>
+</body>
+</html>
