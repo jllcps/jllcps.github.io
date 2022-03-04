@@ -82,13 +82,13 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header" id="head_experiences">
-          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_experiences" aria-expanded="false" aria-controls="body_experiences">
-            Experiences
+        <h2 class="accordion-header" id="head_experience">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#body_experience" aria-expanded="false" aria-controls="body_experience">
+            Experience
           </button>
         </h2>
-        <div id="body_experiences" class="accordion-collapse collapse" aria-labelledby="head_experiences" data-bs-parent="#accordion_items">
-          <div class="accordion-body" id="accordion-body-experiences"></div>
+        <div id="body_experience" class="accordion-collapse collapse" aria-labelledby="head_experience" data-bs-parent="#accordion_items">
+          <div class="accordion-body" id="accordion-body-experience"></div>
         </div>
       </div>
 
@@ -149,7 +149,7 @@
       - Utility: multi-processing & multi-threading, written in C ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Others/Utility/))
   `
 
-  var experiences = `
+  var experience = `
   - DeepTranslate internship (6/2021 - 8-2021)
       - Work: improve PDF text extraction for preparing parallel corpus
       - Evaluate: extracted 30% more text for HK annual reports (63% → 91%)
@@ -168,8 +168,8 @@
   document.getElementById('accordion-body-projects').innerHTML =
     marked.parse(projects);
 
-  document.getElementById('accordion-body-experiences').innerHTML =
-    marked.parse(experiences);
+  document.getElementById('accordion-body-experience').innerHTML =
+    marked.parse(experience);
 
   document.getElementById('accordion-body-others').innerHTML =
     marked.parse(others);
