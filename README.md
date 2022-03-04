@@ -45,6 +45,7 @@
 
 ### Others
 
-- Static Web Apps
-    - Text Editor ([link](https://jllcps.link.io/text-editor/main.html)): uses CodeMirror
-    - EPUB Reader ([link](https://jllcps.link.io/epub-reader/main.html)): uses Epub.js
+  - Static Web Apps
+      - Text Editor ([link](https://jllcps.link.io/text-editor/main.html)): uses CodeMirror - [repo](https://github.com/codemirror/CodeMirror)
+      - Diff Checker ([link](https://jllcps.link.io/diff-checker/main.html)): uses jsdiff - [repo](https://github.com/kpdecker/jsdiff)
+      - EPUB Reader ([link](https://jllcps.link.io/epub-reader/main.html)): uses Epub.js - [repo](https://github.com/futurepress/epub.js/)

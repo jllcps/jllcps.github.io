@@ -1,3 +1,5 @@
+var ext_li = ["video", "audio", "image"];
+
 function init() {
   document.getElementsByClassName('CodeMirror')[0].style.display = "none";
     
@@ -24,11 +26,15 @@ function loadfile(input) {
   var reader = new FileReader();
   let file = input.files[0];
   modeInput.value = file.name;
-  reader.onload = e => change(e);
-  reader.readAsText(file);
+  reader.onload = e => change(reader.result);
+  if (ext_li.some(ext => file.type.includes(ext))) {
+    alert(`The file type ${file.type} is not allowed.`);
+  } else {
+    reader.readAsText(file);
+  }
 }
 
-function change(e) {
+function change(text) {
   var val = modeInput.value, m, mode, spec;
   if (m = /.+\.([^.]+)$/.exec(val)) {
     var info = CodeMirror.findModeByExtension(m[1]);
@@ -50,8 +56,8 @@ function change(e) {
     document.getElementById("setup").remove();
     document.getElementById("config").style.removeProperty('display');
     document.getElementsByClassName('CodeMirror')[0].style.removeProperty('display');
-    if (e) {
-      editor.setValue(e.target.result);
+    if (text) {
+      editor.setValue(text);
     } else {
       window.onclick = e => {
         document.getElementsByTagName('textarea')[0].focus();
