@@ -7,6 +7,7 @@ function input_text(input) {
   $("br", div_col).remove();
   textarea.removeAttr("hidden");
   textarea.attr('data-fname', textarea.attr("id"));
+  window.onbeforeunload = e => false;
 }
 
 function load_file(input) {
@@ -21,6 +22,7 @@ function load_file(input) {
     $("br", div_col).remove();
     textarea.removeAttr("hidden");
     textarea.attr('data-fname', file.name);
+    window.onbeforeunload = e => false;
   };
 
   if (ext_li.some(ext => file.type.includes(ext))) {
