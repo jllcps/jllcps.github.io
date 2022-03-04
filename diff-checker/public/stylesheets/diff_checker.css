@@ -22,7 +22,7 @@ body div {
   border-radius: 0.2em;
 }
 
-br {
+span.line-break {
   display: block;
   content: "";
   margin-top: 0.5em;
