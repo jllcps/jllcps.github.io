@@ -180,4 +180,5 @@ function openBook(e){
 
   addons(rendition);
   
+  window.onbeforeunload = e => false;
 }

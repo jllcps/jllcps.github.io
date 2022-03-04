@@ -45,7 +45,7 @@
     filename = file.name;
     if (window.FileReader) {
         var reader = new FileReader();
-        reader.onload = openBook;
+        reader.onload = e => openBook(e);
         reader.readAsArrayBuffer(file);
         document.title = filename;
         document.getElementById("input_label").remove()
