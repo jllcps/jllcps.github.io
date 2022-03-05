@@ -7,7 +7,7 @@
 
   <script src="lib/codemirror.min.js"></script>
   <script src="lib/FileSaver.min.js"></script>
-  <script src="lib/text-editor.js"></script>
+  <script src="lib/TextEditor.js"></script>
   <!-- <script src="lib/jquery.min.js"></script> -->
   <script src="keymap/sublime.js"></script>
   <script src="addon/comment/comment.js"></script>
@@ -22,9 +22,9 @@
   <script src="addon/mode/loadmode.js"></script>
   <script src="mode/meta.js"></script>
   <link rel="stylesheet" href="lib/codemirror.css">
-  <link rel="stylesheet" href="lib/text-editor.css">
+  <link rel="stylesheet" href="lib/TextEditor.css">
   <link rel="stylesheet" href="lib/devicon.min.css">
-  <link rel="stylesheet" href="theme/neo-dev.css">
+  <link rel="stylesheet" href="theme/monokai.css">
   <link rel="stylesheet" href="addon/fold/foldgutter.css">
 </head>
 <body>
@@ -44,18 +44,18 @@
     <div class="grid-item" onclick="saveFile()">Download</div>
   </div>
   <footer id="quick_start" class="icon-grid-container">
-    <div class="icon-grid-item" data-val="tmp.py"><i class="devicon-python-plain"> Python</i></div>
-    <div class="icon-grid-item" data-val="tmp.java"><i class="devicon-java-plain"> Java</i></i></div>
-    <div class="icon-grid-item" data-val="tmp.js"><i class="devicon-javascript-plain"> JavaScript</i></div>  
-    <div class="icon-grid-item" data-val="tmp.cpp"><i class="devicon-cplusplus-plain"> C++</i></div>
-    <div class="icon-grid-item" data-val="tmp.go"><i class="devicon-go-plain"> GO</i></div>
-    <div class="icon-grid-item" data-val="tmp.hs"><i class="devicon-haskell-plain"> Haskell</i></div>  
+    <div class="icon-grid-item" data-val="tmp.py"><i class="devicon-python-plain colored"> Python</i></div>
+    <div class="icon-grid-item" data-val="tmp.java"><i class="devicon-java-plain colored"> Java</i></i></div>
+    <div class="icon-grid-item" data-val="tmp.js"><i class="devicon-javascript-plain colored"> JavaScript</i></div>  
+    <div class="icon-grid-item" data-val="tmp.cpp"><i class="devicon-cplusplus-plain colored"> C++</i></div>
+    <div class="icon-grid-item" data-val="tmp.go"><i class="devicon-go-plain colored"> GO</i></div>
+    <div class="icon-grid-item" data-val="tmp.hs"><i class="devicon-haskell-plain colored"> Haskell</i></div>  
   </footer>
   <script>
     var filename, font_size = 19;
     var modeInput = document.getElementById("mode");
     var editor = CodeMirror(document.body, {
-      theme: "neo",
+      theme: "monokai",
       keyMap: "sublime",
       indentUnit: 4,
       lineNumbers: true,

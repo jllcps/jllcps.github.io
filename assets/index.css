@@ -16,10 +16,10 @@
  */
 
 body {
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-  background-color: #272822;
-  color: #f8f8f8;
+  background-color: #fafafa;
+  color: #111;
+  margin: 0;
+  height: 100%;
 }
 
 .cover-container {
@@ -33,15 +33,15 @@ body {
 
 .nav-masthead .nav-link {
   padding: .25rem 0;
-  font-weight: 500;
-  color: rgba(255, 255, 255, .7);
+  font-weight: 400;
+  color: rgba(80, 80, 80, .7);
   background-color: transparent;
   border-bottom: .25rem solid transparent;
 }
 
 .nav-masthead .nav-link:hover,
 .nav-masthead .nav-link:focus {
-  border-bottom-color: rgba(255, 255, 255, .25);
+  border-bottom-color: rgba(80, 80, 80, .25);
 }
 
 .nav-masthead .nav-link + .nav-link {
@@ -49,15 +49,27 @@ body {
 }
 
 .nav-masthead .active {
-  color: #fff;
-  border-bottom-color: #fff;
+  color: #fafafa;
+  border-bottom-color: #fafafa;
+}
+
+.accordion-header {
+  font-weight: 400;
 }
 
 .accordion-button, .accordion-body {
-  background-color: #272822; 
-  color: #f8f8f8;
+  background-color: #fafafa; 
+  color: #111;
 }
 
 .accordion-button::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#f8f8f8'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#111'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+label {
+  cursor: pointer;
+}
+
+#particle {
+  z-index: -100;
 }

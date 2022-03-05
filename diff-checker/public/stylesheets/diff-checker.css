@@ -1,0 +1,47 @@
+html, body {
+  color: #111;
+  background-color: #fafafa;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  padding-top: 3%;
+}
+
+body div {
+  margin: auto;
+}
+
+.col {
+  padding: 1em 1em 1em 1em;
+}
+
+.border {
+  border-radius: 0.2em;
+}
+
+span.line-break {
+  display: block;
+  content: "";
+  margin-top: 0.5em;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.viewer {
+  height: 65vh;
+  border: none;
+  background-color: transparent;
+  color: #111;
+  text-align: left;
+  font: 1.2em monospace;
+  font-family: monospace, monospace;
+  white-space: pre;
+  overflow-x: scroll;
+  overflow-wrap: normal;
+  resize: none;
+}

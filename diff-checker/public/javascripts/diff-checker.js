@@ -65,7 +65,7 @@ function formatPatch(diff) {
 
   bold_li.forEach(function(text){
     span = document.createElement('span');
-    span.style.fontWeight = "bold";
+    span.style.fontWeight = "300";
     span.appendChild(document.createTextNode(text));
     fragment.appendChild(span);
     add_line_break(fragment);
@@ -84,20 +84,20 @@ function formatPatch(diff) {
 
     add_line_break(fragment);
     span = document.createElement('span');
-    span.style.color = "cyan";
+    // span.style.color = "black";
     span.appendChild(document.createTextNode(range));
     fragment.appendChild(span);
     add_line_break(fragment);
 
     hunk.lines.forEach(function(line){
       span = document.createElement('span');
-      span.style.color = 'gainsboro';
+      span.style.color = 'dimgray';
       if (line[0] === "+") {
         span.style.backgroundColor = "rgba(0, 255, 0, 0.2)";
       } else if (line[0] === "-") {
         span.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
       } else {
-        span.style.color = 'gray';
+        span.style.color = 'darkgray';
       }
       span.appendChild(document.createTextNode(line));
       fragment.appendChild(span);
