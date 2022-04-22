@@ -41,8 +41,8 @@
 
 - DeepTranslate internship (6/2021 - 8-2021)
     - Work: improve PDF text extraction for preparing parallel corpus
-    - Evaluate: extracted 30% more text for HK annual reports (63% → 91%)
-    - Others: data crawling, cleaning, analysis
+    - Achievement: extracted 28% more text pairs from HK annual reports (now 91%)
+    - Value: collaborate in the workplace; coding with a focus on efficiency and maintainability, identify deficiency in the design and redesign pipeline from scratch
 
 ### Others
 
