@@ -1,10 +1,31 @@
+function highlight_chapter() {
+  href = rendition.location.end.href
+  $("a.collapsible").each(function(){
+    $this = $(this);
+    if ($this.attr("href").startsWith(href)) {
+      $this[0].classList.toggle("active");
+      closest_div = $this.closest("div");
+      if (closest_div.attr('class') == "content") {
+        closest_a = closest_div.prev("a")[0];
+        closest_a.classList.toggle("active");
+        var content = closest_a.nextElementSibling;
+        content.style.maxHeight = content.scrollHeight + "px";
+      } else {
+        var content = $this[0].nextElementSibling;
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+      return
+    }
+  })
+}
+
 function fold_all() {
   $(".active").each(function(){
     $this = $(this)[0];
     $this.classList.toggle("active");
     if ($this.id == "toolbar") {
       $('#mySidenav').toggle()
-    } else {
+    } else if ($this.classList.contains("expandable")) {
       $this.nextElementSibling.style.maxHeight = null;
     }
   })
@@ -58,10 +79,12 @@ function toc(book){
 
       var $div = document.createElement("div");
       $div.className = "content";
+
       var ul_sub = document.createElement("ul");
       if (chapter.subitems.length !== 0) {
         link.classList.toggle("expandable");
       }
+
       chapter.subitems.forEach(function(chp) {
         var item_sub = document.createElement("li");
         var link_sub = document.createElement("a");
@@ -92,14 +115,14 @@ function addons(rendition){
   document.getElementById("toolbar").style.removeProperty('display');
 
   var prev_page = function(e){
-    // window.scrollTo(0, 0);
     rendition.prev();
+    document.body.scrollTop = 0;
     e.preventDefault();
   }
 
   var next_page = function(e){
-    // window.scrollTo(0, 0);
     rendition.next();
+    document.body.scrollTop = 0;
     e.preventDefault();
   }
   

@@ -54,7 +54,8 @@
 
   var toolbarElement = document.getElementById("toolbar");
   toolbarElement.addEventListener("click", function() {
-    $('#mySidenav').toggle()
+    $('#mySidenav').toggle();
+    highlight_chapter();    
     this.classList.toggle("active");
   });
 
