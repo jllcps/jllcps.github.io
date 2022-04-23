@@ -22,7 +22,7 @@ function toc(book){
       link.href = chapter.href;
       let watchDouble = 0;
       link.onclick = function(e) {
-        // e.preventDefault();
+        e.preventDefault();
         // watchDouble += 1;
         // setTimeout(() => {
           // if (watchDouble === 2 && this.classList.contains("expandable")) {
@@ -162,7 +162,7 @@ function openBook(e){
 
   let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 
-  font_size = isMobile? 20 : 25;
+  font_size = isMobile? 18 : 23;
   rendition.themes.fontSize(`${font_size}px`);
   rendition.themes.default({
     '*': {
