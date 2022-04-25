@@ -112,18 +112,24 @@ function toc(book){
 }
 
 function addons(rendition){
+  var mySidenav = document.getElementById('mySidenav');
+
   document.getElementById("toolbar").style.removeProperty('display');
 
   var prev_page = function(e){
-    rendition.prev();
-    document.body.scrollTop = 0;
     e.preventDefault();
+    if (mySidenav.style.display == "none") {
+      rendition.prev();
+      document.body.scrollTop = 0;      
+    }
   }
 
   var next_page = function(e){
-    rendition.next();
-    document.body.scrollTop = 0;
     e.preventDefault();
+    if (mySidenav.style.display == "none") {
+      rendition.next();
+      document.body.scrollTop = 0;
+    }
   }
   
   var next = document.getElementById("next");
