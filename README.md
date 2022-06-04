@@ -9,7 +9,6 @@
 - Web Development
     - Backend: Django, Node.js
     - Frontend: HTML, CSS (+ Bootstrap); Basic React, AngularJS
-    - Others: hosting (Heroku or common VPS), server (Apache)
 - Others
     - Database: MySQL, PostgreSQL, MongoDB
     - Distributed System: etcd, Hazelcast, Hadoop/Spark
