@@ -217,6 +217,14 @@
     });
   })
 
+  $('#modal_body').on('shown.bs.modal', function () {
+    $('#contact_info').trigger('focus');
+  })
+
+  $('#modal_body').on('hidden.bs.modal', function () {
+    grecaptcha.reset();
+  })
+
 </script>
 
 <script>
