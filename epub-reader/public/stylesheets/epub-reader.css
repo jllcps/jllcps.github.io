@@ -1,225 +1,234 @@
 html, body {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 body {
-  margin: 0;
-  background-color: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #111;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+    margin: 0;
+    background-color: #fafafa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
-#epub_input {
-  text-align: center;
+#setup {
+    border-radius: 0.2em;
+    background-color: #fafafa;
+}
+
+.card-img-overlay {
+        bottom: auto;
+}
+
+#epub_config {
+    text-align: center;
 }
 
 #viewer_out {
-  margin: 50px 0 0 0;
+    margin: 50px 0 0 0;
 }
 
 #viewer.scrolled {
-  overflow: hidden;
-  width: 90%;
-  margin: 0px auto;
-  position: relative;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    width: 90%;
+    margin: 0px auto;
+    position: relative;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #prev {
-  left: 0;
+    left: 0;
 }
 
 #next {
-  right: 0;
+    right: 0;
 }
 
 .arrow {
-  position: fixed;
-  top: 50%;
-  margin-top: -32px;
-  margin-right: 40px;
-  margin-left: 40px;
-  font-size: 64px;
-  color: #aaa;
-  font-family: arial, sans-serif;
-  font-weight: bold;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  text-decoration: none;
+    position: fixed;
+    top: 50%;
+    margin-top: -32px;
+    margin-right: 40px;
+    margin-left: 40px;
+    font-size: 64px;
+    color: #aaa;
+    font-family: arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    text-decoration: none;
 }
 
 .navlink {
-  margin: 14px;
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  color: #ccc;
-  display: none;
+    margin: 14px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #ccc;
+    display: none;
 }
 
 .arrow:hover, .navlink:hover {
-  color: #888;
+    color: #888;
 }
 
 label {
-  background-color: #ddd;
-  color: #777;
-  padding: 5px;
-  cursor: pointer;
-  display: block;
-  position: fixed;
-  /*top: 0px;*/
-  z-index: 2;
-  width: 100%;
-  height: 30px;
-  user-select: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-#input_label {
-  width: 100%;
+    background-color: #ddd;
+    color: #777;
+    cursor: pointer;
+    display: block;
+    position: fixed;
+    /*top: 0px;*/
+    z-index: 2;
+    width: 100%;
+    /*height: fit-content;*/
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 #toolbar {
-  width: 100%;
+    width: 100%;
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: auto auto;
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
 .grid-item {
-  /*font-size: 30px;*/
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    /*font-size: 30px;*/
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: fit-content;
 }
 
 .grid-item:hover {
-  background-color: #ccc;
-  color: #aaa;
+    background-color: #ccc;
+    color: #aaa;
 }
 
 .collapsible {
-  color: #777;
-  cursor: pointer;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  text-decoration: none;
+    color: #777;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    text-decoration: none;
 }
 
 .active, .collapsible:hover, li:hover:not(.grid-container), label:hover {
-  background-color: #ccc;
-  color: #666;
+    background-color: #ccc;
+    color: #666;
 }
 
 .collapsible.expandable:after {
-  content: '\002B';
-  color: #777;
-  font-weight: bold;
-  float: right;
-  margin-right: 10px;
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
 }
 
 .active.expandable:after {
-  content: "\2212";
+    content: "\2212";
 }
 
 .content {
-  max-height: 0;
-  overflow-x: hidden;
-  background-color: #ddd;
-  color: #777;
+    max-height: 0;
+    overflow-x: hidden;
+    background-color: #ddd;
+    color: #777;
 }
 
 a {
-  display: inline-block;
-  padding: 3px 3px;
+    display: inline-block;
+    padding: 3px 3px;
 }
 
 li {
-  overflow-x: hidden;
-  cursor:  pointer;
-  text-align: left;
-  margin-left: 20px;
-  margin-right: 20px;
-  user-select: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+    overflow-x: hidden;
+    cursor:  pointer;
+    text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .sidenav {
-  width: 100%;
-  position: fixed;
-  margin-top: 10px;
-  z-index: 1;
-  background-color: #ddd;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  max-height: 100%;
+    width: 100%;
+    position: fixed;
+    margin-top: 10px;
+    z-index: 1;
+    background-color: #ddd;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 100%;
 }
 
 .sidenav > ul {
-  margin: 0;
-  padding: 30px 0 15px 0;
-  overflow-y: scroll;
+    margin: 0;
+    padding: 30px 0 15px 0;
+    overflow-y: scroll;
 }
 
 .modal-content {
-  height:auto;
-  width:auto;
-  margin:0 auto;
-  z-index:10;
-  display:none;
-  font-size: smaller;
-  border: 5px solid #ccc;
-  border-radius: 10px;
-  padding: 3px;
-  background-color: #fefefe;
-  color: black;
-  position: absolute; 
-  cursor: pointer;
+    height:auto;
+    width:auto;
+    margin:0 auto;
+    z-index:10;
+    display:none;
+    font-size: smaller;
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    padding: 3px;
+    background-color: #fefefe;
+    color: black;
+    position: absolute; 
+    cursor: pointer;
 }
 
 
 @media only screen and (max-width: 760px){
-  #viewer.scrolled {
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
+    #viewer.scrolled {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        background: #fafafa;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
 
-  .arrow {
-    display: none;
-  }
+    .arrow {
+        display: none;
+    }
 
-  .navlink {
-    display: block;
-  }
+    .navlink {
+        display: block;
+    }
 
-  #toolbar {
-    width: 100%;
-  }
+    #toolbar {
+        width: 100%;
+    }
 
-  #annotbar, #extras {
-    display: none;
-  }
+    #annotbar, #extras {
+        display: none;
+    }
 
 /*  .sidenav a {font-size: 18px;}*/
+}
+
+#particle {
+    z-index: -100;
 }

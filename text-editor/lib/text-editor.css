@@ -1,109 +1,64 @@
 body {
-  margin: 0;
-  color: #111;
-  background-color: #fafafa;
+    margin: 0;
+    color: #111;
+    background-color: #fafafa;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto;
+#setup {
+    border-radius: 0.2em;
+    background-color: #fafafa;
+}
+
+.icon {
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.icon:hover {
+    background-color: #ccc;
+}
+
+.cover-container {
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
+.card-img-overlay {
+    bottom: auto;
 }
 
 .fn-grid-container {
-  display: grid;
-  grid-template-columns: 15% 15% 35% 35%;
+    display: grid;
+    grid-template-columns: 15% 15% 35% 35%;
 }
 
 .grid-item {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  font-size: 19px;
-  justify-content: center;
-  background-color: #ddd;
-  color: #777;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    justify-content: center;
+    background-color: #ddd;
+    color: #777;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
-.grid-item:not(.new-file) {
-  padding: 5px;
+.grid-item {
+    padding: 2px;
 }
 
 .grid-item:hover, button {
-  background-color: #ccc;
-  color: #666;
+    background-color: #ccc;
+    color: #666;
 }
 
-.icon-grid-container {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-.icon-grid-item {
-  background-color: #ddd;
-  padding: 20px;
-  font-size: 30px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.icon-grid-item:hover {
-  background-color: #ccc;
-}
-
-input, button {
-  padding: 7px;
-  /*margin: 0;*/
-  border: 0;
-  background-color: #ddd;
-  font-size: 19px;
-  color: #777;
-}
-
-input {
-  width: 60%;
-  text-align: center;
-}
-
-input:focus {
-  outline: none;
-}
-
-button {
-  width: 40%;
-  margin-right: 0px;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 760px){
-  .grid-container {
-    grid-template-columns: auto;
-  }
-
-  .grid-item {
-    font-size: 14px;
-  }
-
-  .icon-grid-container {
-    grid-auto-flow: row dense;
-    grid-template-columns: auto;
-  }
-
-  .icon-grid-item {
-    padding: 10px;
-    font-size: 20px;
-  }
-
-  input, button {
-    font-size: 14px;
-  }
+#particle {
+    z-index: -100;
 }
