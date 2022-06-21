@@ -47,8 +47,7 @@
                     <form id="message_form">
                     <div class="modal-body">
                         <input type="text" class="form-control mb-1" id="contact_info" placeholder="Enter your contact details" required>
-                        <input type="text" class="form-control mb-1" id="message_subject" placeholder="Enter the subject" required>
-                        <textarea class="form-control" id="message_message" rows="5" placeholder="Enter the message" required></textarea>
+                        <textarea class="form-control" id="message_body" rows="5" placeholder="Enter the message" required></textarea>
                     </div>
                     <div class="modal-footer">
                         <div class="w-100">
@@ -199,9 +198,7 @@ var others = `
             url: message_webhook,
             data: {
                 from: $("#contact_info").val(),
-                to: "jllcps@github",
-                subject: $("#message_subject").val(),
-                body: $("#message_message").val()
+                message: $("#message_body").val()
             },
             success: function(data, textStatus) {
                 alert("The message is sent successfully.");
