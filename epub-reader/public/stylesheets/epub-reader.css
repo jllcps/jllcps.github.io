@@ -158,13 +158,17 @@ li {
     overflow-x: hidden;
     cursor:  pointer;
     text-align: left;
-    margin-left: 20px;
-    margin-right: 20px;
+    /*margin-left: 20px;*/
+    /*margin-right: 20px;*/
     user-select: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+}
+
+#tocs {
+    padding: 20px;
 }
 
 .sidenav {
