@@ -102,8 +102,8 @@ function formatPatch(diff) {
             span.appendChild(document.createTextNode(line));
             fragment.appendChild(span);
             add_line_break(fragment);
-        })
-    })
+        });
+    });
 
     result.innerHTML = '';
     result.appendChild(fragment);

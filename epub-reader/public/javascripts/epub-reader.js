@@ -37,7 +37,7 @@ function highlight_chapter() {
             //     let content = $this[0].nextElementSibling;
             //     content.style.maxHeight = content.scrollHeight + "px";
             // }
-            return;
+            return false;
         }
     });
 }
@@ -80,7 +80,16 @@ function toc(book){
             } else {
                 fold_all();
                 var url = link.getAttribute("href");
-                rendition.display(url);
+                rendition.display(url).then(() => {
+                    setTimeout(() => {
+                        let url_component = url.split("#");
+                        if (url_component.length > 1) {
+                            anchor = url_component[1];
+                            epubjs_view = document.querySelector('[id^="epubjs-view"]').contentWindow;
+                            epubjs_view.location.hash = anchor;
+                        }
+                    }, 300);
+                });
                 return false;
             }
         };
@@ -206,22 +215,32 @@ function openBook(bookData){
     rendition.display();
 
     let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-
     font_size = isMobile? 18 : 23;
-    rendition.themes.fontSize(`${font_size}px`);
+
     rendition.themes.default({
-        '*': {
+        '*, h1, h2, h3, h4, h5, h6, p': {
             'background-color': '#fafafa !important', 
             'line-height': '1.5em !important',
             'color': '#111 !important',
-            'text-align': 'justify !important',
-            "font-family": `Helvetica-Light !important`
+            "font-family": `Helvetica-Light !important`,
         },
         "h1, h2, h3, h4, h5, h6": {
             "text-align": "center !important",
             "font-size": "larger !important",
+            // "margin": "initial !important",
+            // "padding": "initial !important",
         },
+        "body": {
+            'text-align': 'justify !important',
+            "font-size": `${font_size}px !important`,
+        },
+        "p": {
+            "font-size": "inherit !important",
+        }
     });
+
+    // rendition.themes.fontSize(`${font_size}px`);
+    rendition.themes.override("font-size", `${font_size}px`, true);
 
     addons(rendition);
     

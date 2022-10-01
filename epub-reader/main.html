@@ -13,7 +13,7 @@
 
     <script src="public/javascripts/handlebars.min.js"></script>
     <script src="public/javascripts/js-epub-maker.js"></script>
-    <script src="public/javascripts/epub.js"></script>
+    <script src="public/javascripts/epub.min.js"></script>
     <script src="public/javascripts/epub-reader.js"></script>
     <!-- <script src="../text-editor/lib/FileSaver.min.js"></script> -->
 
@@ -92,8 +92,12 @@
     var toolbarElement = document.getElementById("toolbar");
     toolbarElement.addEventListener("click", function() {
         $('#mySidenav').toggle();
-        highlight_chapter();    
         this.classList.toggle("active");
+        if (this.classList.contains("active")) {
+            highlight_chapter();
+        } else {
+            fold_all();
+        }
     });
 
     let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
@@ -106,7 +110,8 @@
                 font_size -= 1;
                 break;
             }
-        rendition.themes.fontSize(`${font_size}px`);
+        // rendition.themes.fontSize(`${font_size}px`);
+        rendition.themes.override("font-size", `${font_size}px`, true);
     });
 
 </script>
