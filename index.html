@@ -11,7 +11,7 @@
             grecaptcha.render("recaptcha", {
                     sitekey: '6Ld0DVoeAAAAAJglvvZgCqMEwZpp1rhTBLxvwHJE'
             });
-        }
+        };
     </script>
     <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -132,7 +132,7 @@ var skills = `
     - Distributed System: etcd, Hazelcast, Hadoop/Spark
     - Blockchain: Ethereum (Solidity), Hyperledger Fabric
     - Collaborate: Agile (Scrum on Jira), Git
-`
+`;
 
 var projects = `
 - Highlights
@@ -149,21 +149,21 @@ var projects = `
     - AWS SDK: EC2 Monitor ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Applications/AWS%20SDK/EC2%20Monitor/)), Image Processor ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Applications/AWS%20SDK/Image%20Processor/))
     - Applications: 24 Game ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Applications/24%20Game/)), Commodity Inventory System ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Applications/Commodity%20Inventory%20System/)), Mini-JavaScript ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Applications/Mini-JavaScript/))
     - Miscellaneous: Java ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Miscellaneous/Java%20codes/)), C ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Miscellaneous/C%20codes/))
-`
+`;
 
 var experience = `
 - [6/2021 - 8-2021] DeepTranslate (internship)
     - Work: improve PDF text extraction for preparing parallel corpus
     - Achievement: extracted 28% more text pairs from HK annual reports (now 91%)
     - Value: coding with a focus on efficiency and maintainability, identify deficiency in the design and redesign pipeline from scratch
-`
+`;
 
 var others = `
 - Static Web Apps
     - Text Editor ([link](https://jllcps.github.io/text-editor/main.html)): uses CodeMirror - [repo](https://github.com/codemirror/CodeMirror)
     - Diff Checker ([link](https://jllcps.github.io/diff-checker/main.html)): uses jsdiff - [repo](https://github.com/kpdecker/jsdiff)
     - EPUB Reader ([link](https://jllcps.github.io/epub-reader/main.html)): uses Epub.js - [repo](https://github.com/futurepress/epub.js/)
-`
+`;
 
     document.getElementById('accordion-body-skills').innerHTML =
         marked.parse(skills);
@@ -181,7 +181,7 @@ var others = `
 
 
 <script>
-    var message_webhook = "https://www-monitor.herokuapp.com/users/1/web_requests/145/message";
+    var message_webhook = "http://34.123.12.53:3000/users/1/web_requests/31/message";
     
     $('#modal_body').on('hidden.bs.modal', function () {
             $(this).find('form').trigger('reset');
