@@ -324,9 +324,16 @@ function createEpub(text) {
         }
     }
 
-    if (matches.length == 0) {
+    if (matches.length === 0) {
         text = text.replaceAll("\n", "<br />");
         epubMaker.withSection(new EpubMaker.Section(null, "untitled", { title: "untitled", content: text, renderTitle: false }, true, false));
+    } else if (matches.length === 1) {
+        let match = matches[0];
+        let title = match[1],
+            start_index = match.index + match[0].length,
+            ending_index = text.length;
+        let content = text.slice(start_index, ending_index).replaceAll("\n", "<br />");
+        epubMaker.withSection(new EpubMaker.Section(null, title, { title: title, content: content, renderTitle: false }, true, false));
     } else {
         epubMaker = section_stack.pop();
     }
