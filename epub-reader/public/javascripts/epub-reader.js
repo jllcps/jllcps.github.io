@@ -10,15 +10,42 @@ var replace_dict = {
 
 
 function highlight_chapter() {
+
+    function add_chapter_cfi(href) {
+        let section = document.getElementById(href);
+        if (section.getAttribute("data-checked")) {
+            return;
+        }
+
+        const spineId = book.spine.spineByHref[href];
+        const spineItem = book.spine.spineItems[spineId];
+        $(`a.collapsible[href^='${href}']`).each(function(){
+            let $this = $(this);
+
+            const hrefComponents = $this.attr("href").split("#");
+            if (hrefComponents.length === 1) {
+                $this.attr("data-checked", true);
+            } else if (hrefComponents.length !== 2) {
+                return;
+            }
+
+            const elem = spineItem.document.getElementById(hrefComponents[1]);
+            const cfi = spineItem.cfiFromElement(elem);
+            $this.attr('data-cfi', cfi);
+        });
+    }
+
     var href = rendition.location.end.href;
+    // add_chapter_cfi(href);
+
     $("a.collapsible").each(function(){
-        $this = $(this);
+        let $this = $(this);
         if ($this.attr("href").startsWith(href)) {
             $this[0].classList.toggle("active");
             $this.parents("div").each(function(){
-                $$this = $(this);
+                let $$this = $(this);
                 if ($$this.attr('class') == "content") {
-                    parent_a = $$this.prev("a")[0];
+                    let parent_a = $$this.prev("a")[0];
                     parent_a.classList.toggle("active");
                     let content = parent_a.nextElementSibling;
                     content.style.maxHeight = content.scrollHeight + "px";
@@ -27,16 +54,8 @@ function highlight_chapter() {
                     content.style.maxHeight = content.scrollHeight + "px";
                 }
             });
-            // closest_div = $this.closest("div");
-            // if (closest_div.attr('class') == "content") {
-            //     closest_a = closest_div.prev("a")[0];
-            //     closest_a.classList.toggle("active");
-            //     let content = closest_a.nextElementSibling;
-            //     content.style.maxHeight = content.scrollHeight + "px";
-            // } else {
-            //     let content = $this[0].nextElementSibling;
-            //     content.style.maxHeight = content.scrollHeight + "px";
-            // }
+
+            $this[0].scrollIntoView({block: "center", inline: "nearest"});
             return false;
         }
     });
@@ -93,6 +112,11 @@ function toc(book){
                 return false;
             }
         };
+
+        if (book.spine.spineByHref[chapter.href] !== undefined) {
+            link.id = chapter.href;
+        }
+
         if (chapter.subitems.length !== 0) {
             link.classList.toggle("expandable");
         }
@@ -130,16 +154,16 @@ function addons(rendition){
 
     document.getElementById("toolbar").style.removeProperty('display');
 
-    var prev_page = function(e){
-        e.preventDefault();
+    var prev_page = function(ev){
+        ev.preventDefault();
         if (mySidenav.style.display == "none") {
             rendition.prev();
-            document.body.scrollTop = 0;      
+            document.body.scrollTop = 0;
         }
     };
 
-    var next_page = function(e){
-        e.preventDefault();
+    var next_page = function(ev){
+        ev.preventDefault();
         if (mySidenav.style.display == "none") {
             rendition.next();
             document.body.scrollTop = 0;
@@ -151,20 +175,20 @@ function addons(rendition){
     var next_nav = document.getElementById("next_nav");
     var prev_nav = document.getElementById("prev_nav");
 
-    prev.onclick = (e) => prev_page(e);
-    next.onclick = (e) => next_page(e);
-    prev_nav.onclick = (e) => prev_page(e);
-    next_nav.onclick = (e) => next_page(e);
+    prev.onclick = (ev) => prev_page(ev);
+    next.onclick = (ev) => next_page(ev);
+    prev_nav.onclick = (ev) => prev_page(ev);
+    next_nav.onclick = (ev) => next_page(ev);
 
-    var keyListener = function(e){
-        if ((e.keyCode || e.which) == 37) {
-            prev_page(e);
+    var keyListener = function(ev){
+        if ((ev.keyCode || ev.which) == 37) {
+            prev_page(ev);
         }
-        if ((e.keyCode || e.which) == 39) {
-            next_page(e);
+        if ((ev.keyCode || ev.which) == 39) {
+            next_page(ev);
         }
-        if ((e.keyCode || e.which) == 84) {
-            var event = new MouseEvent('mousedown');
+        if ((ev.keyCode || ev.which) == 84) {
+            // var event = new MouseEvent('mousedown');
             document.getElementById("toolbar").click();
         }
     };
