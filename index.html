@@ -35,6 +35,7 @@
                     <a class="nav-link" href="text-editor/main.html">Text Editor</a>
                     <a class="nav-link" href="diff-checker/main.html">Diff Checker</a>
                     <a class="nav-link" href="epub-reader/main.html">EPUB Reader</a>
+                    <a class="nav-link" href="quick-links/main.html">Quick Links</a>
                 </nav>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_body">Contact</a>
@@ -115,9 +116,11 @@
 
     </div>
 
+</body>
+
 <script>
 
-var skills = `
+const skills = `
 - Programming Language
     - Most used: Python, JavaScript, C/C++, Java, Go
     - Less used: Haskell, ShellScript, Lua
@@ -134,7 +137,7 @@ var skills = `
     - Collaborate: Agile (Scrum on Jira), Git
 `;
 
-var projects = `
+const projects = `
 - Highlights
     - P2T-mod (FYP): trajectory prediction for autonomous driving ([link](https://gitfront.io/r/jllcps/RhncPKZCuwvu/FYP21037/), [webpage](https://wp.cs.hku.hk/2021/fyp21037/))
     - Image Super Resolution: extension to real-world degradation ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Machine%20Learning/Image%20Super%20Resolution/))
@@ -151,14 +154,14 @@ var projects = `
     - Miscellaneous: Java ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Miscellaneous/Java%20codes/)), C ([link](https://gitfront.io/r/jllcps/18938c156943fd060834db4a7c953819356d7ac8/HKU/tree/Miscellaneous/C%20codes/))
 `;
 
-var experience = `
+const experience = `
 - [6/2021 - 8-2021] DeepTranslate (internship)
     - Work: improve PDF text extraction for preparing parallel corpus
     - Achievement: extracted 28% more text pairs from HK annual reports (now 91%)
     - Value: coding with a focus on efficiency and maintainability, identify deficiency in the design and redesign pipeline from scratch
 `;
 
-var others = `
+const others = `
 - Static Web Apps
     - Text Editor ([link](https://jllcps.github.io/text-editor/main.html)): uses CodeMirror - [repo](https://github.com/codemirror/CodeMirror)
     - Diff Checker ([link](https://jllcps.github.io/diff-checker/main.html)): uses jsdiff - [repo](https://github.com/kpdecker/jsdiff)
@@ -212,15 +215,15 @@ var others = `
                 console.log(errorThrown);
             }
         });
-    })
+    });
 
     $('#modal_body').on('shown.bs.modal', function () {
         $('#contact_info').trigger('focus');
-    })
+    });
 
     $('#modal_body').on('hidden.bs.modal', function () {
         grecaptcha.reset();
-    })
+    });
 
 </script>
 
@@ -240,5 +243,4 @@ var others = `
 
 </script>
 
-</body>
 </html>
