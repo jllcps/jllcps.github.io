@@ -6,12 +6,12 @@ function init() {
     document.getElementById("plus_btn").onclick = e => {
         font_size += 1; 
         document.querySelector(".CodeMirror").style.setProperty("font-size", `${font_size}px`);
-    }
+    };
 
     document.getElementById("minus_btn").onclick = e => {
         font_size -= 1; 
         document.querySelector(".CodeMirror").style.setProperty("font-size", `${font_size}px`);
-    }
+    };
 
     const icons = document.querySelectorAll('.icon');
     icons.forEach(elem => elem.addEventListener('click', ev => {
@@ -35,15 +35,17 @@ function load_file(input) {
 }
 
 function change(text) {
+    let is_valid = modeInput.reportValidity();
+    if (!is_valid)  return;
     var val = modeInput.value, m, mode, spec;
     if (m = /.+\.([^.]+)$/.exec(val)) {
-        var info = CodeMirror.findModeByExtension(m[1]);
+        let info = CodeMirror.findModeByExtension(m[1]);
         if (info) {
             mode = info.mode;
             spec = info.mime;
         }
     } else if (/\//.test(val)) {
-        var info = CodeMirror.findModeByMIME(val);
+        let info = CodeMirror.findModeByMIME(val);
         if (info) {
             mode = info.mode;
             spec = val;
@@ -84,10 +86,10 @@ function saveFile() {
 function rmSpaceLine() {
     if (confirm("Remove spaces on empty lines?")) {
         var ar = editor.getValue().split(/\r\n|\r|\n/);
-        for (i in ar) {
+        for (var i in ar) {
             if (/^\s*$/.test(ar[i]) == true)
                 ar[i] = "";
         }
-        editor.setValue(ar.join("\n"))    
+        editor.setValue(ar.join("\n"));
     }
 }

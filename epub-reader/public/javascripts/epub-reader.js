@@ -214,6 +214,8 @@ function handleFile(ev, filetype){
 
 function submit() {
     var text_input = document.getElementById("text-input");
+    let is_valid = text_input.reportValidity();
+    if (!is_valid)  return;
     createEpub(text_input.value);
 }
 

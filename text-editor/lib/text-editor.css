@@ -62,3 +62,16 @@ body {
 #particle {
     z-index: -100;
 }
+
+@media only screen and (max-width: 760px){
+    .d-flex {
+        flex-direction: column;
+        justify-content: space-around;
+        align-content: space-around;
+        gap: 5px;
+    }
+
+    .input-group > .form-control {
+        width: 100%;
+    }
+}

@@ -33,6 +33,12 @@ function load_file(input) {
 }
 
 function compare() {
+    let inputs = document.querySelectorAll('textarea');
+    for (const input of inputs) {
+        let is_valid = input.reportValidity();
+        if (!is_valid)  return;
+    }
+
     var text_1 = document.getElementById('text-1');
     var text_2 = document.getElementById('text-2');
 

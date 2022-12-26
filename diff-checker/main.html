@@ -22,7 +22,7 @@
     <div class="h-100 w-100 p-0 m-0" id="particle"></div>
 
     <div class="container card-img-overlay">
-
+ 
         <div class="row text-center">
             <div class="col text-center fs-5 pre-diff">
                 Text 1
@@ -36,17 +36,17 @@
         </div>
 
         <div class="row text-center px-5">
-            <div class="text-center col-md-6">
+            <div class="text-center col-md-6 dropContainer">
             <div class="col pre-diff border shadow-sm text-center">
-                <textarea id="text-1" class="w-100 viewer" hidden></textarea>
+                <textarea id="text-1" class="w-100 viewer" hidden required></textarea>
                 <label class="btn btn-secondary" onclick="input_text(this);">Input Text</label>
                 <span class="line-break">
                 <label class="btn btn-secondary">Upload File<input type="file" onchange="load_file(this);" hidden/></label>
             </div>
             </div>
-            <div class="text-center col-md-6">
+            <div class="text-center col-md-6 dropContainer">
             <div class="col pre-diff border shadow-sm text-center">
-                <textarea id="text-2" class="w-100 viewer" hidden></textarea>
+                <textarea id="text-2" class="w-100 viewer" hidden required></textarea>
                 <label class="btn btn-secondary" onclick="input_text(this);">Input Text</label>
                 <span class="line-break">
                 <label class="btn btn-secondary">Upload File<input type="file" onchange="load_file(this);" hidden/></label>
@@ -80,6 +80,19 @@
     };
 
     var particle_canvas = new ParticleNetwork(canvas_div, options);
+
+    document.querySelectorAll(".dropContainer").forEach((elem, idx) => {
+        elem.ondragover = elem.ondragenter = function(evt) {
+            evt.preventDefault();
+        };
+
+        elem.ondrop = function(evt) {
+            var fileInput = elem.querySelector("input[type='file']");
+            fileInput.files = evt.dataTransfer.files;
+            fileInput.onchange();
+            evt.preventDefault();
+        };
+    });
 
 </script>
 

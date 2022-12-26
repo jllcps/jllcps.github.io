@@ -35,9 +35,9 @@
 
         <hr class="bg-secondary border-3 border-top border-secondary">
 
-        <div class="input-group">
-            <span class="input-group-text">Input Text</span>
-            <textarea class="form-control" aria-label="With textarea" id="text-input" class="w-100 viewer"></textarea>
+        <div class="input-group d-flex">
+            <span class="input-group-text justify-content-center">Input Text</span>
+            <textarea class="form-control" aria-label="With textarea" id="text-input" class="w-100 viewer" required></textarea>
             <button class="btn btn-outline-secondary" type="button" onclick="submit()">Submit</button>
         </div>
 
@@ -71,6 +71,7 @@
     var rendition, filename;
     var font_size = 28;
     var inputElement = document.getElementById("input");
+    var isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 
     inputElement.addEventListener('change', function (ev) {
         var file = ev.target.files[0];
@@ -100,7 +101,6 @@
         }
     });
 
-    let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
     $(".grid-item").click(function(){
         switch($(this).attr("id")) {
             case "plus_btn":
