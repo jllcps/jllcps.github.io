@@ -188,14 +188,14 @@ const others = `
     var message_webhook = "http://34.123.12.53:3000/users/1/web_requests/31/message";
     
     $('#modal_body').on('hidden.bs.modal', function () {
-            $(this).find('form').trigger('reset');
+        $(this).find('form').trigger('reset');
     });
 
     $("#message_form").on("submit", function(ev){
         ev.preventDefault();
         if(grecaptcha.getResponse() === "") {
-                alert('Error: please complete the reCAPTCHA first');
-                return false;
+            alert('Error: please complete the reCAPTCHA first');
+            return false;
         }
         $.ajax({
             type : "POST",

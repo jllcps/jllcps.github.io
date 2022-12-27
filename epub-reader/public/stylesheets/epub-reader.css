@@ -15,10 +15,7 @@ body {
 #setup {
     border-radius: 0.2em;
     background-color: #fafafa;
-}
-
-.card-img-overlay {
-        bottom: auto;
+    min-width: 42em;
 }
 
 #epub_config {
@@ -250,5 +247,9 @@ textarea {
 
     .input-group > .form-control {
         width: 100%;
+    }
+
+    #setup {
+        min-width: 16em;
     }
 }

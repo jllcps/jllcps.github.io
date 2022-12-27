@@ -7,6 +7,7 @@ body {
 #setup {
     border-radius: 0.2em;
     background-color: #fafafa;
+    min-width: 42em;
 }
 
 .icon {
@@ -73,5 +74,13 @@ body {
 
     .input-group > .form-control {
         width: 100%;
+    }
+
+    #setup {
+        min-width: 16em;
+    }
+
+    .language {
+        display: none;
     }
 }
