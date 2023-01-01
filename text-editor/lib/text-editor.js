@@ -2,7 +2,7 @@ var ext_li = ["video", "audio", "image"];
 
 function init() {
     document.getElementsByClassName('CodeMirror')[0].style.display = "none";
-        
+
     document.getElementById("plus_btn").onclick = e => {
         font_size += 1; 
         document.querySelector(".CodeMirror").style.setProperty("font-size", `${font_size}px`);
@@ -71,7 +71,7 @@ function change(text) {
         CodeMirror.autoLoadMode(editor, mode);
         window.onbeforeunload = e => false;
     } else {
-        alert("Could not find a mode corresponding to " + val);
+        alert("Could not find the language for " + val);
     }
 }
 

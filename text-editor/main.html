@@ -29,7 +29,7 @@
     <script src="mode/meta.js"></script>
     <link rel="stylesheet" href="lib/codemirror.css">
     <link rel="stylesheet" href="lib/text-editor.css">
-    <link rel="stylesheet" href="lib/devicon.min.css">
+    <!-- <link rel="stylesheet" href="lib/devicon.min.css"> -->
     <link rel="stylesheet" href="theme/neo-dev.css">
     <link rel="stylesheet" href="addon/fold/foldgutter.css">
 
@@ -57,14 +57,26 @@
 
         <div class="container">
             <div class="row">
-                <div class="col btn icon devicon-python-plain" data-val="untitled.py"><span class="language"> Python</span></div>
-                <div class="col btn icon devicon-javascript-plain" data-val="untitled.js"><span class="language"> JavaScript</span></div>
-                <div class="col btn icon devicon-haskell-plain" data-val="untitled.hs"><span class="language"> Haskell</span></div>
+                <div class="col btn icon" data-val="untitled.py">
+                    <i class="devicon-python-plain"></i><span class="language"> Python</span>
+                </div>
+                <div class="col btn icon" data-val="untitled.js">
+                    <i class="devicon-javascript-plain"></i><span class="language"> JavaScript</span>
+                </div>
+                <div class="col btn icon" data-val="untitled.hs">
+                    <i class="devicon-haskell-plain"></i><span class="language"> Haskell</span>
+                </div>
             </div>
             <div class="row">
-                <div class="col btn icon devicon-cplusplus-plain" data-val="untitled.cpp"><span class="language"> C++</span></div>
-                <div class="col btn icon devicon-java-plain" data-val="untitled.java"><span class="language"> Java</span></div>
-                <div class="col btn icon devicon-go-plain" data-val="untitled.go"><span class="language"> GO</span></div>
+                <div class="col btn icon" data-val="untitled.cpp">
+                    <i class="devicon-cplusplus-plain"></i><span class="language"> C++</span>
+                </div>
+                <div class="col btn icon" data-val="untitled.java">
+                    <i class="devicon-java-plain"></i><span class="language"> Java</span>
+                </div>
+                <div class="col btn icon devicon-go-plain" data-val="untitled.go">
+                    <i class="devicon-go-plain"></i><span class="language"> GO</span>
+                </div>
             </div>
         </div>
     </div>
