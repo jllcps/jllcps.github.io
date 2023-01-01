@@ -62,21 +62,6 @@ var recaptchaCallback = function() {
 };
 
 
-function renderParticle() {
-    var canvas_div = document.getElementById("particle");
-
-    var options = {
-        particleColor: '#333',
-        background: '#fafafa',
-        interactive: false,
-        speed: 0.16,
-        density: 18000   // 'low': 20000, 'medium': 10000
-    };
-
-    var particle_canvas = new ParticleNetwork(canvas_div, options);
-}
-
-
 function customSetContent() {
     document.getElementById('accordion-body-skills').innerHTML =
         marked.parse(skills);
@@ -141,4 +126,3 @@ async function send_message() {
 
 console.log("test1")
 customSetContent();
-renderParticle();

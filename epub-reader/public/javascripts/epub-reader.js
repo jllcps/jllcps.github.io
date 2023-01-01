@@ -373,3 +373,51 @@ function createEpub(text) {
         }
     });
 }
+
+
+var book = ePub();
+var rendition, filename;
+var font_size = 28;
+var inputElement = document.getElementById("file-input");
+var isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+inputElement.addEventListener('change', function (ev) {
+    var file = ev.target.files[0];
+    var filename = file.name;
+    var filetype = file.type;
+    if (window.FileReader) {
+        var reader = new FileReader();
+        reader.onload = ev => handleFile(ev, filetype);
+
+        if (filetype.includes("epub")) {
+            reader.readAsArrayBuffer(file);
+        } else {
+            reader.readAsText(file);
+        }
+        document.title = filename;
+    }
+});
+
+var toolbarElement = document.getElementById("toolbar");
+toolbarElement.addEventListener("click", function() {
+    $('#mySidenav').toggle();
+    this.classList.toggle("active");
+    if (this.classList.contains("active")) {
+        highlight_chapter();
+    } else {
+        fold_all();
+    }
+});
+
+$(".grid-item").click(function(){
+    switch($(this).attr("id")) {
+        case "plus_btn":
+            font_size += 1;
+            break;
+        case "minus_btn":
+            font_size -= 1;
+            break;
+        }
+    // rendition.themes.fontSize(`${font_size}px`);
+    rendition.themes.override("font-size", `${font_size}px`, true);
+});

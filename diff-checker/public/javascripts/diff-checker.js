@@ -1,4 +1,5 @@
-var ext_li = ["video", "audio", "image"];
+const ext_li = ["video", "audio", "image"];
+
 
 function input_text(input) {
     let div_col = $(input).closest("div");
@@ -9,6 +10,7 @@ function input_text(input) {
     textarea.attr('data-fname', textarea.attr("id"));
     window.onbeforeunload = e => false;
 }
+
 
 function load_file(input) {
     var reader = new FileReader();
@@ -32,6 +34,7 @@ function load_file(input) {
     }
 }
 
+
 function compare() {
     let inputs = document.querySelectorAll('textarea');
     for (const input of inputs) {
@@ -50,6 +53,7 @@ function compare() {
     $(".pre-diff").remove();
     $(".post-diff").removeAttr("hidden");
 }
+
 
 function formatPatch(diff) {
     var bold_li = [];
@@ -114,3 +118,21 @@ function formatPatch(diff) {
     result.innerHTML = '';
     result.appendChild(fragment);
 }
+
+
+function addListeners() {
+    document.querySelectorAll(".dropContainer").forEach((elem, idx) => {
+        elem.ondragover = elem.ondragenter = function(evt) {
+            evt.preventDefault();
+        };
+
+        elem.ondrop = function(evt) {
+            var fileInput = elem.querySelector("input[type='file']");
+            fileInput.files = evt.dataTransfer.files;
+            fileInput.onchange();
+            evt.preventDefault();
+        };
+    });
+}
+
+addListeners();

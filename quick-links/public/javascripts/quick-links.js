@@ -27,21 +27,6 @@ const quicklinks = {
 };
 
 
-function renderParticle() {
-    var canvas_div = document.getElementById("particle");
-
-    var options = {
-        particleColor: '#333',
-        background: '#fafafa',
-        interactive: false,
-        speed: 0.16,
-        density: 18000   // 'low': 20000, 'medium': 10000
-    };
-
-    var particle_canvas = new ParticleNetwork(canvas_div, options);
-}
-
-
 function checkURL(input) {
     var url = input.value;
     if (!url.match(/^(?:https?|data|blob):/) && url.length) {
@@ -101,5 +86,4 @@ function addListeners() {
 }
 
 
-renderParticle();
 addListeners();
