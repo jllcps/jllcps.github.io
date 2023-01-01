@@ -1,4 +1,4 @@
-const message_webhook = "http://34.123.12.53:3000/users/1/web_requests/31/message";
+const message_webhook = "http://34.123.12.53:3000/users/1/web_requests/31/message/";
 
 const skills = `
 - Programming Language
@@ -45,25 +45,14 @@ const others = `
 - Static Web Apps
     - Text Editor ([link](https://jllcps.github.io/text-editor/main.html)): uses CodeMirror - [repo](https://github.com/codemirror/CodeMirror)
     - Diff Checker ([link](https://jllcps.github.io/diff-checker/main.html)): uses jsdiff - [repo](https://github.com/kpdecker/jsdiff)
-    - EPUB Reader ([link](https://jllcps.github.io/epub-reader/main.html)): uses Epub.js - [repo](https://github.com/futurepress/epub.js/)`;
+    - EPUB Reader ([link](https://jllcps.github.io/epub-reader/main.html)): uses Epub.js - [repo](https://github.com/futurepress/epub.js/)
+`;
 
-
-var canvas_div = document.getElementById("particle"),
-    modal = document.getElementById("modal_body"),
+var modal = document.getElementById("modal_body"),
     form = document.getElementById("message_form"),
     contact_info = document.getElementById("contact_info"),
     message_body = document.getElementById("message_body"),
     close_btn = document.getElementById("close_btn");
-
-var options = {
-    particleColor: '#333',
-    background: '#fafafa',
-    interactive: false,
-    speed: 0.16,
-    density: 18000   // 'low': 20000, 'medium': 10000
-};
-
-var particle_canvas = new ParticleNetwork(canvas_div, options);
 
 var recaptchaCallback = function() {
     grecaptcha.render("recaptcha", {
@@ -73,18 +62,18 @@ var recaptchaCallback = function() {
 };
 
 
-async function send_message() {
-    let options = {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            from: contact_info.value,
-            message: message_body.value,
-        })
+function renderParticle() {
+    var canvas_div = document.getElementById("particle");
+
+    var options = {
+        particleColor: '#333',
+        background: '#fafafa',
+        interactive: false,
+        speed: 0.16,
+        density: 18000   // 'low': 20000, 'medium': 10000
     };
-    const response = await fetch(message_webhook, options);
-    return response.json();
+
+    var particle_canvas = new ParticleNetwork(canvas_div, options);
 }
 
 
@@ -136,4 +125,19 @@ function addListeners() {
 }
 
 
+async function send_message() {
+    let options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            from: contact_info.value,
+            message: message_body.value,
+        })
+    };
+    const response = await fetch(message_webhook, options);
+    return response.json();
+}
+
+
 customSetContent();
+renderParticle();
