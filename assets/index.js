@@ -139,5 +139,6 @@ async function send_message() {
 }
 
 
+console.log("test1")
 customSetContent();
 renderParticle();
