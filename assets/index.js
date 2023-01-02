@@ -96,16 +96,37 @@ function addListeners() {
             window.alert('Error: please complete the reCAPTCHA first');
             return false;
         }
-        send_message()
-            .then((data) => {
+        $.ajax({
+            type : "POST",
+            url: message_webhook,
+            data: {
+                from: contact_info.value,
+                message: message_body.value,
+                referrer: "jllcps-github"
+            },
+            success: function(data, textStatus) {
                 window.alert("The message is sent successfully.");
                 close_btn.click();
                 grecaptcha.reset();
-            })
-            .catch((error) => {
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
                 window.alert("Failed to send the message.");
-                console.error('Error:', error);
-            });
+                console.log(JSON.stringify(jqXHR));
+                console.log(textStatus);
+                console.error(errorThrown);
+            }
+        });
+
+        // send_message()
+        //     .then((data) => {
+        //         window.alert("The message is sent successfully.");
+        //         close_btn.click();
+        //         grecaptcha.reset();
+        //     })
+        //     .catch((error) => {
+        //         window.alert("Failed to send the message.");
+        //         console.error('Error:', error);
+        //     });
     });
 }
 
@@ -117,6 +138,7 @@ async function send_message() {
         body: JSON.stringify({
             from: contact_info.value,
             message: message_body.value,
+            referrer: "jllcps-github"
         })
     };
     const response = await fetch(message_webhook, options);
