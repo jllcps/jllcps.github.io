@@ -19,59 +19,119 @@ function highlight_chapter() {
 
         const spineId = book.spine.spineByHref[href];
         const spineItem = book.spine.spineItems[spineId];
-        $(`a.collapsible[href^='${href}']`).each(function(){
-            let $this = $(this);
 
-            const hrefComponents = $this.attr("href").split("#");
+        let links = document.querySelectorAll(`a.collapsible[href^='${href}']`);
+        links.forEach((link) => {
+            const hrefComponents = link.getAttribute("href").split("#");
             if (hrefComponents.length === 1) {
-                $this.attr("data-checked", true);
+                link.setAttribute("data-checked", true);
             } else if (hrefComponents.length !== 2) {
                 return;
             }
 
             const elem = spineItem.document.getElementById(hrefComponents[1]);
             const cfi = spineItem.cfiFromElement(elem);
-            $this.attr('data-cfi', cfi);
+            link.setAttribute('data-cfi', cfi);
         });
+
+        // $(`a.collapsible[href^='${href}']`).each(function(){
+        //     let $this = $(this);
+
+        //     const hrefComponents = $this.attr("href").split("#");
+        //     if (hrefComponents.length === 1) {
+        //         $this.attr("data-checked", true);
+        //     } else if (hrefComponents.length !== 2) {
+        //         return;
+        //     }
+
+        //     const elem = spineItem.document.getElementById(hrefComponents[1]);
+        //     const cfi = spineItem.cfiFromElement(elem);
+        //     $this.attr('data-cfi', cfi);
+        // });
     }
 
     var href = rendition.location.end.href;
     // add_chapter_cfi(href);
 
-    $("a.collapsible").each(function(){
-        let $this = $(this);
-        if ($this.attr("href").startsWith(href)) {
-            $this[0].classList.toggle("active");
-            $this.parents("div").each(function(){
-                let $$this = $(this);
-                if ($$this.attr('class') == "content") {
-                    let parent_a = $$this.prev("a")[0];
-                    parent_a.classList.toggle("active");
-                    let content = parent_a.nextElementSibling;
-                    content.style.maxHeight = content.scrollHeight + "px";
-                } else if ($$this.attr('class') == "sidenav") {
-                    let content = $this[0].nextElementSibling;
-                    content.style.maxHeight = content.scrollHeight + "px";
+    let links = document.querySelectorAll("a.collapsible");
+    links.forEach((link) => {
+        if (link.getAttribute("href").startsWith(href)) {
+            link.classList.toggle("active");
+            let elem = link.parentNode;
+            while (elem) {
+                if (elem.tagName === "DIV") {
+                    if (elem.className === "content") {
+                        let parent_a = elem.previousElementSibling;
+                        parent_a.classList.toggle("active");
+                        elem.style.maxHeight = elem.scrollHeight + "px";
+                    } else if (elem.className === "sidenav") {
+                        let content = link.nextElementSibling;
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
                 }
-            });
-
-            $this[0].scrollIntoView({block: "center", inline: "nearest"});
+                elem = elem.parentNode;
+            }
+            link.scrollIntoView({block: "center", inline: "nearest"});
             return false;
         }
     });
+
+    // $("a.collapsible").each(function(){
+    //     let $this = $(this);
+    //     if ($this.attr("href").startsWith(href)) {
+    //         $this[0].classList.toggle("active");
+    //         $this.parents("div").each(function(){
+    //             let $$this = $(this);
+    //             if ($$this.attr('class') == "content") {
+    //                 let parent_a = $$this.prev("a")[0];
+    //                 parent_a.classList.toggle("active");
+    //                 let content = parent_a.nextElementSibling;
+    //                 content.style.maxHeight = content.scrollHeight + "px";
+    //             } else if ($$this.attr('class') == "sidenav") {
+    //                 let content = $this[0].nextElementSibling;
+    //                 content.style.maxHeight = content.scrollHeight + "px";
+    //             }
+    //         });
+
+    //         $this[0].scrollIntoView({block: "center", inline: "nearest"});
+    //         return false;
+    //     }
+    // });
+}
+
+
+function toggle_nav() {
+    let mySidenav = document.getElementById("mySidenav");
+    if (mySidenav.style.display === "none") {
+        mySidenav.style.display = "block";
+    } else {
+        mySidenav.style.display = "none";
+    }
 }
 
 
 function fold_all() {
-    $(".active").each(function(){
-        $this = $(this)[0];
-        $this.classList.toggle("active");
-        if ($this.id == "toolbar") {
-            $('#mySidenav').toggle();
-        } else if ($this.classList.contains("expandable")) {
-            $this.nextElementSibling.style.maxHeight = null;
+    
+    let elems = document.querySelectorAll(".active");
+    elems.forEach((elem) => {
+        elem.classList.toggle("active");
+        if (elem.id == "toolbar") {
+            toggle_nav();
+            // $('#mySidenav').toggle();
+        } else if (elem.classList.contains("expandable")) {
+            elem.nextElementSibling.style.maxHeight = null;
         }
     });
+
+    // $(".active").each(function(){
+    //     $this = $(this)[0];
+    //     $this.classList.toggle("active");
+    //     if ($this.id == "toolbar") {
+    //         $('#mySidenav').toggle();
+    //     } else if ($this.classList.contains("expandable")) {
+    //         $this.nextElementSibling.style.maxHeight = null;
+    //     }
+    // });
 }
 
 
@@ -92,9 +152,17 @@ function toc(book){
                     content.style.maxHeight = null;
                 } else {
                     content.style.maxHeight = content.scrollHeight + "px";
-                    $(this).parents(".content").each(function(){
-                        $(this).css("maxHeight", $(this).prop('scrollHeight'));
-                    });
+                    let elem = this.parentNode;
+                    while (elem) {
+                        if (elem.className === "content") {
+                            elem.style.maxHeight = elem.scrollHeight + "px";
+                        }
+                        elem = elem.parentNode;
+                    }
+
+                    // $(this).parents(".content").each(function(){
+                    //     $(this).css("maxHeight", $(this).prop('scrollHeight'));
+                    // });
                 } 
             } else {
                 fold_all();
@@ -400,7 +468,8 @@ inputElement.addEventListener('change', function (ev) {
 
 var toolbarElement = document.getElementById("toolbar");
 toolbarElement.addEventListener("click", function() {
-    $('#mySidenav').toggle();
+    // $('#mySidenav').toggle();
+    toggle_nav();
     this.classList.toggle("active");
     if (this.classList.contains("active")) {
         highlight_chapter();
@@ -409,15 +478,31 @@ toolbarElement.addEventListener("click", function() {
     }
 });
 
-$(".grid-item").click(function(){
-    switch($(this).attr("id")) {
-        case "plus_btn":
-            font_size += 1;
-            break;
-        case "minus_btn":
-            font_size -= 1;
-            break;
-        }
-    // rendition.themes.fontSize(`${font_size}px`);
-    rendition.themes.override("font-size", `${font_size}px`, true);
+let grid_items = document.querySelectorAll(".grid-item");
+grid_items.forEach((item) => {
+    item.addEventListener("click", function() {
+        switch(this.getAttribute("id")) {
+            case "plus_btn":
+                font_size += 1;
+                break;
+            case "minus_btn":
+                font_size -= 1;
+                break;
+            }
+        // rendition.themes.fontSize(`${font_size}px`);
+        rendition.themes.override("font-size", `${font_size}px`, true);
+    });
 });
+
+// $(".grid-item").click(function(){
+//     switch($(this).attr("id")) {
+//         case "plus_btn":
+//             font_size += 1;
+//             break;
+//         case "minus_btn":
+//             font_size -= 1;
+//             break;
+//         }
+//     // rendition.themes.fontSize(`${font_size}px`);
+//     rendition.themes.override("font-size", `${font_size}px`, true);
+// });
