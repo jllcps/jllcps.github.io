@@ -1,5 +1,4 @@
-// const message_webhook = "https://maker.ifttt.com/trigger/forward/json/with/key/be3RicnMbgIx-tnMHSVGyj";
-const message_webhook = "http://34.123.12.53:3000/users/1/web_requests/39/notify";
+const message_webhook = "https://maker.ifttt.com/trigger/forward/json/with/key/be3RicnMbgIx-tnMHSVGyj";
 
 const skills = `
 - Programming Language
@@ -97,37 +96,37 @@ function addListeners() {
             window.alert('Error: please complete the reCAPTCHA first');
             return false;
         }
-        $.ajax({
-            type : "POST",
-            url: message_webhook,
-            data: {
-                from: contact_info.value,
-                message: message_body.value,
-                referrer: "jllcps-github"
-            },
-            success: function(data, textStatus) {
+        send_message()
+            .then((data) => {
                 window.alert("The message is sent successfully.");
                 close_btn.click();
                 grecaptcha.reset();
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
+            })
+            .catch((error) => {
                 window.alert("Failed to send the message.");
-                console.log(JSON.stringify(jqXHR));
-                console.log(textStatus);
-                console.error(errorThrown);
-            }
-        });
+                console.error('Error:', error);
+            });
 
-        // send_message()
-        //     .then((data) => {
+        // $.ajax({
+        //     type : "POST",
+        //     url: message_webhook,
+        //     data: {
+        //         from: contact_info.value,
+        //         message: message_body.value,
+        //         referrer: "jllcps-github"
+        //     },
+        //     success: function(data, textStatus) {
         //         window.alert("The message is sent successfully.");
         //         close_btn.click();
         //         grecaptcha.reset();
-        //     })
-        //     .catch((error) => {
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {
         //         window.alert("Failed to send the message.");
-        //         console.error('Error:', error);
-        //     });
+        //         console.log(JSON.stringify(jqXHR));
+        //         console.log(textStatus);
+        //         console.error(errorThrown);
+        //     }
+        // });
     });
 }
 
