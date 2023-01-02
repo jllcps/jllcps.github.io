@@ -1,5 +1,6 @@
 var ext_li = ["video", "audio", "image"];
 
+
 function init() {
     document.getElementsByClassName('CodeMirror')[0].style.display = "none";
 
@@ -15,12 +16,13 @@ function init() {
 
     const icons = document.querySelectorAll('.icon');
     icons.forEach(elem => elem.addEventListener('click', ev => {
-        modeInput.value = ev.target.getAttribute("data-val");
-        if (modeInput.value == ev.target.getAttribute("data-val")) {
+        modeInput.value = ev.currentTarget.getAttribute("data-val");
+        if (modeInput.value == ev.currentTarget.getAttribute("data-val")) {
             change(null);
         }
     }));
 }
+
 
 function load_file(input) {
     var reader = new FileReader();
@@ -33,6 +35,7 @@ function load_file(input) {
         reader.readAsText(file);
     }
 }
+
 
 function change(text) {
     let is_valid = modeInput.reportValidity();
@@ -75,6 +78,7 @@ function change(text) {
     }
 }
 
+
 function saveFile() {
     if (confirm(`Save as "${filename}"?`)) {
         var blob = new Blob([editor.getValue()],
@@ -82,6 +86,7 @@ function saveFile() {
         saveAs(blob, filename);    
     }
 }
+
 
 function rmSpaceLine() {
     if (confirm("Remove spaces on empty lines?")) {
@@ -93,3 +98,33 @@ function rmSpaceLine() {
         editor.setValue(ar.join("\n"));
     }
 }
+
+
+var filename, font_size = 19;
+var modeInput = document.getElementById("mode");
+var editor = CodeMirror(document.body, {
+    theme: "neo",
+    keyMap: "sublime",
+    indentUnit: 4,
+    lineNumbers: true,
+    lineWrapping: true,
+    matchBrackets: true,
+    // highlightNonMatching: false,
+    // spellcheck: false,
+    foldGutter: true,
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+    extraKeys: {
+        "Tab": cm => cm.execCommand("indentMore"),
+        "Ctrl-Q": cm => cm.foldCode(cm.getCursor()),
+        "Ctrl-[": cm => cm.execCommand('foldAll'),
+        "Ctrl-]": cm => cm.execCommand('unfoldAll'),
+        "Cmd-S": cm => false,
+    },
+});
+
+CodeMirror.modeURL = "mode/%N/%N.js";
+CodeMirror.on(modeInput, "keypress", function(e) {
+    if (e.keyCode == 13) change(null);
+});
+
+init();

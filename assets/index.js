@@ -1,4 +1,4 @@
-const message_webhook = "http://34.123.12.53:3000/users/1/web_requests/31/message/";
+const message_webhook = "https://maker.ifttt.com/trigger/forward/json/with/key/be3RicnMbgIx-tnMHSVGyj";
 
 const skills = `
 - Programming Language
@@ -124,5 +124,4 @@ async function send_message() {
 }
 
 
-console.log("test1")
 customSetContent();
