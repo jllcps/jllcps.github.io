@@ -39,7 +39,7 @@ textarea:focus {
     background-color: transparent;
     color: #111;
     text-align: left;
-    font: 1.2em monospace;
+    font: 1em monospace;
     font-family: monospace, monospace;
     white-space: pre;
     overflow-x: scroll;
