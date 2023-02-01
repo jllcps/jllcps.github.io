@@ -3,6 +3,7 @@ var timer;
 var init_width = false;
 var presenter = document.getElementById("presenter");
 
+const openNewWindow = false;
 const marp = new Marp.getMarp({
     inlineSVG: false,
 });
@@ -13,10 +14,6 @@ function set_iframe_style(){
     innerStyle.id = 'innerStyle';
     presenter.contentWindow.document.head.appendChild(innerStyle);
 
-    let defaultStyle = document.createElement('style');
-    defaultStyle.id = 'defaultStyle';
-    presenter.contentWindow.document.head.appendChild(defaultStyle);
-
     presenter.contentWindow.document.body.style.overflowX = "hidden";
 }
 
@@ -24,7 +21,6 @@ function set_iframe_style(){
 function scale_iframe(){
     presenter.contentWindow.document.body.style.zoom = 1;
     let ratio = presenter.offsetWidth / presenter.contentWindow.document.body.scrollWidth;
-    let defaultStyle = presenter.contentWindow.document.getElementById("defaultStyle");
     presenter.contentWindow.document.body.style.zoom = ratio;
 }
 
@@ -34,23 +30,22 @@ function compare() {
 
     const { html, css } = marp.render(text_elem.value);
 
-    const htmlFile = `<!DOCTYPE html><html><body><style>${css}</style>${html}</body></html>`;
-    var additionalWindow = window.open("template.html");
-    additionalWindow.document.write(htmlFile);
+    if (openNewWindow) {
+        const htmlFile = `<!DOCTYPE html><html><body><style>${css}div.marpit>section{width: 100%}</style>${html}</body></html>`;
+        var newWindow = window.open();
+        newWindow.document.write(htmlFile);
+        return;
+    }
 
-    // window.setTimeout(() => {
+    let innerStyle = presenter.contentWindow.document.getElementById("innerStyle");
 
-    // }, 1000);
+    presenter.contentWindow.document.body.innerHTML = html;
+    innerStyle.innerHTML = css;
 
-    // let innerStyle = presenter.contentWindow.document.getElementById("innerStyle");
-
-    // presenter.contentWindow.document.body.innerHTML = html;
-    // innerStyle.innerHTML = css;
-
-    // if (!init_width) {
-    //     scale_iframe();
-    //     init_width = true;
-    // }
+    if (!init_width) {
+        scale_iframe();
+        init_width = true;
+    }
 }
 
 
