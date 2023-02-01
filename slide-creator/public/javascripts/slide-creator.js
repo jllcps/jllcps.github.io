@@ -34,15 +34,26 @@ function compare() {
 
     const { html, css } = marp.render(text_elem.value);
 
-    let innerStyle = presenter.contentWindow.document.getElementById("innerStyle");
+    var additionalWindow = window.open("template.html");
+    
+    additionalWindow.document.body.innerHTML = html;
 
-    presenter.contentWindow.document.body.innerHTML = html;
+    var innerStyle = additionalWindow.document.getElementById("innerStyle");
     innerStyle.innerHTML = css;
 
-    if (!init_width) {
-        scale_iframe();
-        init_width = true;
-    }
+    // window.setTimeout(() => {
+
+    // }, 1000);
+
+    // let innerStyle = presenter.contentWindow.document.getElementById("innerStyle");
+
+    // presenter.contentWindow.document.body.innerHTML = html;
+    // innerStyle.innerHTML = css;
+
+    // if (!init_width) {
+    //     scale_iframe();
+    //     init_width = true;
+    // }
 }
 
 
