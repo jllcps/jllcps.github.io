@@ -35,11 +35,14 @@ function compare() {
     const { html, css } = marp.render(text_elem.value);
 
     var additionalWindow = window.open("template.html");
-    
-    additionalWindow.document.body.innerHTML = html;
 
-    var innerStyle = additionalWindow.document.getElementById("innerStyle");
-    innerStyle.innerHTML = css;
+    additionalWindow.document.addEventListener('DOMContentLoaded', function (){
+        additionalWindow.document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+        additionalWindow.document.body.innerHTML = html;
+
+        var innerStyle = additionalWindow.document.getElementById("innerStyle");
+        innerStyle.innerHTML = css;
+    }, false);
 
     // window.setTimeout(() => {
 
