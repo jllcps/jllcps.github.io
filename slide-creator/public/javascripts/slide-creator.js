@@ -34,15 +34,9 @@ function compare() {
 
     const { html, css } = marp.render(text_elem.value);
 
+    const htmlFile = `<!DOCTYPE html><html><body><style>${css}</style>${html}</body></html>`;
     var additionalWindow = window.open("template.html");
-
-    additionalWindow.document.addEventListener('DOMContentLoaded', function (){
-        additionalWindow.document.removeEventListener('DOMContentLoaded', arguments.callee, false);
-        additionalWindow.document.body.innerHTML = html;
-
-        var innerStyle = additionalWindow.document.getElementById("innerStyle");
-        innerStyle.innerHTML = css;
-    }, false);
+    additionalWindow.document.write(htmlFile);
 
     // window.setTimeout(() => {
 
