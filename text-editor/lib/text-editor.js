@@ -88,12 +88,13 @@ function saveFile() {
 }
 
 
-function rmSpaceLine() {
-    if (confirm("Remove spaces on empty lines?")) {
+function rmTrailingSpace() {
+    if (confirm("Remove trailing spaces?")) {
         var ar = editor.getValue().split(/\r\n|\r|\n/);
         for (var i in ar) {
-            if (/^\s*$/.test(ar[i]) == true)
-                ar[i] = "";
+            ar[i] = ar[i].replace(/\s+$/, '');
+            // if (/^\s*$/.test(ar[i]) == true)
+            //     ar[i] = "";
         }
         editor.setValue(ar.join("\n"));
     }

@@ -3,7 +3,7 @@ var timer;
 var init_width = false;
 var presenter = document.getElementById("presenter");
 
-const openNewWindow = false;
+const openNewWindow = true;
 const marp = new Marp.getMarp({
     inlineSVG: false,
 });
@@ -25,7 +25,7 @@ function scale_iframe(){
 }
 
 
-function compare() {
+function generate() {
     var text_elem = document.getElementById('text');
 
     const { html, css } = marp.render(text_elem.value);
