@@ -466,6 +466,18 @@ inputElement.addEventListener('change', function (ev) {
     }
 });
 
+inputElement.ondragover = inputElement.ondragenter = function(ev) {
+    ev.preventDefault();
+};
+
+inputElement.ondrop = function(ev) {
+    inputElement.files = ev.dataTransfer.files;
+    var manual_ev = document.createEvent("HTMLEvents");
+    manual_ev.initEvent("change", false, true);
+    inputElement.dispatchEvent(manual_ev);
+    ev.preventDefault();
+};
+
 var toolbarElement = document.getElementById("toolbar");
 toolbarElement.addEventListener("click", function() {
     // $('#mySidenav').toggle();
