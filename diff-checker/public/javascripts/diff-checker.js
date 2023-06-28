@@ -2,12 +2,11 @@ const ext_li = ["video", "audio", "image"];
 
 
 function input_text(input) {
-    let div_col = $(input).closest("div");
-    let textarea = $("textarea", div_col);
-    $("label", div_col).remove();
-    $("br", div_col).remove();
-    textarea.removeAttr("hidden");
-    textarea.attr('data-fname', textarea.attr("id"));
+    let div_col = input.closest("div.col");
+    let textarea = div_col.querySelector("textarea");
+    div_col.querySelector("div.label-container").remove();
+    textarea.removeAttribute("hidden");
+    textarea.setAttribute('data-fname', textarea.id);
     window.onbeforeunload = e => false;
 }
 
@@ -17,13 +16,12 @@ function load_file(input) {
     let file = input.files[0];
 
     reader.onloadend = (e) => {
-        let div_col = $(input).closest("div");
-        let textarea = $("textarea", div_col);
-        textarea[0].value = reader.result;
-        $("label", div_col).remove();
-        $("br", div_col).remove();
-        textarea.removeAttr("hidden");
-        textarea.attr('data-fname', file.name);
+        let div_col = input.closest("div.col");
+        let textarea = div_col.querySelector("textarea");
+        textarea.value = reader.result;
+        div_col.querySelector("div.label-container").remove();
+        textarea.removeAttribute("hidden");
+        textarea.setAttribute('data-fname', file.name);
         window.onbeforeunload = e => false;
     };
 
@@ -50,8 +48,8 @@ function compare() {
 
     formatPatch(diff);
 
-    $(".pre-diff").remove();
-    $(".post-diff").removeAttr("hidden");
+    document.querySelectorAll(".pre-diff").forEach(elem => elem.remove());
+    document.querySelectorAll(".post-diff").forEach(elem => elem.removeAttribute("hidden"));
 }
 
 

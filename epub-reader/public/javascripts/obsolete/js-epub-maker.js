@@ -103,14 +103,10 @@
         this.makeEpub = function() {
             epubConfig.publicationDate = new Date().toISOString();
             epubConfig.publicationDateYMD = epubConfig.publicationDate.substr(0, 10);
-            return new Promise((resolve, reject) => {
-                templateManagers[epubConfig.templateName].make(epubConfig).then(function(epubZip) {
-                    fflate.zip(epubZip, {level: 0}, (err, data) => {
-                        const blob = new Blob([data], { type: 'application/octet-stream' })
-                        resolve(blob);
-                    });
-                });
-            })
+            return templateManagers[epubConfig.templateName].make(epubConfig).then(function(epubZip) {
+                var content = epubZip.generateAsync({ type: 'blob', mimeType: 'application/epub+zip', compression: 'DEFLATE' });
+                return content;
+            });
         };
 
         this.downloadEpub = function(callback, useTitle) {
@@ -989,10 +985,7 @@ process.umask = function() { return 0; };
     var Builder = function() {
         
         this.make = function(epubConfig) {
-            var zip = {};
-            zip['META-INF'] = {};
-            zip['EPUB'] = {};
-            // zip['EPUB']['text'] = {};
+            var zip = new JSZip();
             
             var deferred = D();
             D.all(
@@ -1012,18 +1005,18 @@ process.umask = function() { return 0; };
         };
         
         function addMimetype(zip) {
-            zip['mimetype'] = fflate.strToU8(templates.mimetype);
+            zip.file('mimetype', templates.mimetype);
         }
         
         function addContainerInfo(zip, epubConfig) {
-            zip['META-INF']['container.xml'] = fflate.strToU8(compile(templates.container, epubConfig));
+            zip.folder('META-INF').file('container.xml', compile(templates.container, epubConfig));
         }
         
         function addManifestOpf(zip, epubConfig) {
             Handlebars.registerPartial('sectionsOPFManifestTemplate', templates.sectionsOPFManifestTemplate);
             Handlebars.registerPartial('sectionsOPFSpineTemplate', templates.sectionsOPFSpineTemplate);
 
-            zip['EPUB'][epubConfig.slug + '.opf'] = fflate.strToU8(compile(templates.opf, epubConfig));
+            zip.folder('EPUB').file(epubConfig.slug + '.opf', compile(templates.opf, epubConfig));
         }
         
         function addCover(zip, epubConfig) {
@@ -1033,7 +1026,7 @@ process.umask = function() { return 0; };
             //     JSZipUtils.getBinaryContent(epubConfig.coverUrl, function (err, data) {
             //         if (!err) {
             //             var ext = epubConfig.coverUrl.substr(epubConfig.coverUrl.lastIndexOf('.') + 1);
-            //             zip['EPUB'][epubConfig.slug + '-cover.' + ext] = data
+            //             zip.folder('EPUB').file(epubConfig.slug + '-cover.' + ext, data, { binary: true });
             //             deferred.resolve('');
             //         } else {
             //             deferred.reject(err);
@@ -1048,12 +1041,12 @@ process.umask = function() { return 0; };
         
         function addEpub2Nav(zip, epubConfig) {
             Handlebars.registerPartial('sectionsNCXTemplate', templates.sectionsNCXTemplate);
-            zip['EPUB'][epubConfig.slug + '.ncx'] = fflate.strToU8(compile(templates.ncx, epubConfig));
+            zip.folder('EPUB').file(epubConfig.slug + '.ncx', compile(templates.ncx, epubConfig));
         }
         
         function addEpub3Nav(zip, epubConfig) {
             Handlebars.registerPartial('sectionsNavTemplate', templates.sectionsNavTemplate);
-            zip['EPUB'][epubConfig.slug + '-nav.xhtml'] = fflate.strToU8(compile(templates.nav, epubConfig));
+            zip.folder('EPUB').file(epubConfig.slug + '-nav.xhtml', compile(templates.nav, epubConfig));
         }
         
         function addStylesheets(zip, epubConfig) {
@@ -1073,18 +1066,18 @@ process.umask = function() { return 0; };
                     original: epubConfig.stylesheet.replaceOriginal ? '' : templates.css,
                     custom: epubConfig.styles
                 };
-                zip['EPUB'][epubConfig.slug + '.css'] = fflate.strToU8(compile('{{{original}}}{{{custom}}}', styles, true));
+                zip.folder('EPUB').file(epubConfig.slug + '.css', compile('{{{original}}}{{{custom}}}', styles, true));
                 deferred.resolve(true);
             }
         }
         
         // function addContent(zip, epubConfig) {
         //     Handlebars.registerPartial('sectionTemplate', templates.sectionsTemplate);
-        //     zip['EPUB'][epubConfig.slug + '-content.xhtml'] = fflate.strToU8(compile(templates.content, epubConfig));
+        //     zip.folder('EPUB').file(epubConfig.slug + '-content.xhtml', compile(templates.content, epubConfig));
         // }
 
         function addSection(zip, section) {
-            zip['EPUB']["text/" + section.id + '-content.xhtml'] = fflate.strToU8(compile(templates.sectionContent, section));
+            zip.folder('EPUB').file("text/" + section.id + '-content.xhtml', compile(templates.sectionContent, section));
 
             for (var i = 0; i < section.subSections.length; i++) {
                 addSection(zip, section.subSections[i]);
@@ -1162,12 +1155,7 @@ process.umask = function() { return 0; };
     var Builder = function() {
 
         this.make = function(epubConfig) {
-            var zip = {};
-            zip['META-INF'] = {};
-            zip['EPUB'] = {};
-            zip['EPUB']['images'] = {};
-            zip['EPUB']['css'] = {};
-            // zip['EPUB']['text'] = {};
+            var zip = new JSZip();
 
             var deferred = D();
             addAditionalInfo(epubConfig);
@@ -1219,17 +1207,17 @@ process.umask = function() { return 0; };
         }
 
         function addMimetype(zip) {
-            zip['mimetype'] = fflate.strToU8(templates.mimetype);
+            zip.file('mimetype', templates.mimetype);
         }
 
         function addContainerInfo(zip, epubConfig) {
-            zip['META-INF']['container.xml'] = fflate.strToU8(compile(templates.container, epubConfig));
+            zip.folder('META-INF').file('container.xml', compile(templates.container, epubConfig));
         }
 
         function addManifestOpf(zip, epubConfig) {
             Handlebars.registerPartial('sectionsOPFManifestTemplate', templates.sectionsOPFManifestTemplate);
             Handlebars.registerPartial('sectionsOPFSpineTemplate', templates.sectionsOPFSpineTemplate);
-            zip['EPUB']['lightnovel.opf'] = fflate.strToU8(compile(templates.opf, epubConfig));
+            zip.folder('EPUB').file('lightnovel.opf', compile(templates.opf, epubConfig));
         }
 
         function addCover(zip, epubConfig) {
@@ -1238,8 +1226,7 @@ process.umask = function() { return 0; };
             // if(epubConfig.coverUrl) {
             //     JSZipUtils.getBinaryContent(epubConfig.coverUrl, function(err, data) {
             //         if(!err) {
-            //             TODO: for loop over images?
-            //             zip['EPUB']['images'][epubConfig.options.coverFilename] = data;
+            //             zip.folder('EPUB').folder('images').file(epubConfig.options.coverFilename, data, { binary: true });
             //             deferred.resolve('');
             //         } else {
             //             deferred.reject(err);
@@ -1254,12 +1241,12 @@ process.umask = function() { return 0; };
 
         function addEpub2Nav(zip, epubConfig) {
             Handlebars.registerPartial('sectionsNCXTemplate', templates.sectionsNCXTemplate);
-            zip['EPUB']['lightnovel.ncx'] = fflate.strToU8(compile(templates.ncx, epubConfig));
+            zip.folder('EPUB').file('lightnovel.ncx', compile(templates.ncx, epubConfig));
         }
 
         function addEpub3Nav(zip, epubConfig) {
             Handlebars.registerPartial('sectionsNavTemplate', templates.sectionsNavTemplate);
-            zip['EPUB']['nav.html'] = fflate.strToU8(compile(templates.nav, epubConfig));
+            zip.folder('EPUB').file('nav.html', compile(templates.nav, epubConfig));
         }
 
         function addStylesheets(zip, epubConfig) {
@@ -1279,7 +1266,7 @@ process.umask = function() { return 0; };
                     original: epubConfig.stylesheet.replaceOriginal ? '' : templates.css,
                     custom: epubConfig.styles
                 };
-                zip['EPUB']['css']['main.css'] = fflate.strToU8(compile('{{{original}}}{{{custom}}}', styles, true));
+                zip.folder('EPUB').folder('css').file('main.css', compile('{{{original}}}{{{custom}}}', styles, true));
                 deferred.resolve(true);
             }
         }
@@ -1308,9 +1295,9 @@ process.umask = function() { return 0; };
         function addSection(zip, section) {
             if(section.needPage) {
                 if(section.epubType == 'auto-toc') {
-                    zip['EPUB'][section.name + '.html'] = fflate.strToU8(compile(templates.autoToc, section));
+                    zip.folder('EPUB').file(section.name + '.html', compile(templates.autoToc, section));
                 } else {
-                    zip['EPUB'][section.name + '.html'] = fflate.strToU8(compile(templates.content, section));
+                    zip.folder('EPUB').file(section.name + '.html', compile(templates.content, section));
                 }
             }
             for(var i = 0; i < section.subSections.length; i++) {

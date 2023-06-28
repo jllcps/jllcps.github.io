@@ -1,12 +1,12 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("xmldom"), require("fflate"));
+		module.exports = factory(require("xmldom"), require("JSZip"));
 	else if(typeof define === 'function' && define.amd)
-		define(["xmldom", "fflate"], factory);
+		define(["xmldom", "JSZip"], factory);
 	else if(typeof exports === 'object')
-		exports["ePub"] = factory(require("xmldom"), require("fflate"));
+		exports["ePub"] = factory(require("xmldom"), require("JSZip"));
 	else
-		root["ePub"] = factory(root["xmldom"], root["fflate"]);
+		root["ePub"] = factory(root["xmldom"], root["JSZip"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE__38__, __WEBPACK_EXTERNAL_MODULE__85__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -18697,7 +18697,7 @@ class archive_Archive {
 
   checkRequirements() {
     try {
-      this.zip = new external_JSZip_default;
+      this.zip = new external_JSZip_default.a();
     } catch (e) {
       throw new Error("JSZip lib not loaded");
     }
@@ -18711,12 +18711,8 @@ class archive_Archive {
 
 
   open(input, isBase64) {
-    let outerThis = this;
-    return new Promise((resolve, reject) => {
-      this.zip.unzip(new Uint8Array(input), function(err, unzipped) {
-        outerThis.zip = unzipped;
-        resolve(unzipped);
-      });
+    return this.zip.loadAsync(input, {
+      "base64": isBase64
     });
   }
   /**
@@ -18728,13 +18724,9 @@ class archive_Archive {
 
 
   openUrl(zipUrl, isBase64) {
-    let outerThis = this;
     return utils_request(zipUrl, "binary").then(function (data) {
-      return new Promise((resolve, reject) => {
-          this.zip.unzip(new Uint8Array(data), function(err, unzipped) {
-            outerThis.zip = unzipped;
-            resolve(unzipped);
-          });
+      return this.zip.loadAsync(data, {
+        "base64": isBase64
       });
     }.bind(this));
   }
@@ -18812,14 +18804,15 @@ class archive_Archive {
   getBlob(url, mimeType) {
     var decodededUrl = window.decodeURIComponent(url.substr(1)); // Remove first slash
 
-    var entry = this.zip[decodededUrl];
+    var entry = this.zip.file(decodededUrl);
 
     if (entry) {
       mimeType = mimeType || mime.lookup(entry.name);
-      return new Promise((resolve, reject) => {
-        const blob = new Blob([entry], { type: mimeType });
-        resolve(blob);
-      })
+      return entry.async("uint8array").then(function (uint8array) {
+        return new Blob([uint8array], {
+          type: mimeType
+        });
+      });
     }
   }
   /**
@@ -18833,13 +18826,12 @@ class archive_Archive {
   getText(url, encoding) {
     var decodededUrl = window.decodeURIComponent(url.substr(1)); // Remove first slash
 
-    var entry = this.zip[decodededUrl];
+    var entry = this.zip.file(decodededUrl);
 
     if (entry) {
-      return new Promise((resolve, reject) => {
-        const text = fflate.strFromU8(entry);
-        resolve(text);
-      })
+      return entry.async("string").then(function (text) {
+        return text;
+      });
     }
   }
   /**
@@ -18853,17 +18845,14 @@ class archive_Archive {
   getBase64(url, mimeType) {
     var decodededUrl = window.decodeURIComponent(url.substr(1)); // Remove first slash
 
-    var entry = this.zip[decodededUrl];
+    var entry = this.zip.file(decodededUrl);
 
     if (entry) {
       mimeType = mimeType || mime.lookup(entry.name);
-      var decoder = new TextDecoder('utf8');
-      return new Promise((resolve, reject) => {
-        const text = "data:" + mimeType + ";base64," + btoa(decoder.decode(entry));
-        resolve(text);
-      })
+      return entry.async("base64").then(function (data) {
+        return "data:" + mimeType + ";base64," + data;
+      });
     }
-
   }
   /**
    * Create a Url from an unarchived item

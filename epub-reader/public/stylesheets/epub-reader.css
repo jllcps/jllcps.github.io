@@ -22,7 +22,7 @@ body {
     text-align: center;
 }
 
-#viewer_out {
+#viewer-wrapper {
     margin: 50px 0 0 0;
 }
 
@@ -34,63 +34,74 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-#prev {
+#prev-arrow {
     left: 0;
 }
 
-#next {
+#next-arrow {
     right: 0;
 }
 
 .arrow {
     position: fixed;
     top: 50%;
+
     margin-top: -32px;
     margin-right: 40px;
     margin-left: 40px;
+
     font-size: 64px;
     color: #aaa;
     font-family: arial, sans-serif;
     font-weight: bold;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
     text-decoration: none;
+
+    cursor: pointer;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
 }
 
 .navlink {
+    display: none;
+
     margin: 14px;
-    display: block;
+
+    color: #ccc;
     text-align: center;
     text-decoration: none;
-    color: #ccc;
-    display: none;
+
+    cursor: pointer;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
 }
 
 .arrow:hover, .navlink:hover {
     color: #888;
 }
 
-label {
-    background-color: #ddd;
-    color: #777;
-    cursor: pointer;
+#toolbar {
     display: block;
     position: fixed;
-    /*top: 0px;*/
-    z-index: 2;
+    top: 0px;
+    z-index: 100;
+
+    color: #777;
+    background-color: #ddd;
     width: 100%;
     /*height: fit-content;*/
-    user-select: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
 
-#toolbar {
-    width: 100%;
+    cursor: pointer;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
 }
 
 .grid-container {
@@ -122,7 +133,7 @@ label {
     text-decoration: none;
 }
 
-.active, .collapsible:hover, li:hover:not(.grid-container), label:hover {
+.active, .collapsible:hover, li:hover:not(.grid-container), #toolbar:hover {
     background-color: #ccc;
     color: #666;
 }
@@ -146,15 +157,16 @@ label {
     color: #777;
 }
 
-a {
+#tocs div.links {
     display: inline-block;
     padding: 3px 3px;
 }
 
-li {
+#tocs li {
     overflow-x: hidden;
-    cursor:  pointer;
     text-align: left;
+
+    cursor:  pointer;
     user-select: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -185,11 +197,11 @@ li {
 }
 
 .modal-content {
-    height:auto;
-    width:auto;
-    margin:0 auto;
-    z-index:10;
-    display:none;
+    height: auto;
+    width: auto;
+    margin: 0 auto;
+    z-index: 10;
+    display: none;
     font-size: smaller;
     border: 5px solid #ccc;
     border-radius: 10px;
@@ -231,10 +243,6 @@ textarea {
     }
 
 /*  .sidenav a {font-size: 18px;}*/
-}
-
-#particle {
-    z-index: -100;
 }
 
 @media only screen and (max-width: 760px){

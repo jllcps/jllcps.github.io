@@ -69,7 +69,3 @@ body {
 label {
     cursor: pointer;
 }
-
-#particle {
-    z-index: -100;
-}

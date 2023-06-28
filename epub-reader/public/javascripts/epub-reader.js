@@ -1,3 +1,5 @@
+var preparedView = false;
+
 var replace_dict = {
     "&": "&amp;",
     "<": "&lt;",
@@ -11,7 +13,7 @@ var replace_dict = {
 
 function highlight_chapter() {
 
-    function add_chapter_cfi(href) {
+    function _addChapterCfi(href) {
         let section = document.getElementById(href);
         if (section.getAttribute("data-checked")) {
             return;
@@ -20,9 +22,9 @@ function highlight_chapter() {
         const spineId = book.spine.spineByHref[href];
         const spineItem = book.spine.spineItems[spineId];
 
-        let links = document.querySelectorAll(`a.collapsible[href^='${href}']`);
+        const links = document.querySelectorAll(`#tocs div.links.collapsible[data-href^='${href}']`);
         links.forEach((link) => {
-            const hrefComponents = link.getAttribute("href").split("#");
+            const hrefComponents = link.getAttribute("data-href").split("#");
             if (hrefComponents.length === 1) {
                 link.setAttribute("data-checked", true);
             } else if (hrefComponents.length !== 2) {
@@ -33,70 +35,80 @@ function highlight_chapter() {
             const cfi = spineItem.cfiFromElement(elem);
             link.setAttribute('data-cfi', cfi);
         });
-
-        // $(`a.collapsible[href^='${href}']`).each(function(){
-        //     let $this = $(this);
-
-        //     const hrefComponents = $this.attr("href").split("#");
-        //     if (hrefComponents.length === 1) {
-        //         $this.attr("data-checked", true);
-        //     } else if (hrefComponents.length !== 2) {
-        //         return;
-        //     }
-
-        //     const elem = spineItem.document.getElementById(hrefComponents[1]);
-        //     const cfi = spineItem.cfiFromElement(elem);
-        //     $this.attr('data-cfi', cfi);
-        // });
     }
 
-    var href = rendition.location.end.href;
-    // add_chapter_cfi(href);
+    function _findVisibleAnchor(href) {
+        // const iframeWindow = document.querySelector('#viewer iframe[id^="epubjs-view"]').contentWindow;
+        // const anchors = iframeWindow.document.body.querySelectorAll(`[id]`);
+        const anchors = rendition.getContents()[0].content.querySelectorAll(`[id]`);
+        if (anchors.length === 0)
+            return href;
 
-    let links = document.querySelectorAll("a.collapsible");
-    links.forEach((link) => {
-        if (link.getAttribute("href").startsWith(href)) {
-            link.classList.toggle("active");
-            let elem = link.parentNode;
-            while (elem) {
-                if (elem.tagName === "DIV") {
-                    if (elem.className === "content") {
-                        let parent_a = elem.previousElementSibling;
-                        parent_a.classList.toggle("active");
-                        elem.style.maxHeight = elem.scrollHeight + "px";
-                    } else if (elem.className === "sidenav") {
-                        let content = link.nextElementSibling;
-                        content.style.maxHeight = content.scrollHeight + "px";
-                    }
-                }
-                elem = elem.parentNode;
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0,
+              viewportTop = document.body.scrollTop || window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0,
+              viewportBottom = viewportTop + viewportHeight;
+
+        let lastAnchor = anchors[0];
+        for (const anchor of anchors) {
+            const top = anchor.offsetTop;
+            if (top < viewportTop) {
+                lastAnchor = anchor;
+                // if (document.getElementById(`${href}#${anchor.id}`))
+                //     lastAnchor = anchor;
+            } else if (top < viewportBottom) {
+                return `${href}#${anchor.id}`;
+                // if (document.getElementById(`${href}#${anchor.id}`))
+                //     return `${href}#${anchor.id}`;
+            } else {
+                break;
             }
-            link.scrollIntoView({block: "center", inline: "nearest"});
-            return false;
         }
-    });
+        return `${href}#${lastAnchor.id}`;
+    }
 
-    // $("a.collapsible").each(function(){
-    //     let $this = $(this);
-    //     if ($this.attr("href").startsWith(href)) {
-    //         $this[0].classList.toggle("active");
-    //         $this.parents("div").each(function(){
-    //             let $$this = $(this);
-    //             if ($$this.attr('class') == "content") {
-    //                 let parent_a = $$this.prev("a")[0];
-    //                 parent_a.classList.toggle("active");
-    //                 let content = parent_a.nextElementSibling;
-    //                 content.style.maxHeight = content.scrollHeight + "px";
-    //             } else if ($$this.attr('class') == "sidenav") {
-    //                 let content = $this[0].nextElementSibling;
-    //                 content.style.maxHeight = content.scrollHeight + "px";
-    //             }
-    //         });
+    function _activateLink(link) {
+        if (link == null)
+            return false;
+        link.classList.add("active");
+        const content = link.nextElementSibling;
+        content.style.maxHeight = content.scrollHeight + "px";
+        let elem = link.parentElement;
+        while (elem) {
+            if ((elem.tagName === "DIV") && elem.classList.contains("content")) {
+                let prevSibling = elem.previousElementSibling;
+                prevSibling.classList.add("active");
+                elem.style.maxHeight = elem.scrollHeight + "px";
+            }
+            elem = elem.parentElement;
+            if (elem.id === "tocs")  break;
+        }
+        link.scrollIntoView({block: "center", inline: "nearest"});
+        return true;
+    }
 
-    //         $this[0].scrollIntoView({block: "center", inline: "nearest"});
-    //         return false;
-    //     }
-    // });
+    const href = rendition.location.end.href;
+    const hrefWithAnchor = _findVisibleAnchor(href);
+    // _addChapterCfi(href);
+
+    const elem = document.getElementById(hrefWithAnchor) || document.getElementById(href)
+    var activated = _activateLink(elem);
+    let firstLink = null;
+    if (!activated) {
+        let links = document.querySelectorAll("#tocs div.links.collapsible");
+        for (const link of links) {
+            const linkHref = link.getAttribute("data-href");
+            if (linkHref.startsWith(href)) {
+                if (!linkHref)  firstLink = link;
+                if (linkHref.startsWith(hrefWithAnchor)) {
+                    _activateLink(link)
+                    break;
+                }
+            } else if (firstLink !== null) {
+                _activateLink(firstLink);
+                break;
+            }
+        };
+    }
 }
 
 
@@ -111,79 +123,70 @@ function toggle_nav() {
 
 
 function fold_all() {
-    
-    let elems = document.querySelectorAll(".active");
+    let elems = document.querySelectorAll("#epub_config .active");
     elems.forEach((elem) => {
-        elem.classList.toggle("active");
+        elem.classList.remove("active");
         if (elem.id == "toolbar") {
             toggle_nav();
-            // $('#mySidenav').toggle();
         } else if (elem.classList.contains("expandable")) {
             elem.nextElementSibling.style.maxHeight = null;
         }
     });
-
-    // $(".active").each(function(){
-    //     $this = $(this)[0];
-    //     $this.classList.toggle("active");
-    //     if ($this.id == "toolbar") {
-    //         $('#mySidenav').toggle();
-    //     } else if ($this.classList.contains("expandable")) {
-    //         $this.nextElementSibling.style.maxHeight = null;
-    //     }
-    // });
 }
 
 
 function toc(book){
 
-    function add_toc(chapter) {
+    function _add_toc(chapter) {
         var item = document.createElement("li");
-        var link = document.createElement("a");
-        link.className = "collapsible";
+        var link = document.createElement("div");
+        link.classList.add("links");
+        link.classList.add("collapsible");
         link.textContent = chapter.label;
-        link.href = chapter.href;
-        link.onclick = function(e) {
-            e.preventDefault();
-            if (this.classList.contains("expandable")) {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
+        link.setAttribute("data-href", chapter.href);
+        link.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (link.classList.contains("expandable")) {
+                link.classList.toggle("active");
+                var content = link.nextElementSibling;
                 if (content.style.maxHeight){
                     content.style.maxHeight = null;
                 } else {
                     content.style.maxHeight = content.scrollHeight + "px";
-                    let elem = this.parentNode;
+                    let elem = link.parentElement;
                     while (elem) {
-                        if (elem.className === "content") {
+                        if (elem.classList.contains("content")) {
                             elem.style.maxHeight = elem.scrollHeight + "px";
                         }
-                        elem = elem.parentNode;
+                        elem = elem.parentElement;
                     }
-
-                    // $(this).parents(".content").each(function(){
-                    //     $(this).css("maxHeight", $(this).prop('scrollHeight'));
-                    // });
                 } 
             } else {
                 fold_all();
-                var url = link.getAttribute("href");
+                var url = link.getAttribute("data-href");
                 rendition.display(url).then(() => {
-                    setTimeout(() => {
-                        let url_component = url.split("#");
-                        if (url_component.length > 1) {
-                            anchor = url_component[1];
-                            epubjs_view = document.querySelector('[id^="epubjs-view"]').contentWindow;
-                            epubjs_view.location.hash = anchor;
+                    let hrefComponents = url.split("#");
+                    if (hrefComponents.length > 1) {
+                        let iframeWindow = rendition.getContents()[0].window;
+                        // let iframeWindow = document.querySelector('#viewer iframe[id^="epubjs-view"]').contentWindow;
+                        if (hrefComponents[0] === rendition.location.end.href) {
+                            iframeWindow.location.hash = hrefComponents[1];
+                        } else {
+                            setTimeout(() => {
+                                iframeWindow.location.hash = hrefComponents[1];
+                                // iframeWindow.document.getElementById(hrefComponents[1]).scrollIntoView();
+                            }, 300);
                         }
-                    }, 300);
+                    }
                 });
                 return false;
             }
-        };
+        });
 
-        if (book.spine.spineByHref[chapter.href] !== undefined) {
-            link.id = chapter.href;
-        }
+        link.id = chapter.href;
+        // if (book.spine.spineByHref[chapter.href] !== undefined) {
+        //     link.id = chapter.href;
+        // }
 
         if (chapter.subitems.length !== 0) {
             link.classList.toggle("expandable");
@@ -192,11 +195,11 @@ function toc(book){
         item.appendChild(link);
 
         var $div = document.createElement("div");
-        $div.className = "content";
+        $div.classList.add("content");
 
         var ul_sub = document.createElement("ul");
         chapter.subitems.forEach(function(chapter_sub) {
-            item_sub = add_toc(chapter_sub);
+            item_sub = _add_toc(chapter_sub);
             ul_sub.appendChild(item_sub);
         });
 
@@ -209,20 +212,16 @@ function toc(book){
     book.loaded.navigation.then(function(toc){
         var $ul = document.getElementById("tocs");
         toc.forEach(function(chapter) {
-            var item = add_toc(chapter);
+            var item = _add_toc(chapter);
             $ul.appendChild(item);
         });
-
     });
 }
 
 
 function addons(rendition){
-    var mySidenav = document.getElementById('mySidenav');
 
-    document.getElementById("toolbar").style.removeProperty('display');
-
-    var prev_page = function(ev){
+    function _prevPage(ev) {
         ev.preventDefault();
         if (mySidenav.style.display == "none") {
             rendition.prev();
@@ -230,47 +229,57 @@ function addons(rendition){
         }
     };
 
-    var next_page = function(ev){
+    function _nextPage(ev) {
         ev.preventDefault();
         if (mySidenav.style.display == "none") {
             rendition.next();
             document.body.scrollTop = 0;
         }
     };
-    
-    var next = document.getElementById("next");
-    var prev = document.getElementById("prev");
-    var next_nav = document.getElementById("next_nav");
-    var prev_nav = document.getElementById("prev_nav");
 
-    prev.onclick = (ev) => prev_page(ev);
-    next.onclick = (ev) => next_page(ev);
-    prev_nav.onclick = (ev) => prev_page(ev);
-    next_nav.onclick = (ev) => next_page(ev);
-
-    var keyListener = function(ev){
+    function _keyListener(ev){
         if ((ev.keyCode || ev.which) == 37) {
-            prev_page(ev);
-        }
-        if ((ev.keyCode || ev.which) == 39) {
-            next_page(ev);
-        }
-        if ((ev.keyCode || ev.which) == 84) {
+            _prevPage(ev);
+        } else if ((ev.keyCode || ev.which) == 39) {
+            _nextPage(ev);
+        } else if ((ev.keyCode || ev.which) == 84) {
             // var event = new MouseEvent('mousedown');
             document.getElementById("toolbar").click();
         }
     };
 
-    rendition.on("keyup", keyListener);
+    var mySidenav = document.getElementById('mySidenav');
+    
+    var prevNav = document.getElementById("prev-nav");
+    var nextNav = document.getElementById("next-nav");
+    var prevArrow = document.getElementById("prev-arrow");
+    var nextArrow = document.getElementById("next-arrow");
+
+    prevNav.addEventListener("click", (ev) => _prevPage(ev));
+    nextNav.addEventListener("click", (ev) => _nextPage(ev));
+    prevArrow.addEventListener("click", (ev) => _prevPage(ev));
+    nextArrow.addEventListener("click", (ev) => _nextPage(ev));
+
+    rendition.on("keyup", _keyListener);
     // rendition.on("relocated", function(location){
     //   console.log(location);
     // });
 
-    document.addEventListener("keyup", keyListener, false);
+    document.addEventListener("keyup", _keyListener, false);
+}
+
+
+function prepareView() {
+    if (!preparedView) {
+        particleBackground.stop();
+        document.getElementById("particle").style.setProperty("height", "0", "important");
+        preparedView = true;
+    }
 }
 
 
 function handleFile(ev, filetype){
+    prepareView();
     var bookData = ev.target.result;
     if (filetype.includes("epub")) {
         openBook(bookData);
@@ -281,6 +290,7 @@ function handleFile(ev, filetype){
 
 
 function submit() {
+    prepareView();
     var text_input = document.getElementById("text-input");
     let is_valid = text_input.reportValidity();
     if (!is_valid)  return;
@@ -290,9 +300,15 @@ function submit() {
 
 function openBook(bookData){
 
-    book.open(bookData, "binary");
-    toc(book);
+    document.getElementById("prev-nav").removeAttribute("hidden");
+    document.getElementById("next-nav").removeAttribute("hidden");
+    document.getElementById("prev-arrow").removeAttribute("hidden");
+    document.getElementById("next-arrow").removeAttribute("hidden");
+    document.getElementById("viewer-wrapper").removeAttribute("hidden");
+    document.getElementById("toolbar").style.removeProperty('display');
+    document.getElementById("setup").remove();
 
+    book.open(bookData, "binary");
     rendition = book.renderTo("viewer", {
         flow: "scrolled-doc",
         width: "100%",
@@ -300,15 +316,9 @@ function openBook(bookData){
         ignoreClass: 'annotator-hl',
         fullsize: true,
     });
-
-    document.getElementById("setup").remove();
-    document.getElementById("particle").remove();
-    document.getElementsByClassName('arrow')[0].style.removeProperty('display');
-    document.getElementsByClassName('arrow')[1].style.removeProperty('display');
-
     rendition.display();
 
-    let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+    isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
     font_size = isMobile? 18 : 23;
 
     rendition.themes.default({
@@ -336,13 +346,36 @@ function openBook(bookData){
     // rendition.themes.fontSize(`${font_size}px`);
     rendition.themes.override("font-size", `${font_size}px`, true);
 
+    toc(book);
     addons(rendition);
+    destroyParticleBackground();
     
+    // window.addEventListener("beforeunload", (ev) => false);
     window.onbeforeunload = ev => false;
 }
 
 
 function createEpub(text) {
+
+    function _addChapter(section, next_level, add_parent) {
+        const __lastEntry = (list) => list[list.length-1];
+        let proceed = section_stack.length >= 2 && (add_parent || next_level <= __lastEntry(number_stack));
+        let spine = section_stack.pop(),
+            spine_level = number_stack.pop();
+        if (spine instanceof EpubMaker) {
+            spine = spine.withSection(section);
+        } else {
+            spine = spine.withSubSection(section);
+            if (proceed) {
+                _addChapter(spine, next_level, next_level <= __lastEntry(number_stack));
+            }
+        }
+        if (!proceed) {
+            section_stack.push(spine);
+            number_stack.push(spine_level);
+        }
+    };
+
     text = "\n" + text;
     for (var symbol in replace_dict) {
         text = text.replaceAll(symbol, replace_dict[symbol]);
@@ -366,25 +399,6 @@ function createEpub(text) {
     section_stack.push(epubMaker);
     number_stack.push(0);
 
-    var add_chapter = function(section, next_level, add_parent) {
-        let lastEntry = (list) => list[list.length-1];
-        let proceed = section_stack.length >= 2 && (add_parent || next_level <= lastEntry(number_stack));
-        let spine = section_stack.pop(),
-            spine_level = number_stack.pop();
-        if (spine instanceof EpubMaker) {
-            spine = spine.withSection(section);
-        } else {
-            spine = spine.withSubSection(section);
-            if (proceed) {
-                add_chapter(spine, next_level, next_level <= lastEntry(number_stack));
-            }
-        }
-        if (!proceed) {
-            section_stack.push(spine);
-            number_stack.push(spine_level);
-        }
-    };
-
     for (var idx = 0; idx < matches.length - 1; idx++) {
         let curr_match = matches[idx],
             next_match = matches[idx+1];
@@ -402,9 +416,9 @@ function createEpub(text) {
             section_stack.push(section);
             number_stack.push(curr_level);
         } else if (next_level === curr_level) {
-            add_chapter(section, next_level, false);
+            _addChapter(section, next_level, false);
         } else {
-            add_chapter(section, next_level, true);
+            _addChapter(section, next_level, true);
         }
 
         if (idx == matches.length - 2) {
@@ -414,7 +428,7 @@ function createEpub(text) {
             content = text.slice(start_index, ending_index).replaceAll("\n", "<br />");
             section = new EpubMaker.Section(null, `text-${idx+1}`, { title: next_match[1], content: content }, true, false);
 
-            add_chapter(section, 1, true);
+            _addChapter(section, 1, true);
         }
     }
 
@@ -436,7 +450,7 @@ function createEpub(text) {
     epubMaker.makeEpub().then(function(epubZipContent) {
         if (window.FileReader) {
             var reader = new FileReader();
-            reader.onload = ev => handleFile(ev, "epub");
+            reader.addEventListener("load", ev => handleFile(ev, "epub"));
             reader.readAsArrayBuffer(epubZipContent);
         }
     });
@@ -447,7 +461,7 @@ var book = ePub();
 var rendition, filename;
 var font_size = 28;
 var inputElement = document.getElementById("file-input");
-var isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+var isMobile;
 
 inputElement.addEventListener('change', function (ev) {
     var file = ev.target.files[0];
@@ -455,8 +469,7 @@ inputElement.addEventListener('change', function (ev) {
     var filetype = file.type;
     if (window.FileReader) {
         var reader = new FileReader();
-        reader.onload = ev => handleFile(ev, filetype);
-
+        reader.addEventListener("load", ev => handleFile(ev, filetype));
         if (filetype.includes("epub")) {
             reader.readAsArrayBuffer(file);
         } else {
@@ -466,24 +479,22 @@ inputElement.addEventListener('change', function (ev) {
     }
 });
 
-inputElement.ondragover = inputElement.ondragenter = function(ev) {
-    ev.preventDefault();
-};
+inputElement.addEventListener("dragover", (ev) => ev.preventDefault());
+inputElement.addEventListener("dragenter", (ev) => ev.preventDefault());
 
-inputElement.ondrop = function(ev) {
+inputElement.addEventListener("drop", function(ev) {
     inputElement.files = ev.dataTransfer.files;
     var manual_ev = document.createEvent("HTMLEvents");
     manual_ev.initEvent("change", false, true);
     inputElement.dispatchEvent(manual_ev);
     ev.preventDefault();
-};
+});
 
 var toolbarElement = document.getElementById("toolbar");
 toolbarElement.addEventListener("click", function() {
-    // $('#mySidenav').toggle();
     toggle_nav();
-    this.classList.toggle("active");
-    if (this.classList.contains("active")) {
+    toolbarElement.classList.toggle("active");
+    if (toolbarElement.classList.contains("active")) {
         highlight_chapter();
     } else {
         fold_all();
@@ -493,28 +504,32 @@ toolbarElement.addEventListener("click", function() {
 let grid_items = document.querySelectorAll(".grid-item");
 grid_items.forEach((item) => {
     item.addEventListener("click", function() {
-        switch(this.getAttribute("id")) {
+        switch(item.getAttribute("id")) {
             case "plus_btn":
                 font_size += 1;
                 break;
             case "minus_btn":
                 font_size -= 1;
                 break;
-            }
+        }
         // rendition.themes.fontSize(`${font_size}px`);
         rendition.themes.override("font-size", `${font_size}px`, true);
     });
 });
 
-// $(".grid-item").click(function(){
-//     switch($(this).attr("id")) {
-//         case "plus_btn":
-//             font_size += 1;
-//             break;
-//         case "minus_btn":
-//             font_size -= 1;
-//             break;
-//         }
-//     // rendition.themes.fontSize(`${font_size}px`);
-//     rendition.themes.override("font-size", `${font_size}px`, true);
-// });
+var resizeTimer = null,
+    windowWidth = window.outerWidth;
+
+window.addEventListener("resize", (resizeEvent) => {
+    resizeEvent.stopImmediatePropagation();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        if (window.outerWidth !== windowWidth && rendition) {
+            isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+            font_size = isMobile? 18 : 23;
+            rendition.themes.override("font-size", `${font_size}px`, true);
+            rendition.resize();
+        }
+        windowWidth = window.outerWidth;
+    }, 500);
+}, true);

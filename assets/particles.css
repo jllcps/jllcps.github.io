@@ -1,0 +1,106 @@
+@font-face {
+  font-family: 'NoEmoji';
+/*  src: local("Apple Symbol"), local("Segoe UI Symbol"), local("Arial Unicode MS"), local("Menlo"), local("sans-serif");*/
+/*  unicode-range: U+263C-2653;*/
+}
+
+#particle {
+  z-index: -100;
+}
+
+#particle * {
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  cursor: default;
+}
+
+#particle {
+  width: 100%;
+  height: 100%;
+}
+
+#particle > svg {
+  width: 100%;
+  height: 100%;
+}
+
+#particle > svg > text {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: initial;
+  font-style: initial;
+  font-variant: initial;
+}
+
+#particle > span.particles {
+  position: absolute;
+  font-weight: initial;
+  font-style: initial;
+  font-variant: initial;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#particle > span.particles.glow1 {
+  animation: glow1 12s linear infinite;
+}
+
+#particle > span.particles.glow2 {
+  animation: glow2 10s linear infinite;
+}
+
+#particle > span.particles.glow3 {
+  animation: glow3 8s linear infinite;
+}
+
+#particle > span.particles.running {
+  animation-play-state: running;
+  -o-animation-play-state: running; 
+  -moz-animation-play-state: running;
+  -webkit-animation-play-state: running;
+}
+
+#particle > span.particles.paused {
+  animation-play-state: paused;
+  -o-animation-play-state: paused; 
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+}
+
+@keyframes glow1 {
+  0% {
+    color: rgba(200, 200, 200, 0);
+  }
+  50% {
+    color: rgba(200, 200, 200, 1);
+  }
+  100% {
+    color: rgba(200, 200, 200, 0);
+  }
+}
+
+@keyframes glow2 {
+  0% {
+    color: rgba(210, 210, 210, 0);
+  }
+  50% {
+    color: rgba(210, 210, 210, 1);
+  }
+  100% {
+    color: rgba(210, 210, 210, 0);
+  }
+}
+
+@keyframes glow3 {
+  0% {
+    color: rgba(220, 220, 220, 0);
+  }
+  50% {
+    color: rgba(220, 220, 220, 1);
+  }
+  100% {
+    color: rgba(220, 220, 220, 0);
+  }
+}

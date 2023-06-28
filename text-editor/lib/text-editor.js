@@ -57,10 +57,11 @@ function change(text) {
         mode = spec = val;
     }
     if (mode) {
-        document.getElementById("particle").remove();
-        document.getElementById("setup").remove();
+        particleBackground.stop();
+        document.getElementById("particle").style.setProperty("height", "0", "important");
         document.getElementById("config").style.removeProperty('display');
         document.getElementsByClassName('CodeMirror')[0].style.removeProperty('display');
+
         if (text) {
             editor.setValue(text);
         } else {
@@ -72,6 +73,9 @@ function change(text) {
         document.title = filename;
         editor.setOption("mode", spec);
         CodeMirror.autoLoadMode(editor, mode);
+
+        destroyParticleBackground();
+        document.getElementById("setup").remove();
         window.onbeforeunload = e => false;
     } else {
         alert("Could not find the language for " + val);

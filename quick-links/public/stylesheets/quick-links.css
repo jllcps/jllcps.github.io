@@ -44,11 +44,6 @@ label {
     cursor: pointer;
 }
 
-#particle {
-    z-index: -100;
-}
-
-
 @media only screen and (max-width: 760px){
     .d-flex {
         flex-direction: column;
