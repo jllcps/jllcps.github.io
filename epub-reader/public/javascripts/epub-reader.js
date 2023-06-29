@@ -335,6 +335,9 @@ function openBook(bookData){
             // "padding": "initial !important",
         },
         "body": {
+            "width": "100% !important",
+            "padding": "0 !important",
+            "margin": "0 !important",
             'text-align': 'left !important',
             "font-size": `${font_size}px !important`,
         },

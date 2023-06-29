@@ -80,7 +80,9 @@
   }
 
   ParticleBackground.prototype.init = function() {
-    clearTimeout(this.refreshTimer);
+    // clearTimeout(this.refreshTimer);
+    clearTimeout(this.intervalTimer);
+    cancelAnimationFrame(this.refreshTimer);
 
     this.bgdiv.innerHTML = "";
     this.particleMarginBottom = document.documentElement.scrollHeight;
@@ -102,19 +104,21 @@
   }
 
   ParticleBackground.prototype.monitor = function() {
-    this.intervalTimer = setInterval(() => {
-      this.particleMarginRight = document.documentElement.clientWidth;
-      this.particleMarginBottom = document.documentElement.scrollHeight;
+    this.particleMarginRight = document.documentElement.clientWidth;
+    this.particleMarginBottom = document.documentElement.scrollHeight;
 
-      // this.svg.setAttribute("viewBox", `0 0 ${this.particleMarginRight} ${this.particleMarginBottom}`);
-      this.newParticleAmount = this.particleMarginRight * document.documentElement.clientHeight * this.particleDensity;
-      if (this.newParticleAmount > this.particleAmount) {
-        for (; this.particleAmount < this.newParticleAmount; this.particleAmount++) {
-          let particle = new Particle(this, true);
-          this.particles.push(particle);
-        }
+    // this.svg.setAttribute("viewBox", `0 0 ${this.particleMarginRight} ${this.particleMarginBottom}`);
+    this.newParticleAmount = this.particleMarginRight * document.documentElement.clientHeight * this.particleDensity;
+    if (this.newParticleAmount > this.particleAmount) {
+      for (; this.particleAmount < this.newParticleAmount; this.particleAmount++) {
+        let particle = new Particle(this, true);
+        this.particles.push(particle);
       }
-    }, 3000);
+    }
+
+    this.intervalTimer = setTimeout(() => {
+      this.monitor();
+    }, 3000);;
   }
 
   ParticleBackground.prototype.update = function() {
@@ -136,9 +140,10 @@
     this.particleAmount -= count;
     this.particles = this.particles.filter(item => item !== null);
 
-    this.refreshTimer = setTimeout(() => {
-      this.update();
-    }, this.particleRefresh);
+    this.refreshTimer = requestAnimationFrame(this.update)
+    // this.refreshTimer = setTimeout(() => {
+    //   this.update();
+    // }, this.particleRefresh);
   }
 
   ParticleBackground.prototype.resume = function() {
@@ -147,15 +152,17 @@
   }
 
   ParticleBackground.prototype.stop = function() {
-    clearTimeout(this.refreshTimer);
-    clearInterval(this.intervalTimer);
+    cancelAnimationFrame(this.refreshTimer);
+    // clearTimeout(this.refreshTimer);
+    clearTimeout(this.intervalTimer);
     this.refreshTimer = null;
     this.intervalTimer = null;
   }
 
   ParticleBackground.prototype.destroy = function() {
-    clearTimeout(this.refreshTimer);
-    clearInterval(this.intervalTimer);
+    cancelAnimationFrame(this.refreshTimer);
+    // clearTimeout(this.refreshTimer);
+    clearTimeout(this.intervalTimer);
     this.refreshTimer = null;
     this.intervalTimer = null;
 

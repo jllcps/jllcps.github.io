@@ -23,32 +23,32 @@ body {
 }
 
 #viewer-wrapper {
+/*    width: 100%;*/
+/*    height: 100%;*/
     margin: 50px 0 0 0;
 }
 
 #viewer.scrolled {
     overflow: hidden;
-    width: 90%;
-    margin: 0px auto;
+    width: 75%;
+    margin: 0px 12.5% 0px 12.5%;
     position: relative;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #prev-arrow {
-    left: 0;
+    left: 3%;
 }
 
 #next-arrow {
-    right: 0;
+    right: 3%;
 }
 
 .arrow {
     position: fixed;
     top: 50%;
-
-    margin-top: -32px;
-    margin-right: 40px;
-    margin-left: 40px;
+    margin-top: 1rem;
+    transform: translate(0%, -50%);
 
     font-size: 64px;
     color: #aaa;
@@ -196,23 +196,6 @@ body {
     overflow-y: scroll;
 }
 
-.modal-content {
-    height: auto;
-    width: auto;
-    margin: 0 auto;
-    z-index: 10;
-    display: none;
-    font-size: smaller;
-    border: 5px solid #ccc;
-    border-radius: 10px;
-    padding: 3px;
-    background-color: #fefefe;
-    color: black;
-    position: absolute; 
-    cursor: pointer;
-}
-
-
 textarea {
   resize: none;
 }
@@ -220,9 +203,9 @@ textarea {
 @media only screen and (max-width: 760px){
     #viewer.scrolled {
         overflow: hidden;
-        width: 100%;
+        width: 82%;
+        margin: 0px 9% 0px 9%;
         position: relative;
-        background: #fafafa;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
@@ -243,9 +226,7 @@ textarea {
     }
 
 /*  .sidenav a {font-size: 18px;}*/
-}
 
-@media only screen and (max-width: 760px){
     .d-flex {
         flex-direction: column;
         justify-content: space-around;
