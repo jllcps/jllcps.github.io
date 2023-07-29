@@ -188,3 +188,5 @@ function destroyParticleBackground() {
   if (particleBackground)  particleBackground.destroy();
   particleBackground = null;
 }
+
+document.addEventListener('visibilitychange', () => { document.hidden? particleBackground.stop() : particleBackground.resume(); });

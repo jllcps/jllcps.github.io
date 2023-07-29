@@ -82,7 +82,7 @@ function highlight_chapter() {
             elem = elem.parentElement;
             if (elem.id === "tocs")  break;
         }
-        link.scrollIntoView({block: "center", inline: "nearest"});
+        link.scrollIntoView({behavior: "instant", block: "center", inline: "nearest"});
         return true;
     }
 
@@ -94,6 +94,7 @@ function highlight_chapter() {
     var activated = _activateLink(elem);
     let firstLink = null;
     if (!activated) {
+        console.log("search for corresponding link");
         let links = document.querySelectorAll("#tocs div.links.collapsible");
         for (const link of links) {
             const linkHref = link.getAttribute("data-href");
@@ -326,7 +327,8 @@ function openBook(bookData){
             'background-color': '#fafafa !important', 
             'line-height': '1.5em !important',
             'color': '#111 !important',
-            "font-family": `Helvetica-Light !important`,
+            "font-family": "Helvetica !important",
+            "font-weight": "100 !important",
         },
         "h1, h2, h3, h4, h5, h6": {
             "text-align": "center !important",

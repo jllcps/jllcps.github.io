@@ -9,6 +9,8 @@ const quicklinks = {
     "Archive.today": "https://archive.ph/[url]",
     "Downfor.io": "https://downforeveryoneorjustme.com/[url]",
     // "Freshping": "https://www.freshworks.com/website-monitoring/is-it-down/[hostname]",
+    // https://doj.me/[hostname]
+    // https://isitdown.us/[hostname]
     "IsItDown": "https://www.isitdownrightnow.com/[hostname].html",
     "SimilarWeb": "https://www.similarweb.com/website/[hostname]",
     "Lighthouse" :"https://googlechrome.github.io/lighthouse/viewer/?psiurl=[url]",
