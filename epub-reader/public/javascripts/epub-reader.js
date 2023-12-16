@@ -320,7 +320,7 @@ function openBook(bookData){
     rendition.display();
 
     isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-    font_size = isMobile? 18 : 23;
+    font_size = isMobile? 15 : 23;
 
     rendition.themes.default({
         '*, h1, h2, h3, h4, h5, h6, p': {
@@ -464,7 +464,7 @@ function createEpub(text) {
 
 var book = ePub();
 var rendition, filename;
-var font_size = 28;
+var font_size = 15;
 var inputElement = document.getElementById("file-input");
 var isMobile;
 
@@ -531,7 +531,7 @@ window.addEventListener("resize", (resizeEvent) => {
     resizeTimer = setTimeout(() => {
         if (window.outerWidth !== windowWidth && rendition) {
             isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-            font_size = isMobile? 18 : 23;
+            font_size = isMobile? 15 : 23;
             rendition.themes.override("font-size", `${font_size}px`, true);
             rendition.resize();
         }
