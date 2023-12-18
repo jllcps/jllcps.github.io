@@ -57,7 +57,7 @@ function change(text) {
         mode = spec = val;
     }
     if (mode) {
-        particleBackground.stop();
+        window.particleBackgroundInstance.stop();
         document.getElementById("particle").style.setProperty("height", "0", "important");
         document.getElementById("config").style.removeProperty('display');
         document.getElementsByClassName('CodeMirror')[0].style.removeProperty('display');
@@ -74,7 +74,7 @@ function change(text) {
         editor.setOption("mode", spec);
         CodeMirror.autoLoadMode(editor, mode);
 
-        destroyParticleBackground();
+        window.destroyParticleBackground();
         document.getElementById("setup").remove();
         window.onbeforeunload = e => false;
     } else {

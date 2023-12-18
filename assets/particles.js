@@ -182,11 +182,11 @@
   return ParticleBackground;
 }));
 
-let particleBackground = new ParticleBackground();
+window.particleBackgroundInstance = new ParticleBackground();
 
-function destroyParticleBackground() {
-  if (particleBackground)  particleBackground.destroy();
-  particleBackground = null;
+window.destroyParticleBackground = function() {
+  if (window.particleBackgroundInstance !== null)  window.particleBackgroundInstance.destroy();
+  window.particleBackgroundInstance = null;
 }
 
-document.addEventListener('visibilitychange', () => { document.hidden? particleBackground.stop() : particleBackground.resume(); });
+document.addEventListener('visibilitychange', () => { window.particleBackgroundInstance === null? undefined : (document.hidden? window.particleBackgroundInstance.stop() : window.particleBackgroundInstance.resume()); });

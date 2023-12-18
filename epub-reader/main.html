@@ -13,11 +13,11 @@
     <link href="public/stylesheets/epub-reader.css" rel="stylesheet" type="text/css">
     <link href="../assets/particles.css" rel="stylesheet">
 
+    <script defer src="https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.iife.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/fflate@0.8.0/umd/index.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="public/javascripts/js-epub-maker.min.js"></script>
     <script defer src="public/javascripts/epub.min.js"></script>
-    <script defer src="public/javascripts/epub-reader.js"></script>
     <!-- <script defer src="public/javascripts/FileSaver.min.js"></script> -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous" type="text/javascript"></script>
 </head>
@@ -26,44 +26,54 @@
 
     <div class="h-100 w-100 p-0 m-0" id="particle"></div>
 
-    <div class="position-absolute top-50 start-50 translate-middle border shadow-sm p-4" id="setup">
-        <p class="lead text-center">EPUB Reader</p>
-
-        <div class="input-group">
-            <input type="file" id="file-input" class="form-control" aria-label="Upload" accept=".epub,.txt,.md" >
+    <div id="vueapp" class="hidden"
+        @vue:mounted="mounted"
+    >
+        <div id="setup" class="position-absolute top-50 start-50 translate-middle border shadow-sm p-4">
+            <p class="lead text-center">EPUB Reader</p>
+            <div class="input-group">
+                <input class="form-control" type="file" aria-label="Upload" accept=".epub,.txt,.md"
+                    @change="loadFile($event)"
+                    @dragover.prevent
+                    @dragenter.prevent
+                    @drop.prevent="dropFile($event)"
+                >
+            </div>
+            <hr class="bg-secondary border-3 border-top border-secondary">
+            <div class="input-group d-flex">
+                <span class="input-group-text justify-content-center">Input Text</span>
+                <textarea class="form-control" aria-label="With textarea" id="text-input" required></textarea>
+                <button class="btn btn-outline-secondary" type="button"
+                    @click="submitText()"
+                >Submit</button>
+            </div>
         </div>
 
-        <hr class="bg-secondary border-3 border-top border-secondary">
-
-        <div class="input-group d-flex">
-            <span class="input-group-text justify-content-center">Input Text</span>
-            <textarea class="form-control" aria-label="With textarea" id="text-input" class="w-100 viewer" required></textarea>
-            <button class="btn btn-outline-secondary" type="button" onclick="submit()">Submit</button>
+        <div id="epub_config" class="hidden">
+            <label id="toolbar" class="py-1"
+                @click="expandToolbar($event)"
+            >TOC</label>
+            <div id="mySidenav" class="sidenav hidden">
+                <ul id="tocs">
+                    <li class="grid-container">
+                        <div class="grid-item fs-4 font-monospace" @click="changeFontSize(true)">&plus;</div>
+                        <div class="grid-item fs-4 font-monospace" @click="changeFontSize(false)">&minus;</div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-    </div>
-
-    <div id="epub_config">
-        <label id="toolbar" style="display:none" class="py-1">TOC</label>
-        <div id="mySidenav" class="sidenav" style="display:none">
-            <ul id="tocs">
-                <li class="grid-container">
-                    <div id="plus_btn" class="grid-item fs-4 font-monospace">&plus;</div>
-                    <div id="minus_btn" class="grid-item fs-4 font-monospace">&minus;</div>
-                </li>
-            </ul>
+        <div id="viewer-wrapper" class="hidden">
+            <div id="prev-nav" class="navlink" @click="prevPage($event)">...</div>
+            <div id="prev-arrow" class="arrow" @click="prevPage($event)">‹</div>
+            <div id="viewer" class="scrolled"></div>
+            <div id="next-arrow" class="arrow" @click="nextPage($event)">›</div>
+            <div id="next-nav" class="navlink" @click="nextPage($event)">...</div>
         </div>
-    </div>
-
-    <div id="viewer-wrapper" hidden>
-        <div id="prev-nav" class="navlink" hidden>...</div>
-        <div id="prev-arrow" class="arrow" hidden>‹</div>
-        <div id="viewer" class="scrolled"></div>
-        <div id="next-arrow" class="arrow" hidden>›</div>
-        <div id="next-nav" class="navlink" hidden>...</div>    
     </div>
 
     <script src="../assets/particles.min.js" type="text/javascript"></script>
+    <script type="module" src="./public/javascripts/vue.js"></script>
 </body>
 
 </html>
