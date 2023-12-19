@@ -1,9 +1,23 @@
+const userAgentParser = new UAParser(navigator.userAgent);
+const userAgentParserResults = userAgentParser.getResult();
+const userAgentOS = userAgentParserResults["os"].name
+const userAgentBrowser = userAgentParserResults["browser"].name
+
 function getWindowWidth() {
     return window.innerWidth;
 }
 
 function getZoomLevel() {
-    return Math.round(((window.outerWidth) / window.innerWidth) * 100) / 100;
+    if (userAgentOS === "Mac OS" || userAgentOS === "iOS") {
+        if (userAgentBrowser.includes("Safari")) {
+            return Math.round(((window.outerWidth) / window.innerWidth) * 100) / 100;
+        } else {
+            return window.devicePixelRatio / 2;
+        }
+    } else {
+        return window.devicePixelRatio;
+    }
+    
 }
 
 function checkIsMobile() {
