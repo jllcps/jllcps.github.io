@@ -27,7 +27,7 @@
 
     <div class="h-100 w-100 p-0 m-0" id="particle"></div>
 
-    <div id="vueapp" class="hidden"
+    <div id="vueapp" 
         @vue:mounted="mounted"
     >
         <div id="setup" class="position-absolute top-50 start-50 translate-middle border shadow-sm p-4">
@@ -51,15 +51,17 @@
         </div>
 
         <div id="epub_config" class="hidden">
-            <label id="toolbar" class="py-1"
-                @click="expandToolbar($event)"
-            >TOC</label>
+            <div id="toolbar-wrapper">
+                <div id="toolbar" class="py-1"
+                    @click="expandToolbar($event)"
+                >TOC</div>
+                <div id="toolbar-bottons" class="grid-container hidden">
+                    <div class="grid-item fs-4 font-monospace" @click="changeFontSize(true)">&plus;</div>
+                    <div class="grid-item fs-4 font-monospace" @click="changeFontSize(false)">&minus;</div>
+                </div>                
+            </div>
             <div id="mySidenav" class="sidenav hidden">
                 <ul id="tocs">
-                    <li class="grid-container">
-                        <div class="grid-item fs-4 font-monospace" @click="changeFontSize(true)">&plus;</div>
-                        <div class="grid-item fs-4 font-monospace" @click="changeFontSize(false)">&minus;</div>
-                    </li>
                 </ul>
             </div>
         </div>

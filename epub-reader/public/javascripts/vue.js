@@ -70,7 +70,7 @@ const app = PetiteVue.createApp({
 
     mounted() {
         // this.initStates();
-        document.getElementById("vueapp").classList.remove("hidden");
+        // document.getElementById("vueapp").classList.remove("hidden");
     }
 })
 

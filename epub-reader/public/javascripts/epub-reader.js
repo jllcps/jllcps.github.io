@@ -27,6 +27,8 @@ function checkIsMobile() {
 function toggleNav() {
     let mySidenav = document.getElementById("mySidenav");
     mySidenav.classList.toggle("hidden");
+    let toolbarBottons = document.getElementById("toolbar-bottons");
+    toolbarBottons.classList.toggle("hidden");
 }
 
 function foldAll() {
