@@ -26,6 +26,9 @@ body {
     display: block;
     width: 100%;
     max-height: 100vh;
+    max-height: -moz-available;
+    max-height: -webkit-fill-available;
+    max-height: fill-available;
     overflow-y: scroll;
 
     text-align: center;
