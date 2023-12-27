@@ -10,7 +10,8 @@ function getWindowWidth() {
 function getZoomLevel() {
     if (userAgentOS === "Mac OS" || userAgentOS === "iOS") {
         if (userAgentBrowser.includes("Safari")) {
-            return Math.round(((window.outerWidth) / window.innerWidth) * 100) / 100;
+            return Math.round(((window.screen.availWidth) / window.innerWidth) * 100) / 100;
+            // return Math.round(((window.outerWidth) / window.innerWidth) * 100) / 100;
         } else {
             return window.devicePixelRatio / 2;
         }
