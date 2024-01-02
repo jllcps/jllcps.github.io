@@ -46,11 +46,12 @@ body {
 }
 
 #viewer.scrolled {
-    overflow: hidden;
-    width: 75%;
-    margin: 0px 12.5% 0px 12.5%;
+/*    overflow: hidden;*/
+    width: 76%;
+    margin: 0px 12% 0px 12%;
     position: relative;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding-bottom: 3rem;
 }
 
 #prev-arrow {
