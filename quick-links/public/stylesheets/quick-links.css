@@ -44,6 +44,10 @@ label {
     cursor: pointer;
 }
 
+.input-group {
+    width: auto;
+}
+
 @media only screen and (max-width: 760px){
     .d-flex {
         flex-direction: column;

@@ -4,7 +4,8 @@
 
 const quicklinks = {
     // https://lens.google.com/uploadbyurl?url=[url]
-    "Google Cache": "https://webcache.googleusercontent.com/search?q=cache:[url]",
+    "Google Cache Full": "https://webcache.googleusercontent.com/search?q=cache:[url]",
+    "Google Cache Text": "https://webcache.googleusercontent.com/search?q=cache:[url]&strip=1",
     "Internet Archive": "https://web.archive.org/web/*/[url]",
     "Archive.today": "https://archive.ph/[url]",
     "Downfor.io": "https://downforeveryoneorjustme.com/[url]",
@@ -56,31 +57,31 @@ function extractRootDomain(domain) {
 
 
 function addListeners() {
-    var search_url = document.getElementById("search-url"),
-        search_buttons = document.querySelectorAll('.search-btn');
+    var searchUrl = document.getElementById("search-url"),
+        searchButtons = document.querySelectorAll('.search-btn');
 
-    search_buttons.forEach((search_button) => {
-        search_button.onclick = (ev) => {
+    searchButtons.forEach((searchButton) => {
+        searchButton.onclick = (ev) => {
             let inputs = document.querySelectorAll('input');
             for (const input of inputs) {
-                let is_valid = input.reportValidity();
-                if (!is_valid)  return;
+                let valid = input.reportValidity();
+                if (!valid)  return;
             }
 
-            let target_url = new URL(search_url.value);
-            let base_url = quicklinks[ev.currentTarget.dataset.name];
+            let targetUrl = new URL(searchUrl.value);
+            let baseUrl = quicklinks[ev.currentTarget.dataset.name];
 
             let url = "";
-            if (base_url.indexOf("[domain]") !== -1)
-                url = base_url.replace("[domain]", extractRootDomain(target_url.hostname));
-            else if (base_url.indexOf("[hostname]") !== -1)
-                url = base_url.replace("[hostname]", target_url.hostname);
-            else if (base_url.indexOf("[url]") !== -1)
-                url = base_url.replace("[url]", target_url.href);
-            else if (base_url.indexOf("[sencoded_url]") !== -1)
-                url = base_url.replace("[sencoded_url]", encodeURIComponent(target_url.href));
-            else if (base_url.indexOf("[dencoded_url]") !== -1)
-                url = base_url.replace("[dencoded_url]", encodeURIComponent(encodeURIComponent(target_url.href)));
+            if (baseUrl.indexOf("[domain]") !== -1)
+                url = baseUrl.replace("[domain]", extractRootDomain(targetUrl.hostname));
+            else if (baseUrl.indexOf("[hostname]") !== -1)
+                url = baseUrl.replace("[hostname]", targetUrl.hostname);
+            else if (baseUrl.indexOf("[url]") !== -1)
+                url = baseUrl.replace("[url]", targetUrl.href);
+            else if (baseUrl.indexOf("[sencoded_url]") !== -1)
+                url = baseUrl.replace("[sencoded_url]", encodeURIComponent(targetUrl.href));
+            else if (baseUrl.indexOf("[dencoded_url]") !== -1)
+                url = baseUrl.replace("[dencoded_url]", encodeURIComponent(encodeURIComponent(targetUrl.href)));
             
             window.open(url, '_blank');
         };
